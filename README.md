@@ -4,22 +4,22 @@
 ## APP:SEARCH
 想做一个自己想要的搜索，基于现实的批判和与机器的攀比。
 
-![](https://github.com/zswj123/reborn/blob/master/search.png)
+![](http://serv_pro:3000/zswj123/reborn/blob/master/search.png)
 
 ## APP:BLOG
 博客的设计灵感来自于我携带多年的书籍《且以永日》的外表和VIM。
 
-![](https://github.com/zswj123/reborn/blob/master/blog.png)
+![](http://serv_pro:3000/zswj123/reborn/blob/master/blog.png)
 
 ## APP:IMAGE
 用于为博客提供图片资源服务的图片管理系统。
 
-![](https://github.com/zswj123/reborn/blob/master/image.png)
+![](http://serv_pro:3000/zswj123/reborn/blob/master/image.png)
 
 ## APP:VIDEO
 用于为自己播放想要的视频。
 
-![](https://github.com/zswj123/reborn/blob/master/video.png)
+![](http://serv_pro:3000/zswj123/reborn/blob/master/video.png)
 
 ## Future
 
