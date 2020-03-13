@@ -27,6 +27,8 @@
 
 ## APP:VIDEO
 
+![](http://serv_pro:3000/zswj123/reborn/raw/master/video.png)
+
 用于为自己播放想要的视频。
 
 ![](http://serv_pro:3000/zswj123/reborn/raw/master/video.png)
