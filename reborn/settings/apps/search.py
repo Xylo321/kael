@@ -2,9 +2,9 @@ HUMAN = 1
 ROBOT = 0
 
 MYSQL_CONFIG = {
-    "host": 'localhost',
+    "host": 'serv_pro',
     "user": "root",
-    "passwd": "123456",
+    "passwd": "mm5201314",
     "db": "",
     "size": 5
 }

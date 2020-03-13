@@ -1,5 +1,5 @@
 MYSQL_CONFIG = {
-    "host": '192.168.1.30',
+    "host": 'serv_pro',
     "user": "root",
     "passwd": "mm5201314",
     "db": "video",

@@ -1,5 +1,5 @@
 CRAWL_AMQP_CONFIG = dict(
-    host='192.168.1.30',
+    host='serv_pro',
     port=5672,
     user='admin',
     passwd='mm5201314',

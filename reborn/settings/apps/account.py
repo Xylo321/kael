@@ -1,10 +1,10 @@
 # session 盐值
-SECRET_KEY = '123456'
+SECRET_KEY = 'mm5201314'
 
 MYSQL_CONFIG = {
-    "host": 'localhost',
+    "host": 'serv_pro',
     "user": "root",
-    "passwd": "123456",
+    "passwd": "mm5201314",
     "db": "account",
     "size": 5
 }
@@ -20,7 +20,7 @@ MAIL_CONFIG = {
 }
 
 REDIS_CONFIG = {
-    "host": 'localhost',
+    "host": 'serv_pro',
     "port": 6379,
     "db": 0,
     "passwd": 'mm5201314'

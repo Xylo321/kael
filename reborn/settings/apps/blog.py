@@ -1,7 +1,7 @@
 MYSQL_CONFIG = {
-    "host": 'localhost',
+    "host": 'serv_pro',
     "user": "root",
-    "passwd": "123456",
+    "passwd": "mm5201314",
     "db": "blog",
     "size": 5
 }

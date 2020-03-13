@@ -1,13 +1,13 @@
 MYSQL_CONFIG = {
-    "host": 'localhost',
+    "host": 'serv_pro',
     "user": "root",
-    "passwd": "123456",
+    "passwd": "mm5201314",
     "db": "blog",
     "size": 15
 }
 
 SAVE_AMQP_CONFIG = dict(
-    host='localhost',
+    host='serv_pro',
     port=5672,
     user='admin',
     passwd='mm5201314',
