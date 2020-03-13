@@ -9,17 +9,17 @@
 ## APP:BLOG
 博客的设计灵感来自于我携带多年的书籍《且以永日》的外表和VIM。
 
-![](http://serv_pro:3000/zswj123/reborn/blob/master/blog.png)
+![](http://serv_pro:3000/zswj123/reborn/raw/master/blog.png)
 
 ## APP:IMAGE
 用于为博客提供图片资源服务的图片管理系统。
 
-![](http://serv_pro:3000/zswj123/reborn/blob/master/image.png)
+![](http://serv_pro:3000/zswj123/reborn/raw/master/image.png)
 
 ## APP:VIDEO
 用于为自己播放想要的视频。
 
-![](http://serv_pro:3000/zswj123/reborn/blob/master/video.png)
+![](http://serv_pro:3000/zswj123/reborn/raw/master/video.png)
 
 ## Future
 
