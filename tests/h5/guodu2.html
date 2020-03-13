@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>过渡</title>
+
+    <style>
+    div {
+        width: 100px;
+        height: 100px;
+        background: red;
+        left: 0;
+        top: 0;
+        position: absolute;
+
+        /*过渡效果的样式名称*/
+        /*transition-property: left;*/
+        /*过渡效果的耗时秒为单位*/
+        /*transition-duration: 2s;*/
+        /*过渡效果的速度曲线*/
+        /*transition-timing-function: linear;*/
+        /*过渡效果的延时*/
+        /*transition-delay: 2s;*/
+
+        /*过渡效果执行完毕之后，默认会还原到原始的位置*/
+
+        /*简写：transition: 属性名称 过渡时间 速度曲线（函数） 延时*/
+        /*transition: left 2s linear 2s;*/
+
+        /*多个样式的添加*/
+        transition: left 2s linear 2s, background-color 2s linear 2s;
+
+        /*所有的样式, 1所有的过渡效果都一样，效率低下，它会去查询所有添加的样式，会去遍历*/
+        /* transition: left 2s; */
+    }
+
+     div:active {
+        left: 1000px;
+        background: blue;
+     }
+    </style>
+</head>
+<body>
+<div></div>
+</body>
+</html>

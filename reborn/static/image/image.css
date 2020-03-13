@@ -1,0 +1,196 @@
+* {
+    padding: 0;
+    margin: 0;
+    cursor: crosshair;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+a:hover {
+    color: white;
+    background-color: gray;
+}
+
+.left {
+    background-color: #FFCC99;
+    position: fixed;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    z-index: 1;
+}
+
+.left > .nav {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 300px;
+    width: 120px;
+}
+
+.home {
+    font-weight: bold;
+}
+
+.left > .logo {
+    position: absolute;
+    font-size: 48px;
+    top: 20px;
+    right: 40px;
+    width: 20px;
+}
+
+.left > .author {
+    position: absolute;
+    top: 340px;
+    right: 40px;
+}
+
+.left > .pub_date {
+    position: absolute;
+    top: 400px;
+    right: 40px;
+}
+
+.right {
+    position: fixed;
+    right: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #FFCC99;
+    z-index: 1;
+}
+
+.center {
+    position: absolute;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+/* 解决点击新建之后，浏览器右边出现滚动条，导致关闭的闭字被遮盖的问题 */
+/* 适用于chrome */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* 适用于ie */
+body {
+    -ms-overflow-style:none;
+}
+
+.center > .opera {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: #FFCC99;
+    width: inherit;
+    display: none;
+}
+.center > .edit {
+    float: right;
+}
+
+.photo_list {
+    width: inherit;
+    height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.photo_list > img {
+    width: 200px;
+    height: 120px;
+    transition: transform linear 2s;
+}
+
+.photo_list > img:hover {
+    transform: scale(1.5);
+}
+
+.right > .pagnation {
+    width: inherit;
+    height: 22px;
+    position: absolute;
+    bottom: 0;
+    font-size: 12px;
+}
+
+.right > .pagnation > .pre {
+    position: absolute;
+    left: 0;
+}
+
+.right > .pagnation > .nex {
+    position: absolute;
+    right: 0;
+}
+
+.right > .opera {
+    height: 22px;
+}
+
+.right > .opera > a {
+    font-size: 14px;
+}
+
+.right > .opera > .exit, .right > .opera > .back_home {
+    position: absolute;
+    right: 0;
+}
+
+input {
+    outline: none;
+}
+
+.upload {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+
+.left_control {
+    position: fixed;
+    bottom: 24px;
+    left: 0;
+    background-color: blueviolet;
+    color: aliceblue;
+    z-index: 1
+}
+
+.right_control {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: blueviolet;
+    color: aliceblue;
+    z-index: 1
+}
+
+.center > .opera {
+    background-color: white;
+}
+
+.infor {
+    white-space: nowrap;
+}
+
+.infor > .base {
+    float: left;
+}
+
+.infor > .other {
+    float: right;
+}
+
+.edit_panel {
+    display: none;
+    width: inherit;
+}
+
+.edit_panel > div {
+    float: left;
+}

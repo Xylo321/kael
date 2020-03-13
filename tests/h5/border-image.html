@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>边框图片</title>
+    <style>
+        div {
+            width: 300px;
+            height: 300px;
+            margin: 100px auto;
+            border: solid red 1px; /* 这里讲下老师没说的，我是非常认真的在学，100px就是边框的宽度*/
+            /*添加边框图片
+            border-image-source: 可以指定边框图片的路径,默认只填充到容器的四个角点
+            */
+            border-image-source: url("./border1.jfif");
+            /*让它成为九宫格：border-image-slice: 设置四个方向的裁切距离，fill：做内容的填充
+            */
+            border-image-slice: 100  fill;
+
+            /* border-image-width: 边框图片的宽度。如果没有设置这个属性那么宽度就是元素的原始边框宽度。
+            细节：1.边框图片的本质是背景，并不会影响元素呢容的放置，2.内容只会被元素的border和padding影响*/
+            border-image-width: 2px;
+
+            /*border-image-outset:扩展边框:不常用*/
+        }
+    </style>
+</head>
+<body>
+<div>
+    这次，我决定非常认真的学h5，反正没什么好学的东西，h5能做自己想做的事情。<br>
+
+
+    我无比纯洁的爱着你<br>
+    双眼中的柔情让我无法抗拒<br>
+    现实中的种种<br>
+    终归是敌不过现实<br>
+
+</div>
+</body>
+</html>

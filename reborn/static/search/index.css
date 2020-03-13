@@ -1,0 +1,298 @@
+* {
+    margin: 0;
+    padding: 0;
+    cursor: crosshair;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+fieldset {
+    border: #FFCC99 1px solid;
+}
+
+.nav {
+    width: 430px;
+}
+.nav > ul {
+    list-style: none;
+}
+
+.nav > ul > li {
+    float: left;
+}
+
+.nav > .account {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 170px;
+    background-color: red;
+    white-space: nowrap;
+    display: inline;
+}
+
+.center {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.footer {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.my {
+    width: inherit;
+    height: 40px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.my > .key_word {
+    height: 40px;
+    line-height: 40px;
+    float: left;
+    font-size: 30px;
+    box-sizing: border-box;
+    text-align: left;
+    width: 840px;
+}
+
+.my > .send_search, .my > .change_search {
+    width: 100px;
+    height: 40px;
+    float: right;
+    font-size: 30px;
+    box-sizing: border-box;
+    display: none;
+}
+
+.class {
+    font-size: 14px;
+    text-align: left;
+}
+
+.article {
+    width: inherit;
+    height: 280px;
+    font-size: 12px;
+}
+
+.human {
+    float: left;
+    width: 470px;
+}
+
+.robot {
+    float: right;
+    width: 470px;
+}
+
+.article > .human > fieldset > .content,
+.article > .robot > fieldset > .content {
+    height: 215px;
+}
+
+.article > .human > fieldset > .content > div,
+.article > .robot > fieldset > .content> div {
+    width: 470px;
+}
+
+.article > .human > fieldset > .content > div > a {
+    padding: 2px;
+    width: 410px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+}
+
+.article > .robot > fieldset > .content> div > a {
+    padding: 2px;
+    width: 410px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+}
+
+.article > .human > fieldset > .content > div > span,
+.article > .robot > fieldset > .content > div > span {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 2px;
+    float: right;
+    display: block;
+    cursor: crosshair;
+}
+
+.infor {
+    list-style-type: none;
+    float: left;
+}
+
+.pn {
+    list-style-type: none;
+    float: right;
+}
+
+.infor > li, .pn > li {
+    display: inline;
+}
+
+a:hover {
+    background-color: gray;
+    color: white;
+}
+
+input {
+    outline: none;
+}
+
+.top {
+    background-color: #FFCC99;
+    height: 25px;
+}
+
+.top > .nav {
+    float: left;
+}
+
+.top > .account {
+    float: right;
+}
+
+.logo {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    cursor: crosshair;
+}
+
+.xian {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    cursor: crosshair;
+    filter: alpha(opacity=40);
+}
+
+legend {
+    font-size: 9px;
+    cursor: crosshair;
+}
+
+.we_go_page {
+    width: 50px;
+    text-align: left;
+}
+
+.pub_date {
+    position: fixed;
+    right: 29px;
+    bottom: 0;
+
+    font-size: 8px;
+    filter: alpha(opacity=40);
+}
+
+button {
+    cursor: pointer;
+}
+
+/* 图片 */
+.image {
+    width: inherit;
+    height: 280px;
+    font-size: 12px;
+}
+
+.image > .human > fieldset,
+.image > .robot > fieldset {
+    width: 470px;
+}
+
+.image > .human > fieldset > .content,
+.image > .robot > fieldset > .content {
+    height: 225px;
+    width: inherit;
+}
+
+.image > .human > fieldset > .content > img,
+.image > .robot > fieldset > .content> img {
+    padding: 2px;
+    width: 150px;
+    height: 107px;
+    cursor: pointer;
+    transition: transform linear 0.2s;
+}
+
+.image > .human > fieldset > .content > img:hover,
+.image > .robot > fieldset > .content> img:hover {
+    transform: scale(2);
+    border: solid 0.2px purple;
+    padding: 0;
+}
+
+/* 视频 */
+.video {
+    width: inherit;
+    height: 280px;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.video > .human > fieldset,
+.video > .robot > fieldset {
+    width: 470px;
+}
+
+.video > .human > fieldset > .content,
+.video > .robot > fieldset > .content {
+    height: 225px;
+    width: inherit;
+}
+
+.video > .human > fieldset > .content > div,
+.video > .robot > fieldset > .content> div {
+    padding: 2px;
+    width: 150px;
+    height: 107px;
+    cursor: pointer;
+    float: left;
+}
+
+.video > .human > fieldset > .content > div > .my_video,
+.video > .robot > fieldset > .content> div > .my_video {
+    width: inherit;
+    height: 87px;
+    cursor: pointer;
+}
+
+.video > .human > fieldset > .content > div > .my_video > img,
+.video > .robot > fieldset > .content> div > .my_video > img {
+    width: inherit;
+    height: inherit;
+    cursor: pointer;
+}
+
+.video > .human > fieldset > .content > div > .title,
+.video > .robot > fieldset > .content > div > .title {
+    width: inherit;
+    height: 15px;
+    cursor: pointer;
+
+    text-align: center;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; /*超出内容隐藏*/
+}
+
+.video > .human > fieldset > .content > div > .title > a,
+.video > .robot > fieldset > .content > div > .title > a {
+    font-size: 9px;
+}

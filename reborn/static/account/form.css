@@ -1,0 +1,28 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html, body { /* 并列 */
+    height: 100%;
+}
+
+
+body {
+    background-color: #FFCC99;
+}
+
+form {
+    line-height: 40px;
+    /* 设置元素不随浏览器窗口大小改变而自动换行 */
+    white-space: nowrap;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  /* 使用css3的transform来实现 */
+}
+
+input {
+    outline: none;
+}

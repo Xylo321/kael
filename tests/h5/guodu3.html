@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>过渡</title>
+
+    <style>
+    div {
+        width: 100px;
+        height: 100px;
+        background: red;
+        left: 0;
+        top: 0;
+        position: absolute;
+
+        /*steps可以让过渡效果分为几次来完成*/
+        transition: all 2s steps(4);
+    }
+
+     div:active {
+        left: 1000px;
+        background: blue;
+     }
+    </style>
+</head>
+<body>
+<div></div>
+</body>
+</html>

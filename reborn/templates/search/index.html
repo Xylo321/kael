@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <link href={{url_for("static", filename="search/index.css")}} rel="stylesheet"/>
+    <link rel="shortcut icon" href={{ url_for("static", filename="favicon.ico") }}>
+    <script src={{url_for('static', filename="common/jquery-3.4.1.min.js")}}></script>
+</head>
+
+<body>
+<div class="logo">
+    <img class="love" src={{ url_for("static", filename="favicon.ico") }}/>
+</div>
+
+<div class="xian">
+    <img class="libai" src={{ url_for("static", filename="search/李白.png") }}/>
+</div>
+
+<div class="pub_date">
+    2019年12月16日
+</div>
+
+<div class="top">
+    <div class="nav">
+        <ul>
+            <li><a target="_blank" href="/blog/">博文</a>，</li>
+            <li><a target="_blank" href="/image/">图片</a>，</li>
+            <li><a target="_blank" href="/video/">视频</a></li>
+        </ul>
+    </div>
+
+    <div class="account">
+        {% if user_name %}
+            {{ user_name }}，欢迎您！<a id="logout">退出</a>
+        {% else %}
+            <a href="/account/login">登录</a>/<a href="/account/register">注册</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="center">
+    <div class="my">
+        <input type="text" class="key_word" placeholder="静以修身，俭以养德。" name="key_word"/>
+        <button class="send_search">搜一下</button>
+        <button class="change_search">换个词</button>
+    </div>
+
+    <div class="article">
+        <div class="class">博文</div>
+        <div class="human">
+            <fieldset>
+                <legend title="人类写的文章">人类</legend>
+                <div class="content"></div>
+            </fieldset>
+            <div class="opera">
+                 <ul class="pn">
+                    <li>当前页：<m class="current_page"></m></li>
+                    <li>总页数：<m class="total_page">0</m></li>
+                    <li><input class="we_go_page" type="number"/></li>
+                    <li><button class="article_page_go">跳转</button></li>
+                    <li><a class="pre_page">上一页</a></li>
+                    <li><a class="next_page">下一页</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="robot">
+            <fieldset>
+                <legend title="爬虫爬的文章">机器</legend>
+                <div class="content"></div>
+            </fieldset>
+            <div class="opera">
+                 <ul class="pn">
+                    <li>当前页：<m class="current_page"></m></li>
+                    <li>总页数：<m class="total_page">0</m></li>
+                    <li><input class="we_go_page" type="number"/></li>
+                    <li><button class="article_page_go">跳转</button></li>
+                    <li><a class="pre_page">上一页</a></li>
+                    <li><a class="next_page">下一页</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="image">
+        <div class="class">图片</div>
+        <div class="human">
+            <fieldset>
+                <legend title="人类上传的图片">人类</legend>
+                <div class="content">
+                </div>
+            </fieldset>
+            <div class="opera">
+                 <ul class="pn">
+                    <li>当前页：<m class="current_page"></m></li>
+                    <li>总页数：<m class="total_page">0</m></li>
+                    <li><input class="we_go_page" type="number"/></li>
+                    <li><button class="image_page_go">跳转</button></li>
+                    <li><a class="pre_page">上一页</a></li>
+                    <li><a class="next_page">下一页</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="robot">
+            <fieldset>
+                <legend title="爬虫爬的图片">机器</legend>
+                <div class="content">
+                </div>
+            </fieldset>
+            <div class="opera">
+                 <ul class="pn">
+                    <li>当前页：<m class="current_page"></m></li>
+                    <li>总页数：<m class="total_page">0</m></li>
+                    <li><input class="we_go_page" type="number"/></li>
+                    <li><button class="image_page_go">跳转</button></li>
+                    <li><a class="pre_page">上一页</a></li>
+                    <li><a class="next_page">下一页</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="video">
+        <div class="class">视频</div>
+        <div class="human">
+            <fieldset>
+                <legend title="人类上传的视频">人类</legend>
+                <div class="content">
+                </div>
+            </fieldset>
+            <div class="opera">
+                 <ul class="pn">
+                    <li>当前页：<m class="current_page"></m></li>
+                    <li>总页数：<m class="total_page">0</m></li>
+                    <li><input class="we_go_page" type="number"/></li>
+                    <li><button class="video_page_go">跳转</button></li>
+                    <li><a class="pre_page">上一页</a></li>
+                    <li><a class="next_page">下一页</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="robot">
+            <fieldset>
+                <legend title="爬虫爬的视频">机器</legend>
+                <div class="content">
+                </div>
+            </fieldset>
+            <div class="opera">
+                 <ul class="pn">
+                    <li>当前页：<m class="current_page"></m></li>
+                    <li>总页数：<m class="total_page">0</m></li>
+                    <li><input class="we_go_page" type="number"/></li>
+                    <li><button class="video_page_go">跳转</button></li>
+                    <li><a class="pre_page">上一页</a></li>
+                    <li><a class="next_page">下一页</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+
+</div>
+
+<script src={{url_for('static', filename="search/index.js")}}></script>
+{% include "common/dialog.html" %}
+</body>
+</html>

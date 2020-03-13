@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>图片</title>
+    <script src={{url_for('static', filename="common/jquery-3.4.1.min.js")}}></script>
+    <link rel="shortcut icon" href={{ url_for("static", filename="favicon.ico") }}>
+
+    <link href={{url_for("static", filename="image/image.css")}} rel="stylesheet"/>
+</head>
+<body>
+<div class="left_control">
+    <
+</div>
+
+<div class="right_control">
+    >
+</div>
+
+{% if look %}
+    <hidden class="look" value="{{ look }}"></hidden>
+{% endif %}
+
+{% if photo_title %}
+    <hidden class="photo_title" value="{{ photo_title }}"></hidden>
+{% endif %}
+
+<div class="left">
+    {% if look %}
+        <a class="home" href={{ "/image/home" + "?look=" + look }}>主页</a>
+    {% else %}
+        <a class="home" href="/image/home">主页</a>
+    {% endif %}
+
+    <hidden class="current_category" value=""></hidden>
+    <ul class="nav"></ul>
+
+    <div class="logo">图片</div>
+
+    {% if user_name %}
+        <div class="author">{{ user_name }}</div>
+    {% endif %}
+
+    <div class="pub_date">2019年12月26日</div>
+</div>
+
+<div class="center">
+    <div class="content">
+    </div>
+    <div class="opera">
+        <div class="infor">
+            <div class="base">
+                <span class="category_name"></span>
+                <span class="date"></span>
+            </div>
+            <div class="other">
+                {% if look %}
+                {% else %}
+                    <a class="edit">编辑</span>
+                    <a class="del">删除</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="right">
+    <hidden class="current_page" value="1"></hidden>
+    <hidden class="current_category" value=""></hidden>
+    <div class="opera">
+        {% if back_home %}
+            <a class="back_home">回家</a>
+        {% else %}
+            {% if look %}
+                <a href="/account/login">登录</a>
+            {% else %}
+                <a class="upload">上传</a>
+                <a class="exit">退出</a>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="photo_list">
+    </div>
+    <div class="pagnation">
+        <a href="#" class="pre">上一页</a>
+        <a href="#" class="nex">下一页</a>
+    </div>
+</div>
+
+{% include "common/dialog.html" %}
+<script src={{url_for("static", filename="image/image.js")}}></script>
+</body>
+</html>
