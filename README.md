@@ -31,8 +31,6 @@
 
 用于为自己播放想要的视频。
 
-![](http://serv_pro:3000/zswj123/reborn/raw/master/video.png)
-
 ## Future
 
 1. 一个属于这个网站的浏览器；
