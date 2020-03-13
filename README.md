@@ -1,6 +1,8 @@
 # REBORN
 
 [文档](http://serv_pro:5000/reborn/ "文档")
+[安装](http://serv_pro:3000/zswj123/reborn/src/master/INSTALL.md "安装")
+[百度](http://serv_pro:3000/zswj123/reborn/src/master/PROJECT.md "百度")
 
 基于FLASK构建自己的WEB应用。
 
