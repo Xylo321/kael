@@ -1,5 +1,7 @@
 # REBORN
 
+[文档](http://serv_pro:5000/reborn/ "文档")
+
 基于FLASK构建自己的WEB应用。
 
 ## APP:SEARCH
