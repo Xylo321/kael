@@ -2,7 +2,7 @@ import os
 import time
 
 from flask import request, session, Blueprint, send_from_directory, redirect, url_for, send_file
-from werkzeug.utils import secure_filename
+# from werkzeug.utils import secure_filename
 
 from reborn.apps import ACCOUNT_MYSQL_POOL, VIDEO_MYSQL_POOL
 from reborn.db.account import User
@@ -259,7 +259,7 @@ def upload():
                     "data": [],
                     "status": -1
                 }
-            filename = str(time.time()) + '_' + secure_filename(file.filename)
+            filename = str(time.time()) + '_' + file.filename
             file_path = os.path.join(UPLOAD_FOLDER, filename)
             if file and _allowed_file(file.filename):
                 file.save(file_path)
@@ -379,7 +379,7 @@ def update_video():
                     pass
 
                 # 保存新视频
-                filename = str(time.time()) + '_' + secure_filename(file.filename)
+                filename = str(time.time()) + '_' + file.filename
                 if file and _allowed_file(file.filename):
                     file.save(os.path.join(UPLOAD_FOLDER, filename))
                     result = video.update_video(user_id, src_title, new_title, category_name, description, filename)
