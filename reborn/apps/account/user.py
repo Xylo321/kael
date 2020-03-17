@@ -28,7 +28,7 @@ def login():
         if session.get(IS_LOGIN):
             return redirect(url_for("search_index_bp.index"))
         else:
-            if pc_or_mobile(request.host['User-Agent']) == PC:
+            if pc_or_mobile(request.headers['User-Agent']) == PC:
                 return render_template("account/pc/login.html")
             else:
                 abort(403, "移动端网站正在建设中。")
