@@ -277,6 +277,14 @@ button {
     width: inherit;
     height: inherit;
     cursor: pointer;
+    transition: transform linear 0.2s;
+}
+
+.video > .human > fieldset > .content > div > .my_video > img:hover,
+.video > .robot > fieldset > .content> div > .my_video img:hover {
+    transform: scale(2);
+    border: solid 0.2px purple;
+    padding: 0;
 }
 
 .video > .human > fieldset > .content > div > .title,

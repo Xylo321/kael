@@ -1,7 +1,7 @@
 import os
 import time
 
-from flask import request, session, Blueprint, send_from_directory, redirect, url_for
+from flask import request, session, Blueprint, send_from_directory, redirect, url_for, send_file
 from werkzeug.utils import secure_filename
 
 from reborn.apps import ACCOUNT_MYSQL_POOL, VIDEO_MYSQL_POOL
@@ -9,13 +9,14 @@ from reborn.db.account import User
 from reborn.db.video import Video, Category
 from reborn.settings.apps.account import IS_LOGIN
 from reborn.settings.apps.video import UPLOAD_FOLDER
+from reborn.utils.video import get_video_num_image
 
 VIDEO_VIDEO_BP = Blueprint('video_video_bp', __name__)
 
 
 def _allowed_file(filename):
     return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in {'mp4', 'avi', 'flv'}
+           filename.rsplit('.', 1)[1].lower() in {'mp4', 'flv'}
 
 
 @VIDEO_VIDEO_BP.route('/del_video', methods=['POST'])
@@ -259,13 +260,34 @@ def upload():
                     "status": -1
                 }
             filename = str(time.time()) + '_' + secure_filename(file.filename)
+            file_path = os.path.join(UPLOAD_FOLDER, filename)
             if file and _allowed_file(file.filename):
-                file.save(os.path.join(UPLOAD_FOLDER, filename))
+                file.save(file_path)
             else:
                 return {
                     "data": [],
                     "status": -1
                 }
+
+            # 心里痛苦，只能上传mp4吧，上传其它格式直接拒绝算了。flv有时候也有问题
+            # if get_video_type(file_path) not in ['mp4', 'flv']: 这里mp4也有问题，mp4文件居然不能获取到
+            # 开源项目有时候还真是靠不住，如果这不能控制，就只能靠用户自己去控制自己的内容了。
+            #     # 有时候，客户端改变文件扩展名上传文件，我这里直接检测文件二进制里的头
+            #     # try:
+            #     #     if convert_mp4(file_path, file_path + '.mp4'):
+            #     #         filename += '.mp4'
+            #     # except:
+            #     #     return {
+            #     #         "data": [],
+            #     #         "status": -1
+            #     #     }
+            #     # finally:
+            #     os.remove(file_path)
+            #
+            #     return {
+            #         "data": [],
+            #         "status": -1
+            #     }
 
             if 1 == video.add_video(title, category_name, filename, description, user_id):
                 return {
@@ -288,11 +310,15 @@ def view_video(filename):
 
 
 @VIDEO_VIDEO_BP.route('/view_video_1_img/<filename>', methods=['GET'])
-def view_video_1_img():
+def view_video_1_img(filename):
     if request.method == 'GET':
-        # 读取视频的第一帧
-        # 封装成图片流，发送给客户端
-        pass
+        local_file_name = UPLOAD_FOLDER + os.path.sep + filename
+
+        return send_file(
+            get_video_num_image(local_file_name, num=90),
+            mimetype='image/png',
+        )
+
 
 @VIDEO_VIDEO_BP.route('/update_video', methods=['POST'])
 def update_video():

@@ -18,5 +18,5 @@ elif 'macOS' in platform.platform():
 elif 'Linux' in platform.platform():
     UPLOAD_FOLDER = '/mnt/hgfs/reborn/image'
 
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+# if not os.path.exists(UPLOAD_FOLDER):
+#     os.makedirs(UPLOAD_FOLDER)

@@ -26,7 +26,9 @@ setup(
         "cryptography",
         "opencv-python",# 这个库很难装
         "ffmpeg-python",
-        "filetype"
+        "filetype",
+        "pillow",
+        "mingmq"
     ],
     entry_points = """
     [console_scripts]
