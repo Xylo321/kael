@@ -315,7 +315,7 @@ def view_video_1_img(filename):
         local_file_name = UPLOAD_FOLDER + os.path.sep + filename
 
         return send_file(
-            get_video_num_image(local_file_name, num=90),
+            get_video_num_image(local_file_name, num=65),
             mimetype='image/png',
         )
 

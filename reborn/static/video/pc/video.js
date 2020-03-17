@@ -272,34 +272,36 @@ $(".newvideo").click(function () {
 
             var formData = new FormData($("#upload_video > .layout")[0]);
 
-            $.ajax({
-                type: 'POST',
-                url: "/video/upload",
-                data: formData,
-                cache: false,
-                processData: false,
-                contentType: false,
-                dataType: "json",
-                success: function (data) {
-                    if (data.status == 1) {
-                        infor("上传视频成功", function () {
-                            if($(".current_category").attr("value") == category_name) {
-                                pag_video(1, category_name);
-                            } else {
-                                pag_video(1, null);
-                            }
+            infor("正在上传请不要刷新和关闭页面", function() {
+                $.ajax({
+                    type: 'POST',
+                    url: "/video/upload",
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == 1) {
+                            infor("上传视频成功", function () {
+                                if ($(".current_category").attr("value") == category_name) {
+                                    pag_video(1, category_name);
+                                } else {
+                                    pag_video(1, null);
+                                }
+                            });
+                        } else {
+                            infor("上传视频失败", function () {
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        infor("网络错误", function () {
                         });
-                    } else {
-                        infor("上传视频失败", function () {
-                        });
-                    }
-                },
-                error: function(err) {
-                    infor("网络错误", function () {
-                    });
-                },
-                async: true
-            });
+                    },
+                    async: true
+                });
+            }, false);
         }, function () {
         });
     }

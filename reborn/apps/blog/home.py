@@ -4,6 +4,7 @@ from reborn import apps
 from reborn.db.account import User
 from reborn.db.blog import Article
 from reborn.settings.apps.account import IS_LOGIN
+from reborn.utils.http import pc_or_mobile, PC, MOBILE
 
 BLOG_HOME_BP = Blueprint('blog_home_bp', __name__)
 
@@ -42,7 +43,11 @@ def home():
                                 "user_name": look,
                                 "article_title": article_title
                             }
-                            return render_template("blog/blog.html", **context)
+                            if PC == pc_or_mobile(request.headers['User-Agent']):
+                                return render_template("blog/pc/blog.html", **context)
+                            else:
+                                abort(403, "移动端网站正在建设中。")
+
                         else:
                             abort(404, 'Article does not exist.')
                     else:
@@ -52,7 +57,11 @@ def home():
                             "user_name": look
                         }
 
-                        return render_template("blog/blog.html", **context)
+                        if pc_or_mobile(request.headers['User-Agent']) == PC:
+                            return render_template("blog/pc/blog.html", **context)
+                        else:
+                            abort(403, "移动端网站正在建设中。")
+
                 else:  # 不存在
                     abort(404, 'User does not exist.')
             else:  # 否
@@ -61,7 +70,11 @@ def home():
                 context = {
                     "user_name": user_name
                 }
-                return render_template("blog/blog.html", **context)
+                if pc_or_mobile(request.headers['User-Agent']) == PC:
+                    return render_template("blog/pc/blog.html", **context)
+                else:
+                    abort(403, "移动端网站正在建设中。")
+
         else:  # 否
             look = request.args.get("look")
             article_title = request.args.get("article_title")
@@ -78,7 +91,11 @@ def home():
                                 "user_name": look,
                                 "article_title": article_title
                             }
-                            return render_template("blog/blog.html", **context)
+                            if pc_or_mobile(request.headers['User-Agent']) == PC:
+                                return render_template("blog/pc/blog.html", **context)
+                            else:
+                                abort(403, "移动端网站正在建设中。")
+
                         else:
                             abort(404, 'Article does not exist.')
                     else:
@@ -86,7 +103,11 @@ def home():
                             "look": look,
                             "user_name": look
                         }
-                        return render_template("blog/blog.html", **context)
+                        if pc_or_mobile(request.headers['User-Agent']) == PC:
+                            return render_template("blog/pc/blog.html", **context)
+                        else:
+                            abort(403, "移动端网站正在建设中。")
+
                 else:
                     abort(404, 'User does not exist.')
             else:

@@ -4,6 +4,7 @@ from reborn.apps import ACCOUNT_MYSQL_POOL, IMAGE_MYSQL_POOL
 from reborn.db.account import User
 from reborn.db.image import Photo
 from reborn.settings.apps.account import IS_LOGIN
+from reborn.utils.http import pc_or_mobile, PC, MOBILE
 
 IMAGE_HOME_BP = Blueprint('image_home_bp', __name__)
 
@@ -36,7 +37,10 @@ def home():
                                 "user_name": look,
                                 "photo_title": photo_title
                             }
-                            return render_template("image/image.html", **context)
+                            if pc_or_mobile(request.headers['User-Agent']) == PC:
+                                return render_template("image/pc/image.html", **context)
+                            else:
+                                abort(403, "移动端网站正在建设中。")
                         else:
                             abort(404, 'Photo does not exist.')
                     else:
@@ -45,7 +49,10 @@ def home():
                             "back_home": 1,
                             "user_name": look
                         }
-                        return render_template("image/image.html", **context)
+                        if pc_or_mobile(request.headers['User-Agent']) == PC:
+                            return render_template("image/pc/image.html", **context)
+                        else:
+                            abort(403, '移动端网站正在建设中。')
                 else:
                     abort(404, 'User does not exist.')
             else:
@@ -54,7 +61,10 @@ def home():
                 context = {
                     "user_name": user_name
                 }
-                return render_template("image/image.html", **context)
+                if pc_or_mobile(request.headers['User-Agent']) == PC:
+                    return render_template("image/pc/image.html", **context)
+                else:
+                    abort(403, '移动端网站正在建设中。')
         else:
             look = request.args.get("look")
             photo_title = request.args.get("photo_title")
@@ -74,7 +84,10 @@ def home():
                             "look": look,
                             "user_name": look
                         }
-                    return render_template("image/image.html", **context)
+                    if pc_or_mobile(request.headers['User-Agent']) == PC:
+                        return render_template("image/pc/image.html", **context)
+                    else:
+                        abort(403, '移动端网站正在建设中。')
                 else:
                     abort(404, 'User does not exist.')
             else:

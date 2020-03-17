@@ -109,7 +109,7 @@ body {
 }
 
 .photo_list > img:hover {
-    transform: scale(1.5);
+    transform: scaleY(1.5);
 }
 
 .right > .pagnation {

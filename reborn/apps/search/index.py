@@ -5,6 +5,7 @@ from reborn.apps import SEARCH_MYSQL_POOL
 from reborn.db.account import User
 from reborn.db.search import ArticleSearch, ImageSearch, VideoSearch
 from reborn.settings.apps.account import IS_LOGIN
+from reborn.utils.http import pc_or_mobile, PC, MOBILE
 
 SEARCH_INDEX_BP = Blueprint('search_index_bp', __name__)
 
@@ -21,11 +22,21 @@ def index():
                 context = {
                     "user_name": user_name
                 }
-                return render_template("search/index.html", **context)
+                if pc_or_mobile(request.headers['User-Agent']) == PC:
+                    return render_template("search/pc/index.html", **context)
+                else:
+                    abort(403, '移动端网站正在建设中。')
             else:
-                return render_template("search/index.html")
+                if pc_or_mobile(request.headers['User-Agent']) == PC:
+                    return render_template("search/pc/index.html")
+                else:
+                    abort(403, '移动端网站正在建设中。')
+
         else:
-            return render_template("search/index.html")
+            if pc_or_mobile(request.headers['User-Agent']) == PC:
+                return render_template("search/pc/index.html")
+            else:
+                abort(403, '移动端网站正在建设中。')
 
 
 @SEARCH_INDEX_BP.route('/search_article', methods=['POST'])

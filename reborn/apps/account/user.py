@@ -1,11 +1,12 @@
 import random
 
-from flask import request, session, redirect, url_for, render_template, Blueprint
+from flask import request, session, redirect, url_for, render_template, Blueprint, abort
 
 from reborn.apps import ACCOUNT_MYSQL_POOL
 from reborn.db.account import User
 from reborn.settings.apps.account import IS_LOGIN, MAIL_CONFIG
 from reborn.utils.email import send_text_email
+from reborn.utils.http import pc_or_mobile, PC, MOBILE
 
 USER_BP = Blueprint('user_bp', __name__)
 
@@ -27,7 +28,11 @@ def login():
         if session.get(IS_LOGIN):
             return redirect(url_for("search_index_bp.index"))
         else:
-            return render_template("account/login.html")
+            if pc_or_mobile(request.host['User-Agent']) == PC:
+                return render_template("account/pc/login.html")
+            else:
+                abort(403, "移动端网站正在建设中。")
+
     elif request.method == 'POST':
         user = User(ACCOUNT_MYSQL_POOL)
         user_id = user.login(request.form['name'], request.form['passwd'])
@@ -108,7 +113,11 @@ def forget_password():
                   失败 {"data": [], "status": -1}
     """
     if request.method == 'GET':
-        return render_template('account/forget_password.html')
+        if pc_or_mobile(request.headers['User-Agent']) == PC:
+            return render_template('account/pc/forget_password.html')
+        else:
+            abort(403, "移动端网站正在建设中。")
+
     elif request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
@@ -178,7 +187,11 @@ def register():
                  失败: {"data": [], "status": -1}
     """
     if request.method == 'GET':
-        return render_template('account/register.html')
+        if pc_or_mobile(request.headers['User-Agent']) == PC:
+            return render_template('account/pc/register.html')
+        else:
+            abort(403, "移动端网站正在建设中。")
+
     elif request.method == 'POST':
         name = request.form['name']
         passwd = request.form['passwd']

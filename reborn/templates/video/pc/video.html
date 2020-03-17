@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>视频</title>
 
-    <link href={{url_for('static', filename="video/video.css")}} rel="stylesheet"/>
+    <link href={{url_for('static', filename="video/pc/video.css")}} rel="stylesheet"/>
     <link rel="shortcut icon" href={{ url_for("static", filename="favicon.ico") }}>
 
     <script src={{url_for('static', filename="common/jquery-3.4.1.min.js")}}></script>
@@ -12,7 +12,7 @@
 </head>
 
 <body>
-{% include "common/dialog.html" %}
+{% include "common/pc/dialog.html" %}
 
 {% if look %}
     <hidden class="look" value="{{ look }}"></hidden>
@@ -118,7 +118,7 @@
     </div>
 </div>
 
-<script src={{url_for('static', filename="video/video.js")}}></script>
+<script src={{url_for('static', filename="video/pc/video.js")}}></script>
 
 </body>
 </html>

@@ -6,7 +6,7 @@
     <script src={{url_for('static', filename="common/jquery-3.4.1.min.js")}}></script>
     <link rel="shortcut icon" href={{ url_for("static", filename="favicon.ico") }}>
 
-    <link href={{url_for("static", filename="image/image.css")}} rel="stylesheet"/>
+    <link href={{url_for("static", filename="image/pc/image.css")}} rel="stylesheet"/>
 </head>
 <body>
 <div class="left_control">
@@ -87,7 +87,7 @@
     </div>
 </div>
 
-{% include "common/dialog.html" %}
-<script src={{url_for("static", filename="image/image.js")}}></script>
+{% include "common/pc/dialog.html" %}
+<script src={{url_for("static", filename="image/pc/image.js")}}></script>
 </body>
 </html>

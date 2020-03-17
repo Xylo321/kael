@@ -4,7 +4,7 @@
     <title>登陆</title>
     <meta charset="utf-8"/>
 
-    <link href={{url_for("static", filename="account/form.css")}} rel="stylesheet"/>
+    <link href={{url_for("static", filename="account/pc/form.css")}} rel="stylesheet"/>
     <link rel="shortcut icon" href={{ url_for("static", filename="favicon.ico") }}>
     <script src={{url_for("static", filename="common/jquery-3.4.1.min.js")}}></script>
 </head>
@@ -24,7 +24,7 @@
     <source src={{url_for("static", filename="account/陈致逸 - 千人千面（登录）.flac")}}/>
 </audio>
 
-{% include "common/dialog.html" %}
-<script src={{url_for("static", filename="account/form.js")}}></script>
+{% include "common/pc/dialog.html" %}
+<script src={{url_for("static", filename="account/pc/form.js")}}></script>
 </body>
 </html>

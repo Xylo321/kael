@@ -38,7 +38,7 @@ def home():
                                 "video_title": video_title
                             }
                             return render_template(
-                                "video/video.html", **context)
+                                "video/pc/video.html", **context)
                         else:
                             abort(404, 'Video does not exist.')
                     else:
@@ -47,7 +47,7 @@ def home():
                             "back_home": 1,
                             "user_name": look
                         }
-                        return render_template("video/video.html", **context)
+                        return render_template("video/pc/video.html", **context)
                 else:
                     abort(404, 'User does not exist.')
             else:
@@ -56,7 +56,7 @@ def home():
                 context = {
                     "user_name": user_name
                 }
-                return render_template("video/video.html", **context)
+                return render_template("video/pc/video.html", **context)
         else:
             look = request.args.get("look")
             video_title = request.args.get("video_title")
@@ -76,7 +76,7 @@ def home():
                             "look": look,
                             "user_name": look
                         }
-                    return render_template("video/video.html", **context)
+                    return render_template("video/pc/video.html", **context)
                 else:
                     abort(404, 'User does not exist.')
             else:
