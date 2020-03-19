@@ -19,7 +19,7 @@ $(function () {
 function load_first_video() {
     var si = setInterval(function () {
         if ($("td.title").length > 0) {
-            var video_title = $("td.title > a").html().trim();
+            var video_title = $("td.title").attr("title");
             get_video(video_title);
 
             clearInterval(si);
@@ -217,7 +217,7 @@ function pag_video(page, category_name) {
                     var tmp = new Date(data.data[i].date * 1000);
                     var date = tmp.toLocaleDateString();
                     var time = tmp.toLocaleTimeString();
-                    al_html += "<tr><td class='title'><a >" + data.data[i].title + "</a></td>" +
+                    al_html += "<tr><td class='title' title='" + data.data[i].title + "'><a >" + data.data[i].title + "</a></td>" +
                         "<td class='date'><a title='" + time + "'>" + date + "</a></td></tr>";
                 }
 
@@ -624,7 +624,7 @@ $(".base_infor > .del").click(function () {
 
 /* 点击视频列表里的视频 */
 $(".video_list > .data").on('click', '.title > a', function() {
-    var video_title = $(this).html().trim();
+    var video_title = $(this).parent().attr("title");
     get_video(video_title);
 });
 

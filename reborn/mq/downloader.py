@@ -8,8 +8,8 @@ logging.basicConfig(level=logging.INFO)
 from reborn.settings.mq.downloader import SAVE_AMQP_CONFIG, MYSQL_CONFIG
 
 from reborn.settings.apps.image import UPLOAD_FOLDER as IMAGE_UPLOAD_FOLDER
-from reborn.db.downloader import Downloader
-from reborn.db.rdbms import MySQLPool
+from reborn_db.downloader import Downloader
+from reborn_db.rdbms import MySQLPool
 
 from reborn.settings.apps.search import ROBOT
 

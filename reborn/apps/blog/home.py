@@ -1,8 +1,8 @@
 from flask import request, session, redirect, url_for, render_template, Blueprint, abort
 
 from reborn import apps
-from reborn.db.account import User
-from reborn.db.blog import Article
+from reborn_db.account import User
+from reborn_db.blog import Article
 from reborn.settings.apps.account import IS_LOGIN
 from reborn.utils.http import pc_or_mobile, PC, MOBILE
 

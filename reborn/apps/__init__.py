@@ -5,12 +5,15 @@ import logging
 import traceback
 from datetime import timedelta
 
+from gevent.pywsgi import WSGIServer
+from gevent import monkey
+
 from flask import Flask
 # 设置APP和SESSION
 from flask_session import Session
 from redis import StrictRedis
 
-from reborn.db.rdbms import MySQLPool
+from reborn_db.rdbms import MySQLPool
 # 静态文件和模板
 from reborn.settings.apps import TEMPLATES_FOLDER, STATIC_FOLDER
 from reborn.settings.apps.account import MYSQL_CONFIG as ACCOUNT_MYSQL_CONFIG
@@ -120,8 +123,6 @@ APP.register_blueprint(VIDEO_VIDEO_BP, url_prefix="/video")
 logging.basicConfig(level=logging.DEBUG)
 
 
-from gevent.pywsgi import WSGIServer
-from gevent import monkey
 
 def main():
     global APP

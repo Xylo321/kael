@@ -21,7 +21,7 @@ function load_first_article() {
             $(".new_article").hide();
             $(".newArticle").show();
 
-            var article_title = $("td.title > a").html().trim();
+            var article_title = $("td.title").attr("title");
             get_article(article_title);
 
             clearInterval(si);
@@ -238,7 +238,7 @@ function pag_article(page, category_name) {
                     var tmp = new Date(data.data[i].date * 1000);
                     var date = tmp.toLocaleDateString();
                     var time = tmp.toLocaleTimeString();
-                    al_html += "<tr><td class='title'><a >" + data.data[i].title + "</a></td>" +
+                    al_html += "<tr><td class='title' title='" + data.data[i].title + "'><a >" + data.data[i].title + "</a></td>" +
                         "<td class='date'><a title='" + time + "'>" + date + "</a></td></tr>";
                 }
 
@@ -392,7 +392,7 @@ $(".center > .content > .new_article > .edit_panel > .opera > .opera_right > .sa
                             $(".new_article").hide();
                             $(".newArticle").show();
 
-                            var article_title = $("td.title > a").html().trim();
+                            var article_title = $("td.title").attr("title");
                             get_article(article_title);
 
                             clearInterval(si);
@@ -690,7 +690,7 @@ $(".nav").on('click', 'li > .del', function () {
                                 $(".new_article").hide();
                                 $(".newArticle").show();
 
-                                var article_title = $("td.title > a").html().trim();
+                                var article_title = $("td.title").attr("title");
                                 get_article(article_title);
 
                                 clearInterval(si);
@@ -814,7 +814,7 @@ $(".article_list > .data").on('click', '.title > a', function() {
     if(!$(".edit_panel").is(":visible")) {
         $(".new_article").hide();
         $(".newArticle").show();
-        var article_title = $(this).html().trim();
+        var article_title = $(this).parent().attr("title");
         get_article(article_title);
     } else {
         infor("正在编辑中", function() {

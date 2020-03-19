@@ -7,9 +7,9 @@ from reborn.settings.apps.search import ROBOT
 
 logging.basicConfig(level=logging.INFO)
 
-from reborn.db.blog import Article
+from reborn_db.blog import Article
 from reborn.settings.mq.blog.server import MYSQL_CONFIG, SAVE_AMQP_CONFIG
-from reborn.db.rdbms import MySQLPool
+from reborn_db.rdbms import MySQLPool
 
 
 class Main(object):

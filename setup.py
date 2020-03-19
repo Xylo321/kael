@@ -14,21 +14,19 @@ setup(
     zip_safe=False,
     install_requires=[
         "flask",
-        "PyMySQL",
         "flask-session",
         "redis",
         "pika",
-        "requests",
-        "lxml",
-        "cssselect",
         "html2text",
-        "selenium",
         "cryptography",
         "opencv-python",# 这个库很难装
         "ffmpeg-python",
         "filetype",
         "pillow",
-        "mingmq"
+
+        # 自己写的库
+        "mingmq",
+        "reborn-db"
     ],
     entry_points = """
     [console_scripts]

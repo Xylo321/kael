@@ -1,8 +1,8 @@
 import json
 import traceback
 
-from reborn.db.image import Photo, Category
-from reborn.db.rdbms import MySQLPool
+from reborn_db.image import Photo, Category
+from reborn_db.rdbms import MySQLPool
 from reborn.mq.amqp import Customer, ProducterPool
 from reborn.settings.apps.search import ROBOT
 from reborn.settings.mq.downloader import SAVE_AMQP_CONFIG as DOWNLOADER_AMQP_CONFIG

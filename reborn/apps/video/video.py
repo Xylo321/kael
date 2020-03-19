@@ -5,8 +5,8 @@ from flask import request, session, Blueprint, send_from_directory, redirect, ur
 # from werkzeug.utils import secure_filename
 
 from reborn.apps import ACCOUNT_MYSQL_POOL, VIDEO_MYSQL_POOL
-from reborn.db.account import User
-from reborn.db.video import Video, Category
+from reborn_db.account import User
+from reborn_db.video import Video, Category
 from reborn.settings.apps.account import IS_LOGIN
 from reborn.settings.apps.video import UPLOAD_FOLDER
 from reborn.utils.video import get_video_num_image
