@@ -125,6 +125,7 @@ function search_article(key_word, page, type) {
                 for(var i = 0; i < data.data.length; i++) {
                     var article_id = data.data[i].id;
                     var article_title = data.data[i].title;
+                    var article_title_param = encodeURIComponent(data.data[i].title);
                     var category_name = data.data[i].category_name;
                     var content = data.data[i].content.replace(/[<>&"']/g, "");
                     var url = data.data[i].url;
@@ -134,7 +135,7 @@ function search_article(key_word, page, type) {
                             "<span>" + category_name + "</span></div>";
                     } else {
                         content_html += "<div><a target='_blank' " +
-                            "href='/search/go_article_page?article_id=" + article_id + "&article_title=" + article_title +
+                            "href='/search/go_article_page?article_id=" + article_id + "&article_title=" + article_title_param +
                             "' title='" + content + "'>" + article_title + "</a>" +
                             "<span>" + category_name + "</span></div>";
                     }

@@ -1,0 +1,16 @@
+* {
+    font-family: "Wawati TC";
+}
+
+.left > .author, .left > .pub_date, .logo, .change_search, .send_search {
+    font-family: "Wawati SC";
+    font-weight: bold;
+}
+
+ .my > .key_word {
+     font-family: "Wawati SC";
+ }
+
+form > button {
+     font-family: "Wawati TC";
+}
