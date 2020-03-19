@@ -1,16 +1,35 @@
+@font-face {
+    font-family: "My Wawati TC";
+    src: url("./font/WawaTC-Regular.otf");
+}
+
+@font-face {
+    font-family: "My Wawati SC";
+    src: url("./font/WawaSC-Regular.otf");
+}
+
+@font-face {
+    font-family: "My Monaco";
+    src: url("./font/Monaco.ttf");
+}
+
 * {
-    font-family: "Wawati TC";
+    font-family: "My Wawati TC";
 }
 
 .left > .author, .left > .pub_date, .logo, .change_search, .send_search {
-    font-family: "Wawati SC";
+    font-family: "My Wawati SC";
     font-weight: bold;
 }
 
  .my > .key_word {
-     font-family: "Wawati SC";
+     font-family: "My Wawati SC";
  }
 
 form > button {
-     font-family: "Wawati TC";
+     font-family: "My Wawati TC";
+}
+
+code {
+    font-family: My Monaco;
 }

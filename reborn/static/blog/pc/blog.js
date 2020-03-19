@@ -935,3 +935,70 @@ $(".other > .update").click(function() {
 
     refresh_categories(".center > .content > .old_article > .edit_panel > .opera > .opera_left > .category_name", category_name);
 });
+
+// div全屏之后样式背景色和前景色全都为黑的了
+// $(".content").on("dblclick", ".article_preview", function () {
+//     var on = 0;
+//
+//     if (document.webkitfullscreenElement) {
+//         on = 1;
+//     } else if (document.mozFullscreenElement) {
+//         on = 2;
+//     } else if (document.msfullscreenElement) {
+//         on = 3;
+//     } else if (document.fullscreenElement) {
+//         on = 4;
+//     } else if (document.webkitFullscreenElement) {
+//         // edge浏览器下
+//         on = 5;
+//     }
+//
+//     if (on > 0) {
+//         switch(on) {
+//             case 1:
+//             case 5:
+//                 document.webkitCancelFullScreen();
+//                 break;
+//             case 2:
+//                 document.mozCancelFullScreen();
+//                 break;
+//             case 3:
+//                 document.msCancelFullScreen();
+//                 break;
+//             case 4:
+//                 var j = 0;
+//                 if (document.webkitCancelFullScreen)
+//                     document.webkitCancelFullScreen();
+//                 else if (document.mozCancelFullScreen)
+//                     document.mozCancelFullScreen();
+//                 else if (document.msCancelFullScreen)
+//                     document.msCancelFullScreen();
+//                 else if (document.cancelFullScreen)
+//                     document.cancelFullScreen();
+//                 else {
+//                     infor("该浏览器不支持全屏接口", function () {
+//                     }, false);
+//                     j = 1;
+//                 }
+//                 if(j == 0) {
+//                     $(".content").css({
+//                         "color": "green",
+//                         "background": "black"
+//                     })
+//                 }
+//
+//                 break;
+//
+//             default: break;
+//         }
+//     } else {
+//         if ($(this)[0].webkitRequestFullScreen)
+//             $(this)[0].webkitRequestFullScreen();
+//         else if ($(this)[0].mozRequestFullScreen)
+//             $(this)[0].mozRequestFullScreen();
+//         else if ($(this)[0].msRequestFullScreen)
+//             $(this)[0].msRequestFullScreen();
+//         else
+//             infor("该浏览器不支持全屏接口", function() {}, false);
+//     }
+// });
