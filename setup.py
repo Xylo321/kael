@@ -16,13 +16,13 @@ setup(
         "flask",
         "flask-session",
         "redis",
-        "pika",
         "html2text",
         "cryptography",
-        "opencv-python",# 这个库很难装
+        "opencv-python",
         "ffmpeg-python",
         "filetype",
         "pillow",
+        "PyMySQL"
     ],
     entry_points = """
     [console_scripts]

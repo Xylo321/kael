@@ -1,6 +1,3 @@
-"""
-RDBMS-关系型数据库缩写
-"""
 import logging
 import traceback
 from collections import deque
@@ -8,10 +5,11 @@ from threading import Lock
 
 import pymysql
 
-LOCK = Lock()
 
+class MySQLPool:
+    _LOCK = Lock()
+    _LOGGER = logging.getLogger('MySQLPool')
 
-class MySQLPool(object):
     def __init__(self, host, user, passwd, db, size):
         self.host = host
         self.user = user
@@ -40,33 +38,55 @@ class MySQLPool(object):
         return connection
 
     def get_conn(self):
-        with LOCK:
+        with MySQLPool._LOCK:
             try:
-                if len(self.pool) != 0:
-                    conn = self.pool.popleft()
-                    conn.ping()
-                    return conn
-                else:
-                    raise Exception('连接池已为空')
-            except:
-                # 有可能是conn.ping的异常，先关闭，然后再初始化连接池
-                self.release()
+                pool_size = len(self.pool)
+                i = 0
+                while i < pool_size:
+                    try:
+                        conn = self.pool.popleft()
+                        conn.ping()
+                        return conn
+                    except:
+                        MySQLPool._LOGGER.error(traceback.format_exc())
+                    finally:
+                        i += 1
 
-                self._init_pool()
-                return self.pool.popleft()
+                raise Exception('连接池已为空')
+            except:
+                self.release()
+                try:
+                    self._init_pool()
+                except:
+                    MySQLPool._LOGGER.error(traceback.format_exc())
+
+                pool_size = len(self.pool)
+                i = 0
+                while i < pool_size:
+                    conn = self.pool.popleft()
+                    try:
+                        conn.ping()
+                        return conn
+                    except:
+                        MySQLPool._LOGGER.error(traceback.format_exc())
+                    finally:
+                        i += 1
+
+                raise Exception('我已经尽力了。')
 
     def back_conn(self, conn):
-        with LOCK:
+        with MySQLPool._LOCK:
             self.pool.append(conn)
 
     def release(self):
-        for conn in self.pool:
-            try:
-                conn.close()
-            except:
-                pass
+        with MySQLPool._LOCK:
+            for conn in self.pool:
+                try:
+                    conn.close()
+                except:
+                    MySQLPool._LOGGER.error(traceback.format_exc())
 
-        self.pool.clear()
+            self.pool.clear()
 
     def query(self, sql, args):
         conn = None
@@ -77,18 +97,13 @@ class MySQLPool(object):
                 cursor.execute(sql, args)
 
                 return cursor.fetchall()
-        except (pymysql.err.InterfaceError, pymysql.err.OperationalError):
-            print(traceback.print_exc())
+        except:
+            MySQLPool._LOGGER.error(traceback.format_exc())
+            MySQLPool._LOGGER.error(sql)
+            MySQLPool._LOGGER.error(args)
             conn = None
-        except (
-                pymysql.err.DatabaseError, pymysql.err.DataError, pymysql.err.IntegrityError,
-                pymysql.err.ProgrammingError,
-                pymysql.err.NotSupportedError):
-            logging.error(sql)
-            logging.error(args)
-            print(traceback.print_exc())
         finally:
-            if conn != None: self.back_conn(conn)
+            if conn: self.back_conn(conn)
 
     def edit(self, sql, args):
         affect_rows = 0
@@ -99,20 +114,18 @@ class MySQLPool(object):
                 cursor.execute(sql, args)
             conn.commit()
             affect_rows = conn.affected_rows()
-        except (pymysql.err.InterfaceError, pymysql.err.OperationalError):
-            print(traceback.print_exc())
-            conn = None
-        except (
-                pymysql.err.DatabaseError, pymysql.err.DataError, pymysql.err.IntegrityError,
-                pymysql.err.ProgrammingError,
-                pymysql.err.NotSupportedError):
-            logging.error(sql)
-            logging.error(args)
-            print(traceback.print_exc())
+        except:
+            MySQLPool._LOGGER.error(traceback.format_exc())
+            MySQLPool._LOGGER.error(sql)
+            MySQLPool._LOGGER.error(args)
+            try:
+                conn.rollback()
+            except Exception as rollback_err:
+                MySQLPool._LOGGER.error('回滚时出现错误: %s', str(rollback_err))
 
-            conn.rollback()
+            conn = None
         finally:
-            if conn != None: self.back_conn(conn)
+            if conn: self.back_conn(conn)
             return affect_rows
 
     def edit_many(self, sql, many_args):
@@ -124,18 +137,15 @@ class MySQLPool(object):
                 cursor._do_execute_many(sql, many_args)
             conn.commit()
             affect_rows = conn.affected_rows()
-        except (pymysql.err.InterfaceError, pymysql.err.OperationalError):
-            print(traceback.print_exc())
-            conn = None
-        except (
-                pymysql.err.DatabaseError, pymysql.err.DataError, pymysql.err.IntegrityError,
-                pymysql.err.ProgrammingError,
-                pymysql.err.NotSupportedError):
-            logging.error(sql)
-            logging.error(many_args)
-            print(traceback.print_exc())
+        except:
+            MySQLPool._LOGGER.error(sql)
+            MySQLPool._LOGGER.error(many_args)
+            try:
+                conn.rollback()
+            except Exception as rollback_err:
+                MySQLPool._LOGGER.error('回滚时出现错误: %s', str(rollback_err))
 
-            conn.rollback()
+            conn = None
         finally:
-            if conn != None: self.back_conn(conn)
+            if conn: self.back_conn(conn)
             return affect_rows

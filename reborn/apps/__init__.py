@@ -120,7 +120,6 @@ APP.register_blueprint(VIDEO_VIDEO_BP, url_prefix="/video")
 logging.basicConfig(level=logging.DEBUG)
 
 
-
 def main():
     global APP
     try:

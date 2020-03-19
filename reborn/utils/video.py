@@ -41,15 +41,6 @@ def get_video_num_image(file_name, num=1):
         if bts: bts.close()
 
 
-def flask_image(img_cv2, ):
-    img = Image.fromarray(img_cv2)
-    # img.save('/root/test.png')
-
-    bts = BytesIO()
-    img.save(bts, format=vt)
-    return bts
-
-
 def get_video_type(src):
     """获取视频文件的类型。src为视频文件名，返回类型字符串。
 
@@ -198,7 +189,7 @@ def get_video_infor(src_file) -> dict or None:
         return ffmpeg.probe(src_file)
     except:
         logging.error(traceback.format_exc())
-        return None
+    return None
 
 
 def parse_width_height(vi):
