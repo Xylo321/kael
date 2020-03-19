@@ -8,7 +8,7 @@
 
 PC端：
 
-![](http://serv_pro:3000/zswj123/reborn/reborn/static/search/raw/master/pc_search.png)
+![](http://serv_pro:3000/zswj123/reborn/raw/master/reborn/static/search/pc_search.png)
 
 ## APP:BLOG
 
@@ -16,7 +16,7 @@ PC端：
 
 PC端：
 
-![](http://serv_pro:3000/zswj123/reborn/reborn/static/blog/raw/master/pc_blog.png)
+![](http://serv_pro:3000/zswj123/reborn/raw/master/reborn/static/blog/pc_blog.png)
 
 ## APP:IMAGE
 
@@ -24,13 +24,13 @@ PC端：
 
 PC端：
 
-![](http://serv_pro:3000/zswj123/reborn/reborn/static/image/raw/master/pc_image.png)
+![](http://serv_pro:3000/zswj123/reborn/raw/master/reborn/static/image/pc_image.png)
 
 ## APP:VIDEO
 
 PC端：
 
-![](http://serv_pro:3000/zswj123/reborn/reborn/video/raw/master/pc_video.png)
+![](http://serv_pro:3000/zswj123/reborn/raw/master/reborn/static/video/pc_video.png)
 
 用于为自己播放想要的视频。
 

@@ -6,14 +6,10 @@
 * MYSQL8
 * REDIS
 
-## 一、思考
+## 思考
 
-* 因为这模块是数据库模块，所以，又要被网站调用，又要被爬数据调用，这样就产生冲突了，爬虫这边对mysql操作，其实也不是，我这边不是有
-任务队列这里为mysql分担了压力吗？我就给存数据的队列安排5个连接就够了，但是，总有一天，mysql的所有连接数要被用完的啊？那问题来了，mysql
-服务器一共支持多少个连接？show variables like '%max_connections%'; 这个命令是可以查看的，也就是说mysql服务器的连接也是可以设置的，
-那设置多少合适？设置过高，又会导致mysql服务器内存要求很高，设置过低好像又不太好。我感觉mysql还是有点不太靠得住。其实我觉得mysql存下业务
-数据还是可以的，但是如果要存爬虫数据，我感觉太牵强了，这根本就不现实。所以，是不是我的架构错了呢？爬虫数据是海量的。如果仅仅靠python肯定
-是不行的。这次真的是我错了。我不该这么做。我应该思考的是hbase数据库，对，下一步研发的目标应该是这个。这才是我的专业。
+* mysql和redis都是用于业务的，不参与其它的操作；
+* 其它项目不应该有权限访问这个项目的db；
 
 ## 二、MYSQL8
 
@@ -77,7 +73,7 @@ insert into account.user(id, name, email, passwd) value(0, 'robot', '858556393@q
 create fulltext index name on user(name) with parser ngram;
 ```
 
-#### 二二、BLOG数据库
+#### BLOG数据库
 
 ```sql
 CREATE DATABASE `blog` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
@@ -111,7 +107,7 @@ create fulltext index title_content on article(title, content) with parser ngram
 
 需要注意的是，采用mysqlworkbech同步数据库之后创建的全文索引没有默认增加中文分词插件，需要删除后，使用命令行追加才能搜索到中文结果。
 
-#### 二三、IMAGE数据库
+#### IMAGE数据库
 
 ```sql
 CREATE DATABASE `image` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
