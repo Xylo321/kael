@@ -135,7 +135,7 @@ create fulltext index title on photo(title) with parser ngram;
 create fulltext index name on category(name) with parser ngram;
 ```
 
-#### 二四、VIDEO数据库
+#### VIDEO数据库
 
 ```sql
 CREATE DATABASE `video`;
