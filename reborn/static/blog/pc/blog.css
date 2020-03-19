@@ -256,10 +256,13 @@ pre {
     width: 100%;
 
     white-space:pre-wrap;
-    white-space:-moz-pre-wrap;
-    white-space:-pre-wrap;
-    white-space:-o-pre-wrap;
-    word-wrap:break-word
+    word-wrap:break-word;
+}
+
+code {
+    font-family: Monaco;
+    font-size: 9px;
+    color: green;
 }
 
 .article_preview > * > li {
