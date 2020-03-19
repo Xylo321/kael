@@ -1,45 +1,6 @@
 # INSTALL
 
-Ubuntu操作系统下，Python3.8，Redis, MySQL8, UWSGI, SUPERVISOR。
-
-## REDIS
-
-安装Reids
-```
-sudo apt install redis-server
-```
-
-* flushdb清除当前db的所有key；
-
-* flushall清除所有db的所有key；
-
-* keys *查看所有的key，当前db数字下；
-
-* 启动，停止，重启，查看redis服务器：
-`service redis start|stop|restart|status`；
-
-* pttl key 查看某个key的过期时间，以毫秒为单位，1000毫秒=1秒；
-
-* auth 密码，用于使用redis-cli之后进行权限验证；
-
-开启远程连接
-```
-$ vi /etc/redis/redis.conf
-# bind 127.0.0.1 ::1 # 注释掉这一行
-```
-
-永久设置密码访问
-```
-$ vi /etc/redis/redis.conf
-requirepass mm5201314
-```
-
-配置修改完毕后，重启服务`service redis-server restart`
-
-命令使用密码进入redis:
-```bash
-$ redis-cli -h [ip] -p [端口] -a [密码]
-```
+Ubuntu操作系统下，项目环境搭建。
 
 ## PYTHON3.8.0
 

@@ -1,6 +1,3 @@
-"""
-网站初始化
-"""
 import logging
 import traceback
 from datetime import timedelta
@@ -13,7 +10,7 @@ from flask import Flask
 from flask_session import Session
 from redis import StrictRedis
 
-from reborn_db.rdbms import MySQLPool
+from reborn.db.rdbms import MySQLPool
 # 静态文件和模板
 from reborn.settings.apps import TEMPLATES_FOLDER, STATIC_FOLDER
 from reborn.settings.apps.account import MYSQL_CONFIG as ACCOUNT_MYSQL_CONFIG
@@ -159,3 +156,7 @@ def main():
             http_server.close()
         except:
             logging.error(traceback.format_exc())
+
+
+if __name__ == '__main__':
+    APP.run(host='0.0.0.0', port=8000, debug=True)

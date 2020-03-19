@@ -1,8 +1,8 @@
 from flask import request, session, redirect, url_for, render_template, Blueprint, abort
 
 from reborn.apps import ACCOUNT_MYSQL_POOL, IMAGE_MYSQL_POOL
-from reborn_db.account import User
-from reborn_db.image import Photo
+from reborn.db.account import User
+from reborn.db.image import Photo
 from reborn.settings.apps.account import IS_LOGIN
 from reborn.utils.http import pc_or_mobile, PC, MOBILE
 

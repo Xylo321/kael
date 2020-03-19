@@ -3,7 +3,7 @@ import random
 from flask import request, session, redirect, url_for, render_template, Blueprint, abort
 
 from reborn.apps import ACCOUNT_MYSQL_POOL
-from reborn_db.account import User
+from reborn.db.account import User
 from reborn.settings.apps.account import IS_LOGIN, MAIL_CONFIG
 from reborn.utils.email import send_text_email
 from reborn.utils.http import pc_or_mobile, PC, MOBILE

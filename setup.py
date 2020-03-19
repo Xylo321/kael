@@ -23,10 +23,6 @@ setup(
         "ffmpeg-python",
         "filetype",
         "pillow",
-
-        # 自己写的库
-        "mingmq",
-        "reborn-db"
     ],
     entry_points = """
     [console_scripts]

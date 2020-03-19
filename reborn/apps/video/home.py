@@ -1,8 +1,8 @@
 from flask import request, session, redirect, url_for, render_template, Blueprint, abort
 
 from reborn.apps import ACCOUNT_MYSQL_POOL, VIDEO_MYSQL_POOL
-from reborn_db.account import User
-from reborn_db.video import Video
+from reborn.db.account import User
+from reborn.db.video import Video
 from reborn.settings.apps.account import IS_LOGIN
 
 VIDEO_HOME_BP = Blueprint('video_home_bp', __name__)

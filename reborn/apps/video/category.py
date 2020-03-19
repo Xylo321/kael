@@ -3,8 +3,8 @@ import os
 from flask import request, session, Blueprint
 
 from reborn.apps import ACCOUNT_MYSQL_POOL, VIDEO_MYSQL_POOL
-from reborn_db.account import User
-from reborn_db.video import Category, Video
+from reborn.db.account import User
+from reborn.db.video import Category, Video
 from reborn.settings.apps.account import IS_LOGIN
 from reborn.settings.apps.video import UPLOAD_FOLDER
 
