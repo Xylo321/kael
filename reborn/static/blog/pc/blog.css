@@ -1,6 +1,4 @@
 * {
-    padding: 0;
-    margin: 0;
     cursor: crosshair;
 }
 
@@ -54,6 +52,12 @@
     max-height: 55%;
     overflow-y: auto;
     width: 100px;
+}
+
+/* fix */
+.left > ul, .left > ul > li, .left > .nav, td, body {
+    padding: 0;
+    margin: 0;
 }
 
 .left > .nav::-webkit-scrollbar {
@@ -228,10 +232,10 @@ body {
 }
 
 /* markdown被翻译成html之后，段落的外边距 */
-.article_preview > p {
-    font-size: 14px;
+/*.article_preview > p {*/
+    /*font-size: 14px;*/
     /*text-indent: 28px; 段落前面缩进*/
-}
+/*}*/
 
 /* 阅读区的第一个子元素上外边距为0，一般用于设置文章的title */
 .article_preview > h1:first-child {
@@ -261,9 +265,11 @@ code {
     color: green;
 }
 
-.article_preview > * > li {
-    margin-left: 20px;
-    font-size: 14px;
+.article_preview {
+    /*margin-left: 20px;*/
+    /*font-size: 14px;*/
+    /*padding: auto;*/
+    margin: auto;
 }
 
 .article_preview > table {

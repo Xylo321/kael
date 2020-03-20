@@ -853,7 +853,6 @@ function get_article(article_title) {
                 $(".center > .content > .old_article > .preview_panel").show();
                 $(".center > .content > .old_article > .preview_panel > .opera > .edit").hide();
                 $(".center > .content > .old_article > .preview_panel > .opera > .view").show();
-
                 $(".center > .content > .old_article > .preview_panel > .article_preview").html(marked(content));
                 $(".center > .content > .old_article > .preview_panel > .backup").attr("value", content);
                 $(".center > .content > .old_article > .preview_panel > .opera > .view > .base > .category_name").html(category_name);
