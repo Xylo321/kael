@@ -7,7 +7,8 @@
     width: 100%;
     height: 100%;
     background-color: #FFCC99;
-    z-index: 2
+    z-index: 2;
+    font-size: 17px;
 }
 
 #infor > .message, #infor > .button {

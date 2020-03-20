@@ -70,20 +70,18 @@ a {
 /* 左侧logo，作者，日期 */
 .left > .logo {
     width: 20px;
-    font-size: 48px;
+    font-size: 60px;
     margin-right: 60px;
     float: right;
 }
 
 .left > .author {
-    font-family: sans-serif;
     float: left;
-    margin-top: 200px;
+    margin-top: 30%;
     margin-left: 100px;
 }
 
 .left > .pub_date {
-    font-family: sans-serif;
     float: left;
     margin-top: 50px;
     margin-left: 150px;
@@ -117,6 +115,7 @@ a {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden; /*超出内容隐藏*/
+    font-size: 14px;
 }
 
 .date {
@@ -124,7 +123,7 @@ a {
 }
 
 .left > .article_list > .pagnation {
-    font-size: 9px;
+    font-size: 14px;
     width: 300px;
 }
 
@@ -150,11 +149,9 @@ a:hover {
     width: 20px;
     position: absolute;
     left: 50%;
-    right: 50%;
-
     top: 50%;
-
     transform: translate(-50%, -50%);  /* 使用css3的transform来实现 */
+    font-size: 17px;
 }
 
 .right > .log_out {
@@ -232,7 +229,7 @@ body {
 
 /* markdown被翻译成html之后，段落的外边距 */
 .article_preview > p {
-    font-size: 12.6px;
+    font-size: 14px;
     /*text-indent: 28px; 段落前面缩进*/
 }
 
@@ -260,18 +257,13 @@ pre {
 }
 
 code {
-    font-size: 12.6px;
+    font-size: 14px;
     color: green;
 }
 
 .article_preview > * > li {
     margin-left: 20px;
-    font-size: 12.6px;
-}
-
-.article_preview > * > li {
-    margin-left: 20px;
-    font-size: 12.6px;
+    font-size: 14px;
 }
 
 .article_preview > table {
@@ -284,4 +276,14 @@ code {
 
 .article_preview > table * {
     border: solid 1px;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.home > b {
+    font-weight: bold;
+    font-size: 17px;
 }

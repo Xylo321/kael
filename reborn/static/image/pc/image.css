@@ -39,7 +39,8 @@ a:hover {
     position: absolute;
     font-size: 48px;
     top: 20px;
-    right: 40px;
+    right: 50px;
+    font-size: 60px;
     width: 20px;
 }
 
@@ -195,4 +196,14 @@ input {
 
 .edit_panel > div {
     float: left;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.home  {
+    font-weight: bold;
+    font-size: 17px;
 }
