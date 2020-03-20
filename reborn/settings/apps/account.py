@@ -15,7 +15,7 @@ MAIL_CONFIG = {
     'host': "smtp.qq.com",
     'port': 465,
     'username': '858556393@qq.com',
-    'password': 'kultmmqalfvybfji',
+    'password': 'xikqxdjcuctpbdge',
     'forget_password_msg': "%d"
 }
 

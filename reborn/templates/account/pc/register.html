@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href={{ url_for("static", filename="favicon.ico") }}>
 </head>
 <body>
-<form>
+<myform>
     <h1>注册</h1>
     <input id="name" name="userName" placeholder="用户名" type="text" required/>
     <input id="passwd" name='password' placeholder="密码" type="password" required/>
@@ -19,7 +19,7 @@
     <input id="check_code" name="check_code" placeholder="验证码" type="text" required/>
 
     <button id="register_button">提交</button>
-</form>
+</myform>
 
 <audio controls="controls" autoplay="autoplay" hidden loop="loop">
     <source src={{ url_for("static", filename="account/陈致逸 - 我心已许（七夕夜晚）.flac")}}/>

@@ -10,15 +10,15 @@
     <script src={{url_for("static", filename="common/jquery-3.4.1.min.js")}}></script>
 </head>
 <body>
-<form>
+<myform>
     <h1>登陆</h1>
     <input id="name" name="name" placeholder="用户名" type="text" required/>
     <input id="passwd" name="passwd" placeholder="密码" type="password" required/>
 
-    <button id="login_button">登陆</button>
-    <button id="register">注册</button>
-    <button id="forgetPassword">更改密码</button>
-</form>
+    <button id="login_button" type="button">登陆</button>
+    <button id="register" type="button">注册</button>
+    <button id="forgetPassword" type="button">更改密码</button>
+</myform>
 
 
 <audio controls="controls" autoplay="autoplay" hidden loop="loop">

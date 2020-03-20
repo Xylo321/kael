@@ -12,7 +12,7 @@ body {
     background-color: #FFCC99;
 }
 
-form {
+myform {
     line-height: 40px;
     /* 设置元素不随浏览器窗口大小改变而自动换行 */
     white-space: nowrap;

@@ -73,7 +73,7 @@ APP.config.from_mapping(
     SESSION_REDIS=REDIS_CLI,
     SESSION_KEY_PREFIX="SESSION:",
     # session超时时间
-    PERMANENT_SESSION_LIFETIME=timedelta(seconds=120 * 60),
+    PERMANENT_SESSION_LIFETIME=timedelta(seconds=60 * 60),
     # MAX_CONTENT_LENGTH=16 * 1024 * 1024
 )
 
@@ -118,7 +118,7 @@ APP.register_blueprint(VIDEO_CATEGORY_BP, url_prefix="/video")
 APP.register_blueprint(VIDEO_VIDEO_BP, url_prefix="/video")
 
 # 设置日志
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.ERROR)
 
 
 def main():
@@ -157,4 +157,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    APP.run(host='0.0.0.0', port=8000, debug=False)

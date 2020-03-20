@@ -27,7 +27,16 @@ $("#sendCheckCode").click(function () {
             console.log(data);
             if (data.status == 1) {
                 infor("验证码发送成功", function () {
-                })
+                    $("#sendCheckCode").hide();
+                    $("#sendCheckCode").attr('disabled', 'true');
+                    $("#sendCheckCode").show();
+                    setTimeout(function () {
+                        infor("六十秒之后可再次发送", function () {});
+                    }, 2000);
+                    setTimeout(function () {
+                        $("#sendCheckCode").removeAttr('disabled');
+                    }, 60000);
+                });
             } else {
                 infor("验证码发送失败", function () {
                 })
@@ -37,7 +46,7 @@ $("#sendCheckCode").click(function () {
             infor("网络错误", function () {
             })
         },
-        async: true
+        async: false
     });
 });
 
