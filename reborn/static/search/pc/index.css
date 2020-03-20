@@ -14,7 +14,8 @@ fieldset {
 }
 
 .nav {
-    width: 430px;
+    width: auto;
+    box-sizing: content-box;
 }
 .nav > ul {
     list-style: none;
@@ -28,7 +29,6 @@ fieldset {
     position: absolute;
     right: 0px;
     top: 0px;
-    width: 170px;
     background-color: red;
     white-space: nowrap;
     display: inline;
