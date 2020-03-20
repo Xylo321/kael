@@ -272,38 +272,39 @@ $(".newvideo").click(function () {
 
             var formData = new FormData($("#upload_video > .layout")[0]);
 
-            infor("正在上传请不要刷新和关闭页面", function() {
-                $.ajax({
-                    type: 'POST',
-                    url: "/video/upload",
-                    data: formData,
-                    cache: false,
-                    processData: false,
-                    contentType: false,
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.status == 1) {
-                            infor("上传视频成功", function () {
-                                if ($(".current_category").attr("value") == category_name) {
-                                    pag_video(1, category_name);
-                                } else {
-                                    pag_video(1, null);
-                                }
-                            });
-                        } else {
-                            infor("上传视频失败", function () {
-                            });
-                        }
-                    },
-                    error: function (err) {
-                        infor("网络错误", function () {
+            $.ajax({
+                type: 'POST',
+                url: "/video/upload",
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == 1) {
+                        infor("上传视频成功", function () {
+                            if ($(".current_category").attr("value") == category_name) {
+                                pag_video(1, category_name);
+                            } else {
+                                pag_video(1, null);
+                            }
                         });
-                    },
-                    async: true
-                });
-            }, false);
-        }, function () {
-        });
+                    } else {
+                        infor("上传视频失败", function () {
+                        });
+                    }
+                },
+                error: function (err) {
+                    infor("网络错误", function () {
+                    });
+                },
+                async: true,
+                // xhr: xhr_on_progress(function(evt){
+                //     var percent = Math.floor(evt.loaded / evt.total*100);//计算百分比
+                //     console.log(percent);
+                // }),
+            });
+        }, false);
     }
 });
 

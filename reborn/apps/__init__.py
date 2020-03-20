@@ -1,9 +1,10 @@
+from gevent.pywsgi import WSGIServer
+from gevent import monkey
+monkey.patch_all()
+
 import logging
 import traceback
 from datetime import timedelta
-
-from gevent.pywsgi import WSGIServer
-from gevent import monkey
 
 from flask import Flask
 # 设置APP和SESSION
@@ -123,9 +124,7 @@ logging.basicConfig(level=logging.DEBUG)
 def main():
     global APP
     try:
-        monkey.patch_all()
-
-        http_server = WSGIServer(('0.0.0.0', int(8000)), APP)
+        http_server = WSGIServer(('0.0.0.0', 8000), APP)
         http_server.serve_forever()
     except Exception as e:
         logging.error(e)
@@ -158,8 +157,4 @@ def main():
 
 
 if __name__ == '__main__':
-    import platform
-    if 'Linux' in platform.platform():
-        main()
-    else:
-        APP.run(host='0.0.0.0', port=8000, debug=True)
+    main()
