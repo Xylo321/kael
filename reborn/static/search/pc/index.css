@@ -105,7 +105,8 @@ fieldset {
 
 .article > .human > fieldset > .content > div > a {
     padding: 2px;
-    width: 410px;
+    padding-right: 0;
+    width: 400px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -114,7 +115,8 @@ fieldset {
 
 .article > .robot > fieldset > .content> div > a {
     padding: 2px;
-    width: 410px;
+    padding-right: 0;
+    width: 400px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
