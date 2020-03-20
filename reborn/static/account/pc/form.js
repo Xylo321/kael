@@ -33,8 +33,15 @@ $("#sendCheckCode").click(function () {
                     setTimeout(function () {
                         infor("六十秒之后可再次发送", function () {});
                     }, 2000);
+                    var n = 60;
+                    var i = setInterval(function () {
+                        $("#sendCheckCode").html(n + "秒");
+                        n -= 1;
+                    }, 1000);
                     setTimeout(function () {
                         $("#sendCheckCode").removeAttr('disabled');
+                        $("#sendCheckCode").html("发送验证码");
+                        clearInterval(i);
                     }, 60000);
                 });
             } else {
