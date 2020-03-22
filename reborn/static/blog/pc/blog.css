@@ -183,6 +183,7 @@ a:hover {
     display: block;
     outline: none;
     border: solid 1px #FFCC99;
+    font-size: 14px;
 }
 
 .center > .content > .new_article > .edit_panel > .opera > .opera_left,
@@ -254,7 +255,7 @@ body {
 pre {
     color: white;
     background-color: black;
-    width: 100%;
+    /*width: 100%;*/
 
     white-space:pre-wrap;
     word-wrap:break-word;
@@ -273,7 +274,7 @@ code {
 }
 
 .article_preview > table {
-    width: 99%;
+    /*width: 99%;*/
     border: solid 1px;
 
     border-collapse:collapse;
