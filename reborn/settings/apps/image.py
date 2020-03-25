@@ -1,3 +1,7 @@
+import os.path
+import platform
+
+
 MYSQL_CONFIG = {
     "host": 'serv_pro',
     "user": "root",
@@ -6,8 +10,6 @@ MYSQL_CONFIG = {
     "size": 5
 }
 
-import os.path
-import platform
 
 UPLOAD_FOLDER = os.path.expanduser('~') + os.path.sep + "/reborn/image"
 

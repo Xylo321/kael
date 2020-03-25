@@ -79,14 +79,13 @@ class MySQLPool:
             self.pool.append(conn)
 
     def release(self):
-        with MySQLPool._LOCK:
-            for conn in self.pool:
-                try:
-                    conn.close()
-                except:
-                    MySQLPool._LOGGER.error(traceback.format_exc())
+        for conn in self.pool:
+            try:
+                conn.close()
+            except:
+                MySQLPool._LOGGER.error(traceback.format_exc())
 
-            self.pool.clear()
+        self.pool.clear()
 
     def query(self, sql, args):
         conn = None

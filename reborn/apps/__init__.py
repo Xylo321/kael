@@ -1,6 +1,5 @@
 from gevent.pywsgi import WSGIServer
 from gevent import monkey
-monkey.patch_all()
 
 import logging
 import traceback
@@ -118,12 +117,14 @@ APP.register_blueprint(VIDEO_CATEGORY_BP, url_prefix="/video")
 APP.register_blueprint(VIDEO_VIDEO_BP, url_prefix="/video")
 
 # 设置日志
-logging.basicConfig(level=logging.ERROR)
+logging.basicConfig(level=logging.DEBUG)
 
 
 def main():
     global APP
     try:
+        monkey.patch_all()
+
         http_server = WSGIServer(('0.0.0.0', 8000), APP)
         http_server.serve_forever()
     except Exception as e:
@@ -157,4 +158,4 @@ def main():
 
 
 if __name__ == '__main__':
-    APP.run(host='0.0.0.0', port=8000, debug=False)
+    APP.run(host='0.0.0.0', port=8000, debug=True)
