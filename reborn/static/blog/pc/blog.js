@@ -77,7 +77,9 @@ $(".right_control").click(function () {
 
 function img_iframe_responsive() {
     $("img, pre").css({
-        "width": $(".center").width() * 0.99
+        "width": $(".center").width() - 20,
+        'margin-left': '10px',
+        'margin-right': '10px',
     })
 
     $("iframe").css({
@@ -298,6 +300,26 @@ $(".newArticle").click(function () {
 $(".center > .content > .new_article > .edit_panel > .opera > .opera_right > .debug").click(function () {
     $(".center > .content > .new_article > .edit_panel").hide();
     var html_markdown = $(".center > .content > .new_article > .edit_panel > .editor > textarea").val().trim();
+
+    hljs.initHighlightingOnLoad();
+    var rendererMD = new marked.Renderer();
+        marked.setOptions({
+          renderer: rendererMD,
+          gfm: true,
+          tables: true,
+          breaks: false,
+          pedantic: false,
+          sanitize: false,
+          smartLists: true,
+          smartypants: false
+        });
+        var markdownString = html_markdown;
+        marked.setOptions({
+            highlight: function (code) {
+            return hljs.highlightAuto(code).value;
+          }
+        });
+
     $(".center > .content > .new_article > .preview_panel > .article_preview").html(marked(html_markdown));
     $(".center > .content > .new_article > .preview_panel").show();
 
@@ -853,6 +875,26 @@ function get_article(article_title) {
                 $(".center > .content > .old_article > .preview_panel").show();
                 $(".center > .content > .old_article > .preview_panel > .opera > .edit").hide();
                 $(".center > .content > .old_article > .preview_panel > .opera > .view").show();
+
+                hljs.initHighlightingOnLoad();
+                var rendererMD = new marked.Renderer();
+                    marked.setOptions({
+                      renderer: rendererMD,
+                      gfm: true,
+                      tables: true,
+                      breaks: false,
+                      pedantic: false,
+                      sanitize: false,
+                      smartLists: true,
+                      smartypants: false
+                    });
+                    var markdownString = content;
+                    marked.setOptions({
+                        highlight: function (code) {
+                        return hljs.highlightAuto(code).value;
+                      }
+                    });
+
                 $(".center > .content > .old_article > .preview_panel > .article_preview").html(marked(content));
                 $(".center > .content > .old_article > .preview_panel > .backup").attr("value", content);
                 $(".center > .content > .old_article > .preview_panel > .opera > .view > .base > .category_name").html(category_name);

@@ -249,32 +249,18 @@ body {
 
 .article_preview {
     cursor: crosshair;
+    margin: auto;
 }
 
 /* 文章显示样式，改变markdown默认样式 */
 pre {
-    color: white;
+    white-space: pre-wrap;
+    word-wrap: break-word;
     background-color: black;
-    /*width: 100%;*/
-
-    white-space:pre-wrap;
-    word-wrap:break-word;
-}
-
-code {
-    font-size: 14px;
-    color: green;
-}
-
-.article_preview {
-    /*margin-left: 20px;*/
-    /*font-size: 14px;*/
-    /*padding: auto;*/
-    margin: auto;
+    color: white;
 }
 
 .article_preview > table {
-    /*width: 99%;*/
     border: solid 1px;
 
     border-collapse:collapse;
