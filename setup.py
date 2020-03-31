@@ -22,7 +22,8 @@ setup(
         "ffmpeg-python",
         "filetype",
         "pillow",
-        "PyMySQL"
+        "PyMySQL",
+        "gevent"
     ],
     entry_points = """
     [console_scripts]
