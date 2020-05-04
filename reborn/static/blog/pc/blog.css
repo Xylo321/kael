@@ -280,3 +280,7 @@ h1 {
     font-weight: bold;
     font-size: 17px;
 }
+
+code, span[class*="hljs"] {
+    font-family: "My Monaco";
+}
