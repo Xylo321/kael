@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 setup(
     name='reborn',
     version='1.0.0',
-    url='https://github.com/zswj123/reborn',
+    url='',
     license='',
     maintainer='zswj123',
     maintainer_email='l2se@sina.cn',

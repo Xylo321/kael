@@ -87,6 +87,10 @@ function img_iframe_responsive() {
         "height": $(".center").width() * 0.7
     })
 
+    // $("img").css({
+    //     "height": $(".center").width() * 0.7
+    // })
+
     $(".article_preview > a, .article_preview > h1, .article_preview > h3, .article_preview > h4, .article_preview > h5, .article_preview > h6").css({
         "width": $(".center").width(),
         "text-overflow": "ellipsis",
@@ -477,6 +481,9 @@ $(".center > .content > .old_article > .edit_panel > .opera > .opera_right > .sa
                 });
             } else {
                 infor("修改文章失败", function () {
+                });
+
+                infor("登录超时或被测试", function () {
                 });
             }
         },
