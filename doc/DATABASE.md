@@ -162,7 +162,7 @@ create fulltext index name on category(name) with parser ngram;
 
 ## 三、REDIS
 
-安装Reids
+安装Redis
 ```
 sudo apt install redis-server
 ```
