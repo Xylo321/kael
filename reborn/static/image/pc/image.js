@@ -24,7 +24,7 @@ function set_photo_center() {
         "height": $(window).height() - $(".center > .opera").height() - $(".center > .content > h1").height(),
         "background-repeat": "no-repeat",
         "background-size": "contain",
-        //"margin-top": 20,
+        "margin-top": 20,
         "background-position": "center center",
         "-webkit-background-size": "contain",
         "-moz-background-size": "contain"
