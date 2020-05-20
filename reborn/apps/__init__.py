@@ -22,6 +22,9 @@ from reborn.settings.apps.image import MYSQL_CONFIG as IMAGE_MYSQL_CONFIG
 from reborn.settings.apps.search import MYSQL_CONFIG as SEARCH_MYSQL_CONFIG
 from reborn.settings.apps.video import MYSQL_CONFIG as VIDEO_MYSQL_CONFIG
 
+# ssl key crt file
+from reborn.settings import SSL_KEYFILE, SSL_CERTFILE
+
 # 设置MySQL和Redis
 REDIS_CLI = StrictRedis(host=REDIS_CONFIG['host'],
                         port=REDIS_CONFIG['port'],
@@ -125,7 +128,7 @@ def main():
     try:
         monkey.patch_all()
 
-        http_server = WSGIServer(('0.0.0.0', 8000), APP)
+        http_server = WSGIServer(('0.0.0.0', 8000), APP, keyfile=SSL_KEYFILE, certfile=SSL_CERTFILE)
         http_server.serve_forever()
     except Exception as e:
         logging.error(e)
@@ -158,4 +161,5 @@ def main():
 
 
 if __name__ == '__main__':
-    APP.run(host='0.0.0.0', port=8000, debug=True)
+    # APP.run(host='0.0.0.0', port=8000, debug=True)
+    main()
