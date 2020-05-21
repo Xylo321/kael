@@ -5,7 +5,7 @@ import os
 
 from flask import request, session, Blueprint
 
-from reborn.apps import ACCOUNT_MYSQL_POOL, IMAGE_MYSQL_POOL
+from reborn import ACCOUNT_MYSQL_POOL, IMAGE_MYSQL_POOL
 from reborn.db.account import User
 from reborn.db.image import Category, Photo
 from reborn.settings.apps.account import IS_LOGIN

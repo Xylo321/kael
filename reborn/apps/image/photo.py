@@ -4,7 +4,7 @@ import time
 from flask import request, session, Blueprint, send_from_directory, redirect, url_for
 from werkzeug.utils import secure_filename
 
-from reborn.apps import ACCOUNT_MYSQL_POOL, IMAGE_MYSQL_POOL
+from reborn import ACCOUNT_MYSQL_POOL, IMAGE_MYSQL_POOL
 from reborn.db.account import User
 from reborn.db.image import Photo, Category
 from reborn.settings.apps.account import IS_LOGIN

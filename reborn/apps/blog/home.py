@@ -1,6 +1,6 @@
 from flask import request, session, redirect, url_for, render_template, Blueprint, abort
 
-from reborn import apps
+from reborn import ACCOUNT_MYSQL_POOL, BLOG_MYSQL_POOL
 from reborn.db.account import User
 from reborn.db.blog import Article
 from reborn.settings.apps.account import IS_LOGIN
@@ -27,7 +27,7 @@ def home():
 
             # 是否 look 为 空 或者 不在 url参数中
             if look:  # 是
-                user = User(apps.ACCOUNT_MYSQL_POOL)
+                user = User(ACCOUNT_MYSQL_POOL)
                 # 根据 look 查询出 look 用户名的 user_id
                 vi_user_id = user.get_user_id(look)
 
@@ -35,7 +35,7 @@ def home():
                 if vi_user_id != None:  # 存在
                     context = {};
                     if article_title:
-                        article = Article(apps.BLOG_MYSQL_POOL)
+                        article = Article(BLOG_MYSQL_POOL)
                         if None != article.get_article(article_title, vi_user_id):
                             context = {
                                 "look": look,
@@ -65,7 +65,7 @@ def home():
                 else:  # 不存在
                     abort(404, 'User does not exist.')
             else:  # 否
-                user = User(apps.ACCOUNT_MYSQL_POOL)
+                user = User(ACCOUNT_MYSQL_POOL)
                 user_name = user.get_name(user_id)
                 context = {
                     "user_name": user_name
@@ -80,11 +80,11 @@ def home():
             article_title = request.args.get("article_title")
 
             if look:
-                user = User(apps.ACCOUNT_MYSQL_POOL)
+                user = User(ACCOUNT_MYSQL_POOL)
                 user_id = user.get_user_id(look)
                 if user_id != None:
                     if article_title:
-                        article = Article(apps.BLOG_MYSQL_POOL)
+                        article = Article(BLOG_MYSQL_POOL)
                         if None != article.get_article(article_title, user_id):
                             context = {
                                 "look": look,

@@ -1,6 +1,6 @@
 from flask import request, session, redirect, url_for, render_template, Blueprint, abort
 
-from reborn.apps import ACCOUNT_MYSQL_POOL, VIDEO_MYSQL_POOL
+from reborn import ACCOUNT_MYSQL_POOL, VIDEO_MYSQL_POOL
 from reborn.db.account import User
 from reborn.db.video import Video
 from reborn.settings.apps.account import IS_LOGIN

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, session, request, abort, redirect, url_for
 
-from reborn.apps import ACCOUNT_MYSQL_POOL
-from reborn.apps import SEARCH_MYSQL_POOL
+from reborn import ACCOUNT_MYSQL_POOL
+from reborn import SEARCH_MYSQL_POOL
 from reborn.db.account import User
 from reborn.db.search import ArticleSearch, ImageSearch, VideoSearch
 from reborn.settings.apps.account import IS_LOGIN
