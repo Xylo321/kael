@@ -1,5 +1,4 @@
 version = '2.0.0'
-
 from gevent.pywsgi import WSGIServer
 from gevent import monkey
 
@@ -160,5 +159,5 @@ def main():
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
-    APP.run(host='0.0.0.0', port=8000, ssl_context=(SSL_CERTFILE, SSL_KEYFILE))
+    logging.basicConfig(level=logging.ERROR)
+    APP.run(host='0.0.0.0', port=8000, debug=True, ssl_context=(SSL_CERTFILE, SSL_KEYFILE))
