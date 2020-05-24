@@ -41,7 +41,7 @@ def add_article():
     """
     增加文章
 
-    POST 请求form表单 {"title": xxx, "category_name": xxx, "content" xxx}
+    POST 请求form表单 {"title": xxx, "category_name": xxx, "content" xxx, "is_public": xxx}
         返回json 成功: {"data": [], "status": 1}
                 失败: {"data": [], "status": -1}
     """
@@ -49,11 +49,12 @@ def add_article():
         title = request.form['title']
         category_name = request.form['category_name']
         content = request.form['content']
+        is_public = request.form['is_public']
 
         user_id = session.get(IS_LOGIN)
         if user_id != None:
             article = Article(BLOG_MYSQL_POOL)
-            result = article.add_article(title, category_name, content, user_id)
+            result = article.add_article(title, category_name, content, is_public, user_id)
             return {
                 "data": [],
                 "status": result
@@ -145,12 +146,12 @@ def get_article():
 
     GET 获取未登录用户
         url参数 ?look=xxx
-        返回json 成功: {"data": [{"title": xxx, "date": xxx, "content": xxx, "category_name": xxx}], "status": 1}
+        返回json 成功: {"data": [{"title": xxx, "date": xxx, "content": xxx, "category_name": xxx, "is_public": xxx}], "status": 1}
         失败: {"data": [], "status": -1}
 
     POST 获取已登录用户
         请求form表单 {"title": xxx}
-        返回json 成功: {"data": [{"title": xxx, "date": xxx, "content": xxx, "category_name": xxx}], "status": 1}
+        返回json 成功: {"data": [{"title": xxx, "date": xxx, "content": xxx, "category_name": xxx, "is_public": xxx}], "status": 1}
                 失败: {"data": [], "status": -1}
     """
     if request.method == 'POST':
@@ -186,6 +187,9 @@ def get_article():
                 article = Article(BLOG_MYSQL_POOL)
                 result = article.get_article(title, vi_user_id)
                 if result is not None:
+                    login_uid = session.get(IS_LOGIN)
+                    if result[0]['is_public'] != Article.SHOW and login_uid != vi_user_id:
+                        result[0]['content'] = '# %s\r\n\r\n该文章作者没有公开！' % title
                     return {
                         "data": result,
                         "status": 1
@@ -212,7 +216,7 @@ def update_article():
     """
     修改文章内容
 
-    POST 请求form表单 {"src_title": xxx, "new_title", xxx, "category_name": xxx, "content": xxx}
+    POST 请求form表单 {"src_title": xxx, "new_title", xxx, "category_name": xxx, "is_public": xxx, "content": xxx}
         返回json 成功: {"data": [], "status": 1}
                 失败: {"data": [], "status": -1}
     """
@@ -220,13 +224,14 @@ def update_article():
         src_title = request.form['src_title']
         new_title = request.form['new_title']
         category_name = request.form['category_name']
+        is_public = request.form['is_public']
         content = request.form['content']
 
         user_id = session.get(IS_LOGIN)
         if user_id != None:
             article = Article(BLOG_MYSQL_POOL)
             result = article.update_article(src_title, new_title,
-                                            category_name, content, user_id)
+                                            category_name, is_public, content, user_id)
             return {
                 "data": [],
                 "status": result

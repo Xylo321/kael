@@ -86,6 +86,10 @@
                     </div>
                     <div class="opera_right">
                         <a class="debug">预览</a>
+                        <select name="is_public" class="is_public">
+                            <option value="0">公开</option>
+                            <option value="1">隐藏</option>
+                        </select>
                         <a class="save">保存</a>
                         <a class="close">关闭</a>
                     </div>
@@ -113,6 +117,10 @@
                     </div>
                     <div class="opera_right">
                         <a class="debug">预览</a>
+                        <select name="is_public" class="is_public">
+                            <option value="0">公开</option>
+                            <option value="1">隐藏</option>
+                        </select>
                         <a class="save">更新</a>
                         <a class="close">关闭</a>
                     </div>
@@ -131,6 +139,7 @@
                             <span class="category_name" title="文章类别"></span>
                             <span class="date" title="文章日期"></span>
                             <hidden class="title" value=""></hidden>
+                            <hidden class="is_public" value=""></hidden>
                         </div>
                         <div class="other">
                             {% if look %}

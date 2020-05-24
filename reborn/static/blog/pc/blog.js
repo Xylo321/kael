@@ -378,6 +378,7 @@ $(".center > .content > .new_article > .edit_panel > .opera > .opera_right > .sa
     var html_markdown = $(".center > .content > .new_article > .edit_panel > .editor > textarea").val().trim();
     var article_title = $(".center > .content > .new_article > .edit_panel > .opera > .opera_left > .title").val().trim();
     var article_category_name = $(".center > .content > .new_article > .edit_panel > .opera > .opera_left > .category_name").val();
+    var is_public = $(".center > .content > .new_article > .edit_panel > .opera > .opera_right > .is_public").val().trim();
 
     if (html_markdown == "") {
         infor("文章内容不能为空", function () {
@@ -399,6 +400,7 @@ $(".center > .content > .new_article > .edit_panel > .opera > .opera_right > .sa
         data: {
             title: article_title,
             category_name: article_category_name,
+            is_public: is_public,
             content: html_markdown
         },
         success: function (data) {
@@ -443,6 +445,7 @@ $(".center > .content > .new_article > .edit_panel > .opera > .opera_right > .sa
 $(".center > .content > .old_article > .edit_panel > .opera > .opera_right > .save").click(function () {
     var src_article_title = $(".base > .title").attr("value");
     var new_article_title = $(".center > .content > .old_article > .edit_panel > .opera > .opera_left > .title").val().trim();
+    var is_public = $(".center > .content > .old_article > .edit_panel > .opera > .opera_right > .is_public").val().trim();
     var content = $(".center > .content > .old_article > .edit_panel > .editor > textarea").val().trim();
 
     var article_category_name = $(".center > .content > .old_article > .edit_panel > .opera > .opera_left > .category_name").val();
@@ -468,6 +471,7 @@ $(".center > .content > .old_article > .edit_panel > .opera > .opera_right > .sa
             src_title: src_article_title,
             new_title: new_article_title,
             category_name: article_category_name,
+            is_public: is_public,
             content: content
         },
         success: function (data) {
@@ -875,6 +879,7 @@ function get_article(article_title) {
                 var date = data.data[0].date;
                 var content = data.data[0].content;
                 var category_name = data.data[0].category_name;
+                var is_public = data.data[0].is_public;
 
                 $(".newArticle").show();
                 $(".center > .content > .old_article").show();
@@ -907,6 +912,7 @@ function get_article(article_title) {
                 $(".center > .content > .old_article > .preview_panel > .opera > .view > .base > .category_name").html(category_name);
                 $(".center > .content > .old_article > .preview_panel > .opera > .view > .base > .date").html(new Date(date * 1000).toLocaleString());
                 $(".center > .content > .old_article > .preview_panel > .opera > .view > .base > .title").attr("value", title);
+                $(".center > .content > .old_article > .preview_panel > .opera > .view > .base > .is_public").attr("value", is_public);
 
                 img_iframe_responsive()
             } else {
@@ -967,6 +973,7 @@ $(".other > .update").click(function() {
     /* 获取旧文章内容 */
     var content = $(".center > .content > .old_article > .preview_panel > .backup").attr("value");
     var title = $(".center > .content > .old_article > .preview_panel > .opera > .view > .base > .title").attr("value");
+    var is_public = $(".center > .content > .old_article > .preview_panel > .opera > .view > .base > .is_public").attr("value");
     var category_name = $(".center > .content > .old_article > .preview_panel > .opera > .view > .base > .ccategory_name").html();
 
     $(".center > .content > .old_article > .preview_panel").hide();
@@ -978,6 +985,8 @@ $(".other > .update").click(function() {
     $(".center > .content > .old_article > .edit_panel > .editor > textarea").val(content);
 
     $(".center > .content > .old_article > .edit_panel > .opera > .opera_left > .title").val(title);
+
+    $(".center > .content > .old_article > .edit_panel > .opera > .opera_right > .is_public").val(is_public);
 
     var category_name = $(".base > .category_name").html();
 

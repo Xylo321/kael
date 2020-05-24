@@ -76,6 +76,9 @@ class Category(MySQLBase):
 
 
 class Article(MySQLBase):
+    SHOW = 0
+    HIDDEN = 1
+
     def delete_article(self, title, user_id):
         sql = "delete from article where title = %s and user_id = %s"
         args = (title, user_id)
@@ -94,14 +97,14 @@ class Article(MySQLBase):
         else:
             return -1
 
-    def add_article(self, title, category_name, content, user_id):
+    def add_article(self, title, category_name, content, is_public, user_id):
         result = self._exist(title, user_id)
         if result == -1:
             category = Category(self.rdbms_pool)
             category_id = category.get_category_id(category_name, user_id)
             if category_id:
-                sql = "insert into article(title, category_id, content, user_id, date) value(%s, %s, %s, %s, %s)"
-                args = (title, category_id, content, user_id, int(time.time()))
+                sql = "insert into article(title, category_id, is_public, content, user_id, date) value(%s, %s, %s, %s, %s, %s)"
+                args = (title, category_id, is_public, content, user_id, int(time.time()))
                 affect_rows = self.rdbms_pool.edit(sql, args)
                 if affect_rows == 0:
                     return -1
@@ -112,15 +115,15 @@ class Article(MySQLBase):
         else:
             return -1
 
-    def robot_add_article(self, title, category_name, content, user_id, url):
+    def robot_add_article(self, title, is_public, category_name, content, user_id, url):
         result = self._exist(title, user_id)
         if result == -1:
             category = Category(self.rdbms_pool)
             category_id = category.get_category_id(category_name, user_id)
             if category_id:
                 # 据说ignore能增加插入速度
-                sql = "insert ignore into article(title, category_id, content, user_id, date, url) value(%s, %s, %s, %s, %s, %s)"
-                args = (title, category_id, content, user_id, int(time.time()), url)
+                sql = "insert ignore into article(title, category_id, is_public, content, user_id, date, url) value(%s, %s, %s, %s, %s, %s, %s)"
+                args = (title, category_id, is_public, content, user_id, int(time.time()), url)
                 affect_rows = self.rdbms_pool.edit(sql, args)
                 if affect_rows == 0:
                     return -1
@@ -167,7 +170,7 @@ class Article(MySQLBase):
                 return None
 
     def get_article(self, title, user_id):
-        sql = "select A.title, A.content, A.date, B.name as category_name " \
+        sql = "select A.title, A.content, A.date, B.name as category_name, A.is_public " \
               "from article A inner join category B on A.category_id = B.id " \
               "where A.title = %s and A.user_id = %s"
 
@@ -178,12 +181,12 @@ class Article(MySQLBase):
         else:
             return None
 
-    def update_article(self, src_title, new_title, category_name, content, user_id):
+    def update_article(self, src_title, new_title, category_name, is_public, content, user_id):
         sql = "update article set title = %s, content = %s, " \
               "category_id = (select id from category where name = %s), " \
-              "date = %s where title = %s and user_id = %s"
+              "date = %s, is_public = %s where title = %s and user_id = %s"
 
-        args = (new_title, content, category_name, int(time.time()), src_title, user_id)
+        args = (new_title, content, category_name, int(time.time()), is_public, src_title, user_id)
         result = self.rdbms_pool.edit(sql, args)
         if result != 0:
             return 1
