@@ -95,7 +95,7 @@ fieldset {
 
 .article > .human > fieldset > .content,
 .article > .robot > fieldset > .content {
-    height: 215px;
+    height: 230px;
 }
 
 .article > .human > fieldset > .content > div,
