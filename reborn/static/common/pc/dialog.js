@@ -19,6 +19,8 @@ function infor(message, callback, fight) {
         $("#infor > .button").hide();
 
         document.getElementById('bm').pause();
+        document.getElementById('idea').pause();
+
         document.getElementById('88').play();
         setTimeout(function() {
             callback();

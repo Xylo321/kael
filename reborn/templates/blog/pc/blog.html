@@ -186,19 +186,18 @@
 <script src={{url_for('static', filename="blog/pc/blog.js")}}></script>
 {% include "common/pc/dialog.html" %}
 
-<div class="music"></div>
+<div class="music">
+    <audio id="bm" controls="controls" hidden autoplay="autoplay" loop="loop">
+        <source src={{url_for('static', filename="blog/Jeremy Lim - Uncharted (Original Mix).mp3")}}/>
+    </audio>
 
-<script defer>
-    // setTimeout(function() {
-    //     $(".music").html(
-    //         '<audio id="bm" controls="controls" hidden autoplay="autoplay" loop="loop">' +
-    //         '<source src={{url_for('static', filename="blog/琵琶语_林海.mp3")}}/>' +
-    //         '</audio>' +
-    //
-    //         '<audio id="88">' +
-    //         '<source src={{url_for('static', filename="blog/许嵩,何曼婷 - 素颜.flac")}}/>' +
-    //         '</audio>')
-    // }, 5000);
-</script>
+    <audio id="88">
+        <source src={{url_for('static', filename="blog/许嵩,何曼婷 - 素颜.flac")}}/>
+    </audio>
+
+    <audio id="idea" controls="controls" hidden loop="loop">
+        <source src={{url_for('static', filename="blog/赵季平 - 悬空寺-仪琳.flac")}}/>
+    </audio>
+</div>
 </body>
 </html>
