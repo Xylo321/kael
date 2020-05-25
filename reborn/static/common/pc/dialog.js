@@ -85,10 +85,10 @@ function shuru(sender, message, position, conirm_callback, cancel_callback) {
 }
 
 /* 上传文件对话框 */
-function upload_file(sender, message, position, conirm_callback, cancel_callback) {
-    $("#upload_file > .layout > input").val("");
-    $("#upload_file > .layout > input").focus();
-    $("#upload_file > .layout > input").attr("placeholder", message);
+function upload_file(sender, src_title, message, position, conirm_callback, cancel_callback) {
+    $("#upload_file > .layout > .upload_file_title").val(src_title);
+    $("#upload_file > .layout > .upload_file_title").focus();
+    $("#upload_file > .layout > .upload_file_title").attr("placeholder", message);
 
     $("#upload_file").show();
     switch(position) {

@@ -41,7 +41,7 @@ $(".left_control").click(function () {
     } else {
         $(".left").show();
         $(".left_control").css({
-            "left": "300px"
+            "left": "250px"
         });
     }
 });
@@ -56,7 +56,7 @@ $(".right_control").click(function () {
     } else {
         $(".right").show();
         $(".right_control").css({
-            "right": "300px"
+            "right": "250px"
         });
     }
 });
@@ -105,8 +105,8 @@ function responsive() {
         $(".right_control").show();
 
         $('.center').css({
-            "width": width - 300,
-            "margin-left": "300px",
+            "width": width - 250,
+            "margin-left": "250px",
             "margin-right": "0",
         });
 
@@ -122,7 +122,7 @@ function responsive() {
             });
 
             $('.center').css({
-                "width": width - 300,
+                "width": width - 250,
                 "margin-left": "150px",
                 "margin-right": "150px",
             });
@@ -138,9 +138,9 @@ function responsive() {
         $(".right_control").hide();
 
         $('.center').css({
-            "width": width - 600,
-            "margin-left": "300px",
-            "margin-right": "300px"
+            "width": width - 500,
+            "margin-left": "250px",
+            "margin-right": "250px"
         });
 
         if(height / width > 0.65 || height / width < 0.5) {
@@ -152,7 +152,7 @@ function responsive() {
             });
 
             $('.center').css({
-                "width": width - 300,
+                "width": width - 250,
                 "margin-left": "150px",
                 "margin-right": "150px",
             });
@@ -168,9 +168,9 @@ function responsive() {
         $(".right_control").show();
 
         $('.center').css({
-            "width": width - 600,
-            "margin-left": 300,
-            "margin-right": 300
+            "width": width - 500,
+            "margin-left": 250,
+            "margin-right": 250
         });
 
         $(".left_control").css({
@@ -304,7 +304,8 @@ $(".newvideo").click(function () {
                 //     console.log(percent);
                 // }),
             });
-        }, false);
+        }, function () {
+        });
     }
 });
 

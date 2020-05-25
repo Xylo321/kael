@@ -528,7 +528,7 @@ $(".upload").click(function () {
 
     refresh_categories("#upload_file > .layout > .categories");
 
-    upload_file($(this), "上传文件标题", "left", function () {
+    upload_file($(this), "", "上传文件标题", "left", function () {
         var title = $("#upload_file > .layout > .upload_file_title").val().trim();
         var file_name = $("#upload_file > .layout > .upload_file_name").val();
         var category_name = $("#upload_file > .layout > .categories").val();
@@ -626,7 +626,7 @@ $(".other > .edit").click(function() {
 
     refresh_categories("#upload_file > .layout > .categories");
 
-    upload_file($(this), "新文件标题", "left", function () {
+    upload_file($(this), src_title, "新文件标题", "left", function () {
         var new_title = $("#upload_file > .layout > .upload_file_title").val().trim();
         var file_name = $("#upload_file > .layout > .upload_file_name").val();
         var category_name = $("#upload_file > .layout > .categories").val();
