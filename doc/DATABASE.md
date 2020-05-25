@@ -74,16 +74,19 @@ create fulltext index name on user(name) with parser ngram;
 ```sql
 CREATE DATABASE `blog` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 CREATE TABLE `article` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `content` text NOT NULL,
-  `date` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `url` text,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title_user_id` (`title`,`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58499 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `user_id` int NOT NULL,
+  `is_public` tinyint NOT NULL COMMENT '0显示，1隐藏',
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `date` int NOT NULL,
+  `category_id` int NOT NULL,
+  `url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `downloaded` smallint DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `title_user_id` (`title`,`user_id`) USING BTREE,
+  FULLTEXT KEY `title_content` (`title`,`content`) /*!50100 WITH PARSER `ngram` */ 
+) ENGINE=InnoDB AUTO_INCREMENT=72263 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
