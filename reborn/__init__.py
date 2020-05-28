@@ -122,6 +122,7 @@ APP.register_blueprint(VIDEO_VIDEO_BP, url_prefix="/video")
 
 
 def main():
+    print(SSL_CERTFILE, SSL_KEYFILE)
     try:
         monkey.patch_all()
 
