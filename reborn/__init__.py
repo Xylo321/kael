@@ -71,7 +71,7 @@ APP = Flask(__name__, static_folder=STATIC_FOLDER,
 
 APP.config.from_mapping(
     SECRET_KEY=SECRET_KEY,
-    SEND_FILE_MAX_AGE_DEFAULT=timedelta(seconds=1),
+    SEND_FILE_MAX_AGE_DEFAULT=timedelta(seconds=24 * 60 * 60),
     SESSION_TYPE="redis",
     SESSION_REDIS=REDIS_CLI,
     SESSION_KEY_PREFIX="SESSION:",
@@ -160,4 +160,8 @@ def main():
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.ERROR)
-    APP.run(host='0.0.0.0', port=8000, debug=True, ssl_context=(SSL_CERTFILE, SSL_KEYFILE))
+    import platform
+    if 'Linux' in platform.platform():
+        main()
+    else:
+        APP.run(host='0.0.0.0', port=8000, debug=True, ssl_context=(SSL_CERTFILE, SSL_KEYFILE))
