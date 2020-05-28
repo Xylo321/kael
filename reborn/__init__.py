@@ -1,4 +1,3 @@
-version = '2.0.0'
 from gevent.pywsgi import WSGIServer
 from gevent import monkey
 
