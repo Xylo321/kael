@@ -35,15 +35,15 @@ $(".send_search").click(function() {
     // 获取机器图片搜索总页数
     get_image_total_page(key_word, 0);
 
-    // // 搜索人类视频
-    // search_video(key_word, 1, 1);
-    // // 搜索机器视频
-    // search_video(key_word, 1, 0);
-    //
-    // // 获取人类视频搜索总页数
-    // get_video_total_page(key_word, 1);
-    // // 获取机器视频搜索总页数
-    // get_video_total_page(key_word, 0);
+    // 搜索人类视频
+    search_video(key_word, 1, 1);
+    // 搜索机器视频
+    search_video(key_word, 1, 0);
+
+    // 获取人类视频搜索总页数
+    get_video_total_page(key_word, 1);
+    // 获取机器视频搜索总页数
+    get_video_total_page(key_word, 0);
 
     $(this).hide();
     $(".my > .change_search").show();
@@ -70,15 +70,15 @@ $(window).resize(function() {
 });
 
 function responsive() {
-    var fw = $(".top > .nav").width() + $(".top > .account").width();
-    if($(window).width() > fw)
-        $(".top").css({
-            "width": $(window).width()
-        })
-    else
-        $(".top").css({
-            "width": fw
-        })
+    // var fw = $(".top > .nav").width() + $(".top > .account").width();
+    // if($(window).width() > fw)
+    //     $(".top").css({
+    //         "width": $(window).width()
+    //     })
+    // else
+    //     $(".top").css({
+    //         "width": fw
+    //     })
 }
 
 /* 退出登陆 */

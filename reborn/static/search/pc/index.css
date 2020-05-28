@@ -13,10 +13,16 @@ fieldset {
     border: #FFCC99 1px solid;
 }
 
+.top {
+    background-color: #FFCC99;
+    height: 25px;
+    width: 100%;
+    min-width: 960px;
+}
+
 .nav {
-    width: auto;
-    box-sizing: content-box;
     font-size: 16px;
+    float: left;
 }
 .nav > ul {
     list-style: none;
@@ -26,13 +32,8 @@ fieldset {
     float: left;
 }
 
-.nav > .account {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    background-color: red;
-    white-space: nowrap;
-    display: inline;
+.account {
+    float: right;
 }
 
 .center {
@@ -154,19 +155,6 @@ a:hover {
 
 input {
     outline: none;
-}
-
-.top {
-    background-color: #FFCC99;
-    height: 25px;
-}
-
-.top > .nav {
-    float: left;
-}
-
-.top > .account {
-    float: right;
 }
 
 .logo {
