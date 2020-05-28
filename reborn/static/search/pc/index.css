@@ -61,6 +61,7 @@ fieldset {
     box-sizing: border-box;
     text-align: left;
     width: 840px;
+    border: solid #cccccc 1px;
 }
 
 .my > .send_search, .my > .change_search {
