@@ -154,19 +154,35 @@ function upload_video(sender, conirm_callback, cancel_callback) {
     });
 }
 
-function xhr_on_progress(fun) {
-  xhr_on_progress.onprogress = fun; //绑定监听
-  //使用闭包实现监听绑
-  return function() {
-    //通过$.ajaxSettings.xhr();获得XMLHttpRequest对象
-    var xhr = $.ajaxSettings.xhr();
-    //判断监听函数是否为函数
-    if (typeof xhr_on_progress.onprogress !== 'function')
-      return xhr;
-    //如果有监听函数并且xhr对象支持绑定时就把监听函数绑定上去
-    if (xhr_on_progress.onprogress && xhr.upload) {
-      xhr.upload.onprogress = xhrOnProgress.onprogress;
+/* 进度条不知道如何做对话框 */
+function set_progress(num) {
+    $("#upload_progressbar > .layout > meter").attr("value", num);
+}
+
+function show_progress() {
+    $("#upload_progressbar").show();
+}
+
+function reset_progress() {
+    $("#upload_progressbar").hide();
+    $("#upload_progressbar > .layout > meter").attr("value", "0");
+}
+
+function progress() {
+    show_progress();
+    xhr_obj = new XMLHttpRequest();
+    if(xhr_obj.upload){ // check if upload property exists
+        xhr_obj.upload.addEventListener('progress',function(e){
+            var loaded = e.loaded; //已经上传大小情况
+            var total = e.total; //附件总大小
+            var percent = Math.abs(100 * loaded / total);
+            set_progress(percent);
+
+            if (percent == 100) {
+                reset_progress();
+            }
+        }, false); // for handling the progress of the upload
     }
-    return xhr;
-  }
+
+    return xhr_obj;
 }

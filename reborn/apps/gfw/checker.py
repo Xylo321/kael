@@ -11,8 +11,8 @@ def check_request_headers():
     检查请求头
     """
     # print(request.headers)
-    # if not request.headers.has_key('User-Agent'):
-    #     abort(403, 'Wrong User-Agent.')
+    if not request.headers.has_key('User-Agent'):
+        abort(403, '错误的请求头。')
 
     if request.headers.has_key("User-Agent"):
         ua = request.headers['User-Agent']

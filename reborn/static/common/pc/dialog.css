@@ -122,3 +122,27 @@ a {
 #upload_video > .layout > .confirm {
     margin-left: 230px;
 }
+
+#upload_progressbar {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .2);
+
+    z-index: 2;
+}
+
+#upload_progressbar > .layout {
+    width: inherit;
+    height: inherit;
+}
+
+#upload_progressbar > .layout > meter {
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

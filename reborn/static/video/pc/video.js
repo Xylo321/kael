@@ -299,10 +299,7 @@ $(".newvideo").click(function () {
                     });
                 },
                 async: true,
-                // xhr: xhr_on_progress(function(evt){
-                //     var percent = Math.floor(evt.loaded / evt.total*100);//计算百分比
-                //     console.log(percent);
-                // }),
+                xhr: progress
             });
         }, function () {
         });

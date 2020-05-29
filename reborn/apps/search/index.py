@@ -25,18 +25,17 @@ def index():
                 if pc_or_mobile(request.headers['User-Agent']) == PC:
                     return render_template("search/pc/index.html", **context)
                 else:
-                    abort(403, '移动端网站正在建设中。')
+                    return render_template("search/pc/index.html")
             else:
                 if pc_or_mobile(request.headers['User-Agent']) == PC:
                     return render_template("search/pc/index.html")
                 else:
-                    abort(403, '移动端网站正在建设中。')
-
+                    abort(403, '移动端网站暂时不支持。')
         else:
             if pc_or_mobile(request.headers['User-Agent']) == PC:
                 return render_template("search/pc/index.html")
             else:
-                abort(403, '移动端网站正在建设中。')
+                abort(403, '移动端网站暂时不支持。')
 
 
 @SEARCH_INDEX_BP.route('/search_article', methods=['POST'])

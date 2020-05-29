@@ -40,7 +40,7 @@ def home():
                             return render_template(
                                 "video/pc/video.html", **context)
                         else:
-                            abort(404, 'Video does not exist.')
+                            abort(404, '视屏不存在。')
                     else:
                         context = {
                             "look": look,
@@ -49,7 +49,7 @@ def home():
                         }
                         return render_template("video/pc/video.html", **context)
                 else:
-                    abort(404, 'User does not exist.')
+                    abort(404, '用户不存在。')
             else:
                 user = User(ACCOUNT_MYSQL_POOL)
                 user_name = user.get_name(user_id)
@@ -78,6 +78,6 @@ def home():
                         }
                     return render_template("video/pc/video.html", **context)
                 else:
-                    abort(404, 'User does not exist.')
+                    abort(404, '用户不存在。')
             else:
                 return redirect(url_for("user_bp.login"))

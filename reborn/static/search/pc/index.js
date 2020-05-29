@@ -1,5 +1,4 @@
-/* 点击搜索 */
-$(".send_search").click(function() {
+function SYX() {
     var key_word = $(".key_word").val().trim();
 
     if(key_word.length > 255) {
@@ -45,12 +44,17 @@ $(".send_search").click(function() {
     // 获取机器视频搜索总页数
     get_video_total_page(key_word, 0);
 
-    $(this).hide();
+    $(".send_search").hide();
     $(".my > .change_search").show();
     $(".my > .key_word").attr("readonly", true);
     $(".my > .key_word").css({
         "background-color": "#cccccc"
     });
+}
+
+/* 点击搜索 */
+$(".send_search").click(function() {
+    SYX();
 });
 
 /* 点击换词 */
@@ -983,3 +987,9 @@ $(function() {
         console.log(e)
     }
 });
+
+function keydown_send_search(e) {
+    if (e.keyCode == 13) {
+        SYX();
+    }
+}
