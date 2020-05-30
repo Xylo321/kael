@@ -25,6 +25,10 @@ from reborn.settings.apps.video import MYSQL_CONFIG as VIDEO_MYSQL_CONFIG
 # ssl key crt file
 from reborn.settings import SSL_KEYFILE, SSL_CERTFILE
 
+# static expire time, session expire time
+from reborn.settings.apps import STATIC_FILE_EXPIRE
+from reborn.settings.apps.account import SESSION_EXPIRE
+
 # 设置MySQL和Redis
 REDIS_CLI = StrictRedis(host=REDIS_CONFIG['host'],
                         port=REDIS_CONFIG['port'],
@@ -70,12 +74,12 @@ APP = Flask(__name__, static_folder=STATIC_FOLDER,
 
 APP.config.from_mapping(
     SECRET_KEY=SECRET_KEY,
-    SEND_FILE_MAX_AGE_DEFAULT=timedelta(seconds=1),
+    SEND_FILE_MAX_AGE_DEFAULT=timedelta(seconds=STATIC_FILE_EXPIRE),
     SESSION_TYPE="redis",
     SESSION_REDIS=REDIS_CLI,
     SESSION_KEY_PREFIX="SESSION:",
     # session超时时间
-    PERMANENT_SESSION_LIFETIME=timedelta(seconds=60 * 60),
+    PERMANENT_SESSION_LIFETIME=timedelta(seconds=SESSION_EXPIRE),
     # MAX_CONTENT_LENGTH=16 * 1024 * 1024
 )
 

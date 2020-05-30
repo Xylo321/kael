@@ -25,3 +25,6 @@ REDIS_CONFIG = {
     "db": 0,
     "passwd": 'mm5201314'
 }
+
+# session超时时间
+SESSION_EXPIRE = 60 * 60

@@ -1,6 +1,7 @@
 import random
+import json
 
-from flask import request, session, redirect, url_for, render_template, Blueprint, abort
+from flask import request, session, redirect, url_for, render_template, Blueprint, abort, make_response
 
 from reborn import ACCOUNT_MYSQL_POOL
 from reborn.db.account import User
@@ -38,10 +39,12 @@ def login():
         user_id = user.login(request.form['name'], request.form['passwd'])
         if user_id != None:
             session[IS_LOGIN] = user_id
-            return {
+            resp = make_response(json.dumps({
                 "data": [],
                 "status": 1
-            }
+            }))
+
+            return resp
         else:
             return {
                 "data": [],
