@@ -564,6 +564,7 @@ $(".upload").click(function () {
                 }
             },
             error: function(err) {
+                reset_progress();
                 infor("网络错误", function () {
                 });
             },
@@ -667,10 +668,12 @@ $(".other > .edit").click(function() {
                 }
             },
             error: function(err) {
+                reset_progress();
                 infor("网络错误", function () {
                 });
             },
-            async: true
+            async: true,
+            xhr: progress
         });
     }, function () {
     });
