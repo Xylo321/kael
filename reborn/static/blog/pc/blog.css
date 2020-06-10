@@ -284,3 +284,7 @@ h1 {
 code, span[class*="hljs"] {
     font-family: "My Monaco";
 }
+
+.article_preview > table {
+    margin-left: 10px;
+}
