@@ -152,6 +152,11 @@ a:hover {
     z-index: 0;
 }
 
+video:focus {
+    /*当video获得焦点时会导致video容器边框根据浏览器内置的默认显示出颜色*/
+    outline: none;
+}
+
 .content > .base_infor {
     width: inherit;
 }
