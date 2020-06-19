@@ -16,15 +16,16 @@
 }
 
 #infor > .message {
-    float: left;
-    /*position: absolute;*/
+    position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
 }
 
 #infor > .button {
-    float: right;
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }
 
 #shuru {

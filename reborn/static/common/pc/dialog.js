@@ -1,12 +1,6 @@
 /* 信息对话框 */
 function infor(message, callback, fight) {
     $("#infor > .message").text(message);
-
-    $("#infor > .message").css({
-        "margin-top": $("#infor").height() / 2 - $("#infor > .message").height() / 2,
-        "margin-left": $("#infor").width() / 2 - $("#infor > .message").width() / 2
-    });
-
     $("#infor").show();
 
     if(fight != true) {
@@ -31,13 +25,6 @@ function infor(message, callback, fight) {
 }
 
 $(window).resize(function() {
-    if($("#infor").is(":visible")) {
-        $("#infor > .message").css({
-            "margin-top": $("#infor").height() / 2 - $("#infor > .message").height() / 2,
-            "margin-left": $("#infor").width() / 2 - $("#infor > .message").width() / 2
-        });
-    }
-
     if($("#shuru").is(":visible")) {
         $("#shuru").hide();
     }
