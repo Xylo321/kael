@@ -15,6 +15,10 @@
     width: 20px;
 }
 
+#infor > .button {
+    cursor: pointer;
+}
+
 #infor > .message {
     position: absolute;
     left: 50%;
