@@ -77,12 +77,24 @@ a {
     background-color: #FFCC99;
     /* 设置不自动换行 */
     white-space: nowrap;
-    width: fit-content;  /* 这个不兼容ie */
-    height: fit-content;
+    width: fit-content;  /* 这个不兼容ie，火狐 */
+    width: -moz-fit-content;  /* 火狐下的fit-content */
 }
 
 #upload_file > .layout > select {
     width: 78px;
+}
+
+#upload_file > .layout > .upload_file_title {
+    width: 132px;
+}
+
+#upload_file > .layout > .upload_file_name {
+    width: 200px;
+}
+
+#upload_file > .layout > a {
+    width: 32px;
 }
 
 #upload_video {
@@ -112,7 +124,7 @@ a {
 }
 
 #upload_video > .layout > .upload_file_title {
-    width: 190px;
+    width: 185px;
 }
 
 #upload_video > .layout > .categories {

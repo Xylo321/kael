@@ -69,8 +69,9 @@ fieldset {
     height: 40px;
     float: right;
     font-size: 30px;
-    box-sizing: border-box;
+    box-sizing: content-box;
     display: none;
+    border: none;
 }
 
 .class {
@@ -106,7 +107,9 @@ fieldset {
 }
 
 .article > .human > fieldset > .content > div > a {
-    padding: 2px;
+    padding-left: 2px;
+    padding-top: 1px;
+    padding-bottom: 1px;
     padding-right: 0;
     width: 400px;
     overflow: hidden;
@@ -116,7 +119,9 @@ fieldset {
 }
 
 .article > .robot > fieldset > .content> div > a {
-    padding: 2px;
+    padding-left: 2px;
+    padding-top: 1px;
+    padding-bottom: 1px;
     padding-right: 0;
     width: 400px;
     overflow: hidden;
@@ -127,8 +132,8 @@ fieldset {
 
 .article > .human > fieldset > .content > div > span,
 .article > .robot > fieldset > .content > div > span {
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding-top: 1px;
+    padding-bottom: 1px;
     padding-right: 2px;
     float: right;
     display: block;

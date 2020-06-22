@@ -28,6 +28,14 @@ $(window).resize(function() {
     if($("#shuru").is(":visible")) {
         $("#shuru").hide();
     }
+
+    if($("#upload_file").is(":visible")) {
+        $("#upload_file").hide();
+    }
+
+    if($("#upload_video").is(":visible")) {
+        $("#upload_video").hide();
+    }
 });
 
 /* 输入对话框 */
@@ -88,7 +96,7 @@ function upload_file(sender, src_title, message, position, conirm_callback, canc
         case "left":
             $("#upload_file > .layout").css({
                     "margin-top": $(sender).offset().top - $(document).scrollTop(),
-                    "margin-left": $(sender).offset().left - $("#upload_file > .layout").width()
+                    "margin-left": $(sender).offset().left - $("#upload_file > .layout").width() + $("#upload_file > .layout > a").width()
                 });
             break;
         default:
