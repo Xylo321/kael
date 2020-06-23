@@ -76,13 +76,13 @@ $(".right_control").click(function () {
 });
 
 function img_iframe_responsive() {
-    $("img, pre").css({
+    $("img, pre, video").css({
         "width": $(".center").width() - 20,
         'margin-left': '10px',
         'margin-right': '10px',
     })
 
-    $("iframe").css({
+    $("iframe, video").css({
         "width": $(".center").width(),
         "height": $(".center").width() * 0.7
     })
