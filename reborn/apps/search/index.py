@@ -30,7 +30,7 @@ def index():
                 print('user_id不为none，但是user_name为none', user_id, user_name)
                 session.pop(IS_LOGIN)
                 if pc_or_mobile(request.headers['User-Agent']) == PC:
-                    return render_template("search/pc/index.html")
+                    return redirect(url_for('user_bp.login'))
                 else:
                     abort(403, '移动端网站暂时不支持。')
         else:
