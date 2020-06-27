@@ -106,7 +106,7 @@ $("#logout").click(function() {
             infor("网络错误", function () {
             });
         },
-        async: true
+        async: false
     });
 });
 

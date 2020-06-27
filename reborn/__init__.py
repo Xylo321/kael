@@ -103,9 +103,10 @@ from reborn.apps.video.category import VIDEO_CATEGORY_BP
 from reborn.apps.video.video import VIDEO_VIDEO_BP
 
 # 防火墙
-from reborn.apps.gfw.checker import check_request_headers, let_browser_cache_fonts
+from reborn.apps.gfw.checker import check_request_headers, let_browser_cache_fonts, fix_media_file_set_cookie
 APP.before_request(check_request_headers)
-APP.after_request(let_browser_cache_fonts)
+# APP.after_request(let_browser_cache_fonts)
+# APP.after_request(fix_media_file_set_cookie)
 
 # 注册蓝图
 APP.register_blueprint(USER_BP, url_prefix="/account")
@@ -164,4 +165,5 @@ def main():
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.ERROR)
-    APP.run(host='0.0.0.0', port=8000, debug=True, ssl_context=(SSL_CERTFILE, SSL_KEYFILE))
+    # APP.run(host='0.0.0.0', port=8000, debug=True, ssl_context=(SSL_CERTFILE, SSL_KEYFILE))
+    main()

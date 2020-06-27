@@ -98,11 +98,11 @@ fieldset {
 
 .article > .human > fieldset > .content,
 .article > .robot > fieldset > .content {
-    height: 230px;
+    height: 219px;
 }
 
 .article > .human > fieldset > .content > div,
-.article > .robot > fieldset > .content> div {
+.article > .robot > fieldset > .content > div {
     width: 470px;
 }
 

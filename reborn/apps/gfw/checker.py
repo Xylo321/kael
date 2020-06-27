@@ -1,7 +1,7 @@
 """
 网站防火墙
 """
-from flask import request, abort
+from flask import request, abort, session
 
 from reborn.utils.http import pc_or_mobile, MOBILE
 
@@ -27,4 +27,15 @@ def let_browser_cache_fonts(response):
         "/static/common/font/Monaco.ttf",
         "/static/common/font/WawaSC-Regular.otf"]:
         response.headers['Cache-Control'] = "max-age=31536000"
+    return response
+
+
+def fix_media_file_set_cookie(response):
+    """XXX: 服务器返回图片这种都要设置cookie，我觉得没必要，这也许是flask的bug。
+    """
+    for media_path in ['/video/view_video/', '/video/view_video_1_img/', '/image/view_photo/']:
+        if media_path in request.path:
+            session.modified = False
+            break
+
     return response

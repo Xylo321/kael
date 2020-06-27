@@ -14,11 +14,11 @@ SEARCH_INDEX_BP = Blueprint('search_index_bp', __name__)
 @SEARCH_INDEX_BP.route('/index', methods=['GET'])
 def index():
     if request.method == 'GET':
-        user_id = session.get(IS_LOGIN)
+        user_id = session.get(IS_LOGIN, None)
         if user_id != None:
             user = User(ACCOUNT_MYSQL_POOL)
             user_name = user.get_name(user_id)
-            if user_name:
+            if user_name is not None:
                 context = {
                     "user_name": user_name
                 }
@@ -27,6 +27,8 @@ def index():
                 else:
                     return render_template("search/pc/index.html")
             else:
+                print('user_id不为none，但是user_name为none', user_id, user_name)
+                session.pop(IS_LOGIN)
                 if pc_or_mobile(request.headers['User-Agent']) == PC:
                     return render_template("search/pc/index.html")
                 else:

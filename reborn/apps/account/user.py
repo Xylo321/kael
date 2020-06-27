@@ -26,7 +26,7 @@ def login():
                   失败 {"data": [], "status": -1}
     """
     if request.method == 'GET':
-        if session.get(IS_LOGIN):
+        if session.get(IS_LOGIN, None) is not None:
             return redirect(url_for("search_index_bp.index"))
         else:
             if pc_or_mobile(request.headers['User-Agent']) == PC:
@@ -90,16 +90,16 @@ def logout():
     if request.method == 'GET':
         user_id = session.get(IS_LOGIN)
         if user_id != None:
-            session.pop(IS_LOGIN)
-            return {
-                "data": [],
-                "status": 1
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            session.pop(IS_LOGIN, None)
+            if not session.get(IS_LOGIN):
+                return {
+                    "data": [],
+                    "status": 1
+                }
+        return {
+            "data": [],
+            "status": -1
+        }
 
 
 @USER_BP.route('/forget_password', methods=['POST', 'GET'])
@@ -135,7 +135,7 @@ def forget_password():
             user = User(ACCOUNT_MYSQL_POOL)
             result = user.forget_password(name, email, new_passwd)
             if result == 1:
-                session.pop(email)
+                session.pop(email, None)
 
                 return {
                     "data": [],
@@ -167,6 +167,7 @@ def send_check_code():
                                  MAIL_CONFIG['forget_password_msg'] % rand_n)
         if result == 1:
             session[to] = str(rand_n)
+
             return {
                 "data": [],
                 "status": 1
@@ -209,7 +210,8 @@ def register():
             user = User(ACCOUNT_MYSQL_POOL)
             result = user.register(name, passwd, email)
             if result == 1:
-                session.pop(email)
+                session.pop(email, None)
+
                 return {
                     "data": [],
                     "status": 1
