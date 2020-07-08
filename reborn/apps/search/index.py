@@ -6,6 +6,7 @@ from reborn.db.account import User
 from reborn.db.search import ArticleSearch, ImageSearch, VideoSearch
 from reborn.settings.apps.account import IS_LOGIN
 from reborn.utils.http import pc_or_mobile, PC, MOBILE
+from reborn.settings.apps import MDFS_API_KEY, MDFS_DOWNLOAD_URL
 
 SEARCH_INDEX_BP = Blueprint('search_index_bp', __name__)
 

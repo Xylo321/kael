@@ -6,7 +6,7 @@ from reborn import ACCOUNT_MYSQL_POOL, VIDEO_MYSQL_POOL
 from reborn.db.account import User
 from reborn.db.video import Category, Video
 from reborn.settings.apps.account import IS_LOGIN
-from reborn.settings.apps.video import UPLOAD_FOLDER
+from reborn.settings.apps import CACHE_DIR
 
 VIDEO_CATEGORY_BP = Blueprint('video_category_bp', __name__)
 

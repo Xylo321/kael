@@ -479,21 +479,18 @@ function pag_photo(page, category_name) {
 
                 for (var i = 0; i < data.data.length; i++) {
                     var title = data.data[i].title;
-                    var category_name = data.data[i].name;
-                    var local_url = data.data[i].local_url;
-                    var remote_url = data.data[i].remote_url;
+                    var category_name = data.data[i].category_name;
+                    var url = data.data[i].url;
 
                     var tmp = new Date(data.data[i].date * 1000);
                     var date = tmp.toLocaleString();
 
-                    var view_url = '/image/view_photo/';
-                    if(local_url != null && local_url != "") view_url += local_url;
-                    else if(remote_url != null && remote_url != "") view_url = remote_url;
-
-                    photo_list_html += "<img src='" + view_url + "' category_name='" + category_name + "' title='" + title + "' date='" + date + "'alt='抱歉图片可能自己飞了!'/>";
+                    photo_list_html += "<img src='" + url + "' category_name='" + category_name + "' title='" + title + "' date='" + date + "'alt='抱歉图片可能自己飞了!'/>";
                 }
 
                 $(".photo_list").html(photo_list_html);
+
+                load_first_img();
             } else {
                 infor("拉取图片列表失败", function () {
                 });
@@ -713,7 +710,6 @@ $(".other > .del").click(function() {
                             pag_photo(current_page, current_category);
                         } else {
                             pag_photo(current_page, current_category);
-                            load_first_img()
                         }
                     });
                 } else {
@@ -810,17 +806,12 @@ function get_photo(title) {
                 for (var i = 0; i < 1; i++) {
                     var title = data.data[i].title;
                     var category_name = data.data[i].name;
-                    var local_url = data.data[i].local_url;
-                    var remote_url = data.data[i].remote_url;
+                    var url = data.data[i].url;
 
                     var tmp = new Date(data.data[i].date * 1000);
                     var date = tmp.toLocaleString();
 
-                    var view_url = '/image/view_photo/';
-                    if(local_url != null && local_url != "") view_url += local_url;
-                    else if(remote_url != null && remote_url != "") view_url = remote_url;
-
-                    set_photo(title, view_url, category_name, date);
+                    set_photo(title, url, category_name, date);
                 }
             } else {
                 infor("获取图片失败", function () {

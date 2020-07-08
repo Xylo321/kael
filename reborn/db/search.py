@@ -5,7 +5,7 @@ from reborn.settings.apps.search import ROBOT, HUMAN
 
 
 class ArticleSearch(MySQLBase):
-    def search(self, key_word, page, type):
+    def  search(self, key_word, page, type):
         sql = None
         if type == ROBOT:
             if len(key_word) == 0:
@@ -113,14 +113,14 @@ class ImageSearch(MySQLBase):
                       "A.user_id = 0 " \
                       "order by A.date desc limit %s, 6"
             else:
-                sql = "select A.id, A.title, A.local_url, A.remote_url, B.name as category_name from image.photo A " \
+                sql = "select A.id, A.title, A.local_url, A.user_id, B.name as category_name from image.photo A " \
                       "inner join image.category B on A.category_id = B.id inner join account.user C on A.user_id = C.id " \
                       "where (match(A.title) against(%s in natural language mode) or match(B.name) against(%s in natural language mode) or match(C.name) against(%s in natural language mode)) " \
                       "and A.user_id = 0 " \
                       "order by A.date desc limit %s, 6"
         if type == HUMAN:
             if len(key_word) == 0:
-                sql = "select A.id, A.title, A.local_url, A.remote_url, B.name as category_name from image.photo A " \
+                sql = "select A.id, A.title, A.category_id, A.user_id, B.name as category_name from image.photo A " \
                       "inner join image.category B on A.category_id = B.id " \
                       "where " \
                       "A.user_id != 0 " \

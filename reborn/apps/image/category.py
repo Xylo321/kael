@@ -9,7 +9,7 @@ from reborn import ACCOUNT_MYSQL_POOL, IMAGE_MYSQL_POOL
 from reborn.db.account import User
 from reborn.db.image import Category, Photo
 from reborn.settings.apps.account import IS_LOGIN
-from reborn.settings.apps.image import UPLOAD_FOLDER
+from reborn.settings.apps import CACHE_DIR
 
 IMAGE_CATEGORY_BP = Blueprint('image_category_bp', __name__)
 
@@ -135,15 +135,9 @@ def del_category():
                     print('删除文件失败：', filename)
 
             result = category.del_category(name, user_id)
-            return {
-                "data": [],
-                "status": result
-            }
+            return {"data": [], "status": result}
         else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [], "status": -1}
 
 
 @IMAGE_CATEGORY_BP.route('/add_category', methods=['POST'])

@@ -52,6 +52,15 @@ class Category(MySQLBase):
         else:
             return -1
 
+    def get_category_id_by_category_name_user_id(self, name, user_id):
+        sql = 'select id from category where name = %s and user_id = %s'
+        args = (name, user_id)
+        result = self.rdbms_pool.query(sql, args)
+        if result != None and len(result) != 0:
+            return result[0]['id']
+        else:
+            return None
+
     def add_category(self, name, user_id):
         result = self.exist(name, user_id)
         if result == 1:
@@ -94,33 +103,23 @@ class Photo(MySQLBase):
         else:
             return -1
 
-    def add_photo(self, title, category_name, local_url, user_id):
-        result = self.exist(title, user_id)
-        if result == -1:
-            category = Category(self.rdbms_pool)
-            category_id = category.get_category_id(category_name, user_id)
-            if category_id:
-                sql = "insert into photo(title, category_id, local_url, user_id, date) value(%s, %s, %s, %s, %s)"
-                args = (title, category_id, local_url, user_id, int(time.time()))
-                affect_rows = self.rdbms_pool.edit(sql, args)
-                if affect_rows == 0:
-                    return -1
-                else:
-                    return 1
-            else:
-                return -1
+    def get_photo_id(self, title, user_id):
+        sql = "select id from photo where title = %s and user_id = %s"
+        args = (title, user_id)
+        result = self.rdbms_pool.query(sql, args)
+        if result != None and len(result) != 0:
+            return result[0]['id']
         else:
-            return -1
+            return None
 
-    def robot_add_photo(self, title, category_name, local_url, user_id, remote_url):
+    def add_photo(self, title, category_name, file_extension, user_id):
         result = self.exist(title, user_id)
         if result == -1:
             category = Category(self.rdbms_pool)
             category_id = category.get_category_id(category_name, user_id)
             if category_id:
-                # 据说ignore能增加插入速度
-                sql = "insert ignore into photo(title, category_id, local_url, user_id, date, remote_url) value(%s, %s, %s, %s, %s, %s)"
-                args = (title, category_id, local_url, user_id, int(time.time()), remote_url)
+                sql = "insert into photo(title, category_id, file_extension, user_id, date) value(%s, %s, %s, %s, %s)"
+                args = (title, category_id, file_extension, user_id, int(time.time()))
                 affect_rows = self.rdbms_pool.edit(sql, args)
                 if affect_rows == 0:
                     return -1
@@ -136,7 +135,7 @@ class Photo(MySQLBase):
             category = Category(self.rdbms_pool)
             category_id = category.get_category_id(category_name, user_id)
             if category_id:
-                sql = ("select A.title, A.local_url, A.remote_url, A.date, B.name "
+                sql = ("select A.title, A.date, B.name as category_name, B.id as category_id "
                        "from photo A inner join category B on A.category_id = B.id "
                        "where A.user_id = %s and A.category_id = %s "
                        "order by date desc limit %s, 10")
@@ -150,7 +149,7 @@ class Photo(MySQLBase):
             else:
                 return None
         else:
-            sql = ("select A.title, A.local_url, A.remote_url, A.date, B.name "
+            sql = ("select A.title, A.date, B.name as category_name, B.id as category_id "
                    "from photo A inner join category B on A.category_id = B.id "
                    "where A.user_id = %s "
                    "order by date desc limit %s, 10")
@@ -177,10 +176,8 @@ class Photo(MySQLBase):
             return None
 
     def get_photo(self, title, user_id):
-        sql = "select A.title, A.local_url, A.date, B.name as category_name, A.remote_url " \
-              "from photo A inner join category B on A.category_id = B.id " \
-              "where A.title = %s and A.user_id = %s"
-
+        sql = "select A.title, A.category_id, A.file_extension, A.date, B.name as category_name " + \
+              "from photo A inner join category B on A.category_id = B.id where A.title = %s and A.user_id = %s"
         args = (title, user_id)
         result = self.rdbms_pool.query(sql, args)
         if result is not None and len(result) != 0:
@@ -188,19 +185,14 @@ class Photo(MySQLBase):
         else:
             return None
 
-    def update_photo(self, user_id, src_title, new_title, category_name, local_url=None):
+    def update_photo(self, user_id, src_title, new_title, category_name):
         category = Category(self.rdbms_pool)
         category_id = category.get_category_id(category_name, user_id)
         if category_id:
             args = (new_title, category_id, int(time.time()), user_id, src_title)
             sql = ("update photo set title = %s, category_id = %s, date = %s"
                    " where user_id = %s and title = %s")
-            if local_url != None:
-                args = (new_title, category_id, int(time.time()), local_url, user_id, src_title)
-                sql = ("update photo set title = %s, category_id = %s, date = %s, local_url = %s"
-                       " where user_id = %s and title = %s")
             result = self.rdbms_pool.edit(sql, args)
             if result != 0:
                 return 1
-            else:
-                return -1
+        return -1
