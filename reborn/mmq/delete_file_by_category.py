@@ -1,6 +1,7 @@
 import json
 import logging
 import traceback
+import time
 
 from mingmq.client import Pool as MingMQPool
 from mingmq.message import FAIL
@@ -40,7 +41,7 @@ def _init_mingmq_pool() -> None:
                               MINGMQ_CONFIG['delete_category']['port'],
                               MINGMQ_CONFIG['delete_category']['user_name'],
                               MINGMQ_CONFIG['delete_category']['passwd'],
-                              MINGMQ_CONFIG['delete_category']['size'])
+                              MINGMQ_CONFIG['delete_category']['pool_size'])
 
 
 def _release_mingmq_pool() -> None:
@@ -52,7 +53,7 @@ def _delete_file(mq_res) -> bool:
     global _LOGGER
     b: bool = False
 
-    message_data = json.loads(mq_res['message_data'])
+    message_data = json.loads(mq_res['json_obj'][0]['message_data'])
     user_id: int = message_data['user_id']
     category_id: int = message_data['category_id']
     db_name: str = message_data['db_name']
@@ -79,7 +80,7 @@ def _ack_task(b: bool, mq_res, queue_name) -> None:
     global _MINGMQ_POOL, _LOGGER
 
     if b == True:
-        message_id = mq_res['message_id']
+        message_id = mq_res['json_obj'][0]['message_id']
         mq_res = _MINGMQ_POOL.opera('ack_message', *(queue_name, message_id))
         if mq_res and mq_res['status'] != FAIL:
             _LOGGER.debug('消息确认成功')
@@ -89,6 +90,7 @@ def _ack_task(b: bool, mq_res, queue_name) -> None:
 
 def _get_data_from_queue(queue_name: str):
     global _MINGMQ_POOL, _IMAGE_MYSQL_POOL, _VIDEO_MYSQL_POOL, _LOGGER
+    _MINGMQ_POOL.opera('declare_queue', *(queue_name,))
     while True:
         mq_res: dict = _MINGMQ_POOL.opera('get_data_from_queue', *(queue_name,))
         _LOGGER.debug('从消息队列中获取的消息为: %s', mq_res)
@@ -96,9 +98,12 @@ def _get_data_from_queue(queue_name: str):
         if mq_res and mq_res['status'] != FAIL:
             b: bool = _delete_file(mq_res)
             _ack_task(b, mq_res, queue_name)
+        else:
+            time.sleep(10)
 
 
-def main() -> None:
+def main(debug=logging.DEBUG) -> None:
+    logging.basicConfig(level=debug)
     global _LOGGER
     try:
         _init_mysql_pool()
@@ -112,3 +117,7 @@ def main() -> None:
             _release_mysql_pool()
         except:
             _LOGGER.error(traceback.format_exc())
+
+
+if __name__ == '__main__':
+    main()

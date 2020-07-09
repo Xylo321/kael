@@ -27,10 +27,6 @@ class Category(MySQLBase):
         try:
             conn = self.rdbms_pool.get_conn()
             with conn.cursor() as cursor:
-                sql = "delete from photo where user_id = %s and category_id in (select id from category where name = %s)"
-                args = (user_id, name)
-                cursor.execute(sql, args)
-
                 sql = "delete from category where name = %s and user_id = %s"
                 args = (name, user_id)
                 cursor.execute(sql, args)

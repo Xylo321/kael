@@ -8,6 +8,7 @@ from mingmq.message import FAIL
 import json
 import logging
 import traceback
+import time
 
 
 _IMAGE_MYSQL_POOL: MySQLPool = None
@@ -37,7 +38,7 @@ def _init_mingmq_pool() -> None:
                               MINGMQ_CONFIG['delete_category']['port'],
                               MINGMQ_CONFIG['delete_category']['user_name'],
                               MINGMQ_CONFIG['delete_category']['passwd'],
-                              MINGMQ_CONFIG['delete_category']['size'])
+                              MINGMQ_CONFIG['delete_category']['pool_size'])
 
 
 def _release_mingmq_pool() -> None:
@@ -55,7 +56,8 @@ def _delete_file_by_category_id_db_name(category_id: int, user_id: int, db_name:
             total_pages: int = photo.get_total_pages(category_id, user_id)
             page = 1
             while page <= total_pages:
-                photo_files = photo.pag_photo2(category_id, user_id)
+                photo_files = photo.pag_photo2(page, category_id, user_id)
+                _LOGGER.debug('分页从数据库中查找的文件为: %s', photo_files)
                 for photo_file in photo_files:
                     title = photo_file['title']
                     message_data = json.dumps({
@@ -85,26 +87,30 @@ def _delete_file_by_category_id_db_name(category_id: int, user_id: int, db_name:
 
 def _get_data_from_queue(queue_name):
     global _MINGMQ_POOL, _LOGGER
+    _MINGMQ_POOL.opera('declare_queue', *(queue_name,))
     while True:
         mq_res: dict = _MINGMQ_POOL.opera('get_data_from_queue', *(queue_name, ))
         _LOGGER.debug('从消息队列中获取的消息为: %s', mq_res)
 
         if mq_res and mq_res['status'] != FAIL:
-            message_data = json.loads(mq_res['message_data'])
+            message_data = json.loads(mq_res['json_obj'][0]['message_data'])
             user_id: int = message_data['user_id']
             category_id: int = message_data['category_id']
             db_name: str = message_data['db_name']
             b: bool = _delete_file_by_category_id_db_name(category_id, user_id, db_name)
             if b == True:
-                message_id = mq_res['message_id']
+                message_id = mq_res['json_obj'][0]['message_id']
                 mq_res = _MINGMQ_POOL.opera('ack_message', *(queue_name, message_id))
                 if mq_res and mq_res['status'] != FAIL:
                     _LOGGER.debug('消息确认成功')
                 else:
                     _LOGGER.error('消息确认失败: queue_name=%s, message_id=%s', queue_name, message_id)
+        else:
+            time.sleep(10)
 
 
-def main() -> None:
+def main(debug=logging.DEBUG) -> None:
+    logging.basicConfig(level=debug)
     global _LOGGER
     try:
         _init_mysql_pool()
@@ -118,3 +124,7 @@ def main() -> None:
             _release_mysql_pool()
         except:
             _LOGGER.error(traceback.format_exc())
+
+
+if __name__ == '__main__':
+    main()

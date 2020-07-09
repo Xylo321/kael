@@ -78,7 +78,7 @@ MINGMQ_POOL_CATEGORY = MingMQPool(MINGMQ_CONFIG['delete_category']['host'],
                                   MINGMQ_CONFIG['delete_category']['port'],
                                   MINGMQ_CONFIG['delete_category']['user_name'],
                                   MINGMQ_CONFIG['delete_category']['passwd'],
-                                  MINGMQ_CONFIG['delete_category']['size'])
+                                  MINGMQ_CONFIG['delete_category']['pool_size'])
 MINGMQ_POOL_CATEGORY.opera('declare_queue', *(MINGMQ_CONFIG['delete_category']['queue_name'], ))
 
 # 设置FLASK
@@ -179,4 +179,3 @@ def main():
 if __name__ == '__main__':
     logging.basicConfig(level=logging.ERROR)
     APP.run(host='0.0.0.0', port=8000, debug=True, ssl_context=(SSL_CERTFILE, SSL_KEYFILE))
-    # main()
