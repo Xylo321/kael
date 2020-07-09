@@ -1,7 +1,7 @@
 from flask import request, session, Blueprint
 
-from reborn import ACCOUNT_MYSQL_POOL
-from reborn import BLOG_MYSQL_POOL
+from reborn.apps import ACCOUNT_MYSQL_POOL
+from reborn.apps import BLOG_MYSQL_POOL
 from reborn.db.account import User
 from reborn.db.blog import Article
 from reborn.settings.apps.account import IS_LOGIN

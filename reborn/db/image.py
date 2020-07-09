@@ -161,6 +161,24 @@ class Photo(MySQLBase):
             else:
                 return None
 
+    def pag_photo2(self, page, category_id, user_id):
+        sql = 'select title from photo where category_id = %s and user_id = %s limit %s, 100'
+        args = (category_id, user_id, (page - 1) * 100)
+        result = self.rdbms_pool.query(sql, args)
+        if result is not None:
+            return result
+        else:
+            return None
+
+    def get_total_pages(self, category_id: int, user_id: int) -> int:
+        sql: str = 'select count(id) as total_pages from photo where category_id = %s and user_id = %s'
+        args: tuple = (category_id, user_id)
+        result: list = self.rdbms_pool.query(sql, args)
+        if result is not None:
+            return result[0]['total_pages']
+        else:
+            return None
+
     def get_photos(self, category_name, user_id):
         category = Category(self.rdbms_pool)
         category_id = category.get_category_id(category_name, user_id)

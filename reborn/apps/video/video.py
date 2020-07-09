@@ -4,7 +4,7 @@ import time
 from flask import request, session, Blueprint, send_from_directory, redirect, url_for, send_file
 # from werkzeug.utils import secure_filename
 
-from reborn import ACCOUNT_MYSQL_POOL, VIDEO_MYSQL_POOL
+from reborn.apps import ACCOUNT_MYSQL_POOL, VIDEO_MYSQL_POOL
 from reborn.db.account import User
 from reborn.db.video import Video, Category
 from reborn.settings.apps.account import IS_LOGIN

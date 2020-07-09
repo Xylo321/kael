@@ -5,7 +5,7 @@ import traceback
 from flask import request, session, Blueprint, redirect, url_for
 from werkzeug.utils import secure_filename
 
-from reborn import ACCOUNT_MYSQL_POOL, IMAGE_MYSQL_POOL
+from reborn.apps import ACCOUNT_MYSQL_POOL, IMAGE_MYSQL_POOL
 from reborn.db.account import User
 from reborn.db.image import Photo, Category
 from reborn.settings.apps import CACHE_DIR, MDFS_API_KEY, MDFS_DOWNLOAD_URL, MDFS_EDIT_URL, MDFS_UPLOAD_URL, \

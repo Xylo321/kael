@@ -27,6 +27,7 @@ setup(
     ],
     entry_points = """
     [console_scripts]
-    reborn = reborn:main
+    reborn = reborn.apps:main
+    delete_category_consumer = reborn.mmq.delete_category:main
     """
 )

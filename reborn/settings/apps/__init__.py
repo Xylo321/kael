@@ -27,3 +27,24 @@ elif 'Linux' in platform.platform():
 
 if not os.path.exists(CACHE_DIR):
     os.makedirs(CACHE_DIR)
+
+
+# 消息队列设置
+MINGMQ_CONFIG = {
+    'delete_category': {
+        'host': 'serv_pro',
+        'port': 15673,
+        'user_name': 'mmq',
+        'passwd': 'mm5201314',
+        'pool_size': 10,
+        'queue_name': 'reborn_delete_category'
+    },
+    'delete_file_by_category': {
+        'host': 'serv_pro',
+        'port': 15673,
+        'user_name': 'mmq',
+        'passwd': 'mm5201314',
+        'pool_size': 10,
+        'queue_name': 'reborn_delete_file_by_category'
+    }
+}

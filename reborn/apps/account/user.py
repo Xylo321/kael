@@ -3,7 +3,7 @@ import json
 
 from flask import request, session, redirect, url_for, render_template, Blueprint, abort, make_response
 
-from reborn import ACCOUNT_MYSQL_POOL
+from reborn.apps import ACCOUNT_MYSQL_POOL
 from reborn.db.account import User
 from reborn.settings.apps.account import IS_LOGIN, MAIL_CONFIG
 from reborn.utils.email import send_text_email

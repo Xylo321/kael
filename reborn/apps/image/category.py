@@ -1,15 +1,18 @@
 """
 分类
 """
-import os
+import json
 
 from flask import request, session, Blueprint
 
-from reborn import ACCOUNT_MYSQL_POOL, IMAGE_MYSQL_POOL
+from reborn.apps import ACCOUNT_MYSQL_POOL, IMAGE_MYSQL_POOL
 from reborn.db.account import User
 from reborn.db.image import Category, Photo
 from reborn.settings.apps.account import IS_LOGIN
-from reborn.settings.apps import CACHE_DIR
+from reborn.apps import MINGMQ_POOL_CATEGORY
+from reborn.settings.apps import MINGMQ_CONFIG
+from mingmq.message import FAIL
+
 
 IMAGE_CATEGORY_BP = Blueprint('image_category_bp', __name__)
 
@@ -123,16 +126,20 @@ def del_category():
         user_id = session.get(IS_LOGIN)
         if user_id is not None:
             category = Category(IMAGE_MYSQL_POOL)
-            photo = Photo(IMAGE_MYSQL_POOL)
-            local_urls = photo.get_photos(name, user_id)
-            for local_url in local_urls:
-                try:
-                    filename = UPLOAD_FOLDER + os.path.sep + local_url['local_url']
-                    os.remove(filename)
-                    print('删除文件成功：', filename)
-                except OSError as err:
-                    print(err)
-                    print('删除文件失败：', filename)
+            category_id = category.get_category_id(name, user_id)
+            if category_id is None:
+                return {"data": [], "status": -1}
+
+            message_data = json.dumps({
+                'user_id': user_id,
+                'category_id': category_id,
+                'db_name': 'image'
+            })
+            mq_res = MINGMQ_POOL_CATEGORY.opera("send_data_to_queue",
+                                                *(MINGMQ_CONFIG['delete_category']['queue_name'], message_data))
+            if mq_res and mq_res['status'] == FAIL:
+                print('推送删除栏目消息到消息队列失败', message_data)
+                return {"data": [], "status": -1}
 
             result = category.del_category(name, user_id)
             return {"data": [], "status": result}
