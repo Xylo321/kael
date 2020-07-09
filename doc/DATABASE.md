@@ -120,15 +120,16 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `photo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `category_id` int(11) NOT NULL,
-  `date` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `url` text NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title_user_id` (`title`,`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `category_id` int NOT NULL,
+  `date` int NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `user_id` int NOT NULL,
+  `file_extension` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `title_user_id` (`title`,`user_id`) USING BTREE,
+  FULLTEXT KEY `title` (`title`) /*!50100 WITH PARSER `ngram` */ 
+) ENGINE=InnoDB AUTO_INCREMENT=146524 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 create fulltext index title on photo(title) with parser ngram;
 create fulltext index name on category(name) with parser ngram;
@@ -150,14 +151,13 @@ CREATE TABLE `video` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `date` int NOT NULL,
-  `local_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `remote_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `file_extension` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `user_id` int NOT NULL,
   `category_id` int NOT NULL,
-  `downloaded` smallint DEFAULT '0',
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`) USING BTREE,
+  FULLTEXT KEY `title_description` (`title`,`description`) /*!50100 WITH PARSER `ngram` */ 
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 create fulltext index title_description on video(title, description) with parser ngram;
 create fulltext index name on category(name) with parser ngram;
