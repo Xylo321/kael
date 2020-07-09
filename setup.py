@@ -29,5 +29,6 @@ setup(
     [console_scripts]
     reborn = reborn.apps:main
     delete_category_consumer = reborn.mmq.delete_category:main
+    delete_file_by_category_id = reborn.mmq.delete_file_by_category_id:main
     """
 )
