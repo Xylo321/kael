@@ -27,4 +27,4 @@ REDIS_CONFIG = {
 }
 
 # session超时时间
-SESSION_EXPIRE = 60 * 60
+SESSION_EXPIRE = 60 * 60 * 24

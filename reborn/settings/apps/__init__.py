@@ -10,11 +10,11 @@ STATIC_FILE_EXPIRE = 1
 
 # mdfs的设置
 MDFS_API_KEY = '1a9b365c2b2ec10357d551ef5dbdc8e9'
-MDFS_UPLOAD_URL = 'http://serv_pro:15675/file/upload'
-MDFS_DOWNLOAD_URL = 'http://serv_pro:15675/file/download'
-MDFS_EDIT_URL = 'http://serv_pro:15675/file/edit'
-MDFS_DOWNLOAD_MANY_URL = 'http://serv_pro:15675/file/download_many'
-MDFS_DELETE_URL = 'http://serv_pro:15675/file/delete'
+MDFS_UPLOAD_URL = 'https://serv_pro:15675/file/upload'
+MDFS_DOWNLOAD_URL = 'https://serv_pro:15675/file/download'
+MDFS_EDIT_URL = 'https://serv_pro:15675/file/edit'
+MDFS_DOWNLOAD_MANY_URL = 'https://serv_pro:15675/file/download_many'
+MDFS_DELETE_URL = 'https://serv_pro:15675/file/delete'
 
 CACHE_DIR = os.path.expanduser('~') + os.path.sep + "reborn" + os.path.sep + "cache"
 

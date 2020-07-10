@@ -174,6 +174,7 @@ def pag_photo():
                         'third_user_id': user_id,
                         'category_id': category_id,
                         'title': title,
+                        'expire': 9000
                     })
                 res_data = mdfs_download_many(MDFS_DOWNLOAD_MANY_URL, MDFS_API_KEY, req_data)
                 if res_data is None:
@@ -214,6 +215,7 @@ def pag_photo():
                             'third_user_id': vi_user_id,
                             'category_id': category_id,
                             'title': title,
+                            'expire': 60
                         })
                     res_data = mdfs_download_many(MDFS_DOWNLOAD_MANY_URL, MDFS_API_KEY, req_data)
                     if res_data is None:

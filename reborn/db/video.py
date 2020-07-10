@@ -136,7 +136,7 @@ class Video(MySQLBase):
             category = Category(self.rdbms_pool)
             category_id = category.get_category_id(category_name, user_id)
             if category_id:
-                sql = ("select A.title, A.local_url, A.remote_url, A.date, B.name, A.description "
+                sql = ("select A.title, A.date "
                        "from video A inner join category B on A.category_id = B.id "
                        "where A.user_id = %s and A.category_id = %s "
                        "order by date desc limit %s, 10")
@@ -150,7 +150,7 @@ class Video(MySQLBase):
             else:
                 return None
         else:
-            sql = ("select A.title, A.local_url, A.remote_url, A.date, B.name "
+            sql = ("select A.title, A.date "
                    "from video A inner join category B on A.category_id = B.id "
                    "where A.user_id = %s "
                    "order by date desc limit %s, 10")
@@ -177,7 +177,7 @@ class Video(MySQLBase):
             return None
 
     def get_video(self, title, user_id):
-        sql = "select A.title, A.local_url, A.date, B.name as category_name, A.remote_url, A.description " \
+        sql = "select A.title, A.date, B.name as category_name, A.description, A.category_id, A.file_extension " \
               "from video A inner join category B on A.category_id = B.id " \
               "where A.title = %s and A.user_id = %s"
 

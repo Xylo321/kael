@@ -2,7 +2,6 @@ import os
 import time
 
 from flask import request, session, Blueprint, send_from_directory, redirect, url_for, send_file
-# from werkzeug.utils import secure_filename
 
 from reborn.apps import ACCOUNT_MYSQL_POOL, VIDEO_MYSQL_POOL
 from reborn.db.account import User
@@ -10,6 +9,8 @@ from reborn.db.video import Video, Category
 from reborn.settings.apps.account import IS_LOGIN
 from reborn.settings.apps import CACHE_DIR
 from reborn.utils.video import get_video_num_image
+from reborn.settings.apps import MDFS_DOWNLOAD_URL, MDFS_API_KEY
+from reborn.utils.mdfs import download as mdfs_download
 
 VIDEO_VIDEO_BP = Blueprint('video_video_bp', __name__)
 
@@ -104,18 +105,17 @@ def get_video():
             video = Video(VIDEO_MYSQL_POOL)
             result = video.get_video(title, user_id)
             if result:
-                return {
-                    "data": result,
-                    "status": 1
-                }
-            else:
-                return {
-                    "data": [],
-                    "status": -1
-                }
-        else:
-            return redirect(url_for("user_bp.login"))
-
+                title = result[0]['title']
+                category_id = result[0]['category_id']
+                third_user_id = user_id
+                expire = 9000
+                url = mdfs_download(MDFS_DOWNLOAD_URL, MDFS_API_KEY, third_user_id, category_id, title, expire)
+                if url is None:
+                    return {"data": [],"status": -1}
+                result[0]['url'] = url
+                return {"data": result, "status": 1}
+            return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))
     elif request.method == "GET":
         look = request.args.get("look")
         if look and look.strip() != "":
@@ -127,20 +127,15 @@ def get_video():
                 video = Video(VIDEO_MYSQL_POOL)
                 result = video.get_video(title, vi_user_id)
                 if result is not None:
-                    return {
-                        "data": result,
-                        "status": 1
-                    }
-                else:
-                    return {
-                        "data": [],
-                        "status": -1
-                    }
-            else:
-                return {
-                    "data": [],
-                    "status": -1
-                }
+                    title = result[0]['title']
+                    category_id = result[0]['category_id']
+                    third_user_id = vi_user_id
+                    url = mdfs_download(MDFS_DOWNLOAD_URL, MDFS_API_KEY, third_user_id, category_id, title)
+                    if url is None:
+                        return {"data": [], "status": -1}
+                    result[0]['url'] = url
+                    return {"data": result, "status": 1}
+        return {"data": [], "status": -1}
 
 
 @VIDEO_VIDEO_BP.route('/pag_video', methods=['POST', 'GET'])
@@ -171,20 +166,8 @@ def pag_video():
             video = Video(VIDEO_MYSQL_POOL)
             result = video.pag_video(page, category_name, user_id)
             if result is not None:
-                return {
-                    "data": result,
-                    "status": 1
-                }
-            else:
-                return {
-                    "data": [],
-                    "status": -1
-                }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+                return {"data": result, "status": 1}
+        return {"data": [], "status": -1}
     elif request.method == "GET":
         look = request.args.get("look")
         if look and look.strip() != "":
@@ -197,20 +180,8 @@ def pag_video():
                 result = video.pag_video(page, category_name, vi_user_id)
 
                 if result is not None:
-                    return {
-                        "data": result,
-                        "status": 1
-                    }
-                else:
-                    return {
-                        "data": [],
-                        "status": -1
-                    }
-            else:
-                return {
-                    "data": [],
-                    "status": -1
-                }
+                    return {"data": result, "status": 1}
+        return {"data": [], "status": -1}
 
 
 @VIDEO_VIDEO_BP.route('/upload', methods=['POST'])

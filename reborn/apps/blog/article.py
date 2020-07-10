@@ -25,15 +25,8 @@ def del_article():
         if user_id != None:
             article = Article(BLOG_MYSQL_POOL)
             result = article.delete_article(title, user_id)
-            return {
-                "data": [],
-                "status": result
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [], "status": result}
+        return {"data": [], "status": -1}
 
 
 @BLOG_ARTICLE_BP.route('/add_article', methods=['POST'])
@@ -55,15 +48,8 @@ def add_article():
         if user_id != None:
             article = Article(BLOG_MYSQL_POOL)
             result = article.add_article(title, category_name, content, is_public, user_id)
-            return {
-                "data": [],
-                "status": result
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [], "status": result}
+        return {"data": [], "status": -1}
 
 
 @BLOG_ARTICLE_BP.route('/pag_article', methods=['POST', 'GET'])
@@ -92,20 +78,8 @@ def pag_article():
             article = Article(BLOG_MYSQL_POOL)
             result = article.pag_article(page, category_name, user_id)
             if result is not None:
-                return {
-                    "data": result,
-                    "status": 1
-                }
-            else:
-                return {
-                    "data": [],
-                    "status": -1
-                }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+                return {"data": result, "status": 1}
+        return {"data": [], "status": -1}
     elif request.method == "GET":
         look = request.args.get("look")
         if look and look.strip() != "":
@@ -118,25 +92,8 @@ def pag_article():
                 result = article.pag_article(page, category_name, vi_user_id)
 
                 if result is not None:
-                    return {
-                        "data": result,
-                        "status": 1
-                    }
-                else:
-                    return {
-                        "data": [],
-                        "status": -1
-                    }
-            else:
-                return {
-                    "data": [],
-                    "status": -1
-                }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+                    return {"data": result, "status": 1}
+        return {"data": [], "status": -1}
 
 
 @BLOG_ARTICLE_BP.route('/get_article', methods=['POST', 'GET'])
@@ -162,20 +119,8 @@ def get_article():
             article = Article(BLOG_MYSQL_POOL)
             result = article.get_article(title, user_id)
             if result is not None:
-                return {
-                    "data": result,
-                    "status": 1
-                }
-            else:
-                return {
-                    "data": [],
-                    "status": -1
-                }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+                return {"data": result, "status": 1}
+        return {"data": [], "status": -1}
     elif request.method == "GET":
         look = request.args.get("look")
         if look and look.strip() != "":
@@ -190,25 +135,8 @@ def get_article():
                     login_uid = session.get(IS_LOGIN)
                     if result[0]['is_public'] != Article.SHOW and login_uid != vi_user_id:
                         result[0]['content'] = '# %s\r\n\r\n该文章作者没有公开！' % title
-                    return {
-                        "data": result,
-                        "status": 1
-                    }
-                else:
-                    return {
-                        "data": [],
-                        "status": -1
-                    }
-            else:
-                return {
-                    "data": [],
-                    "status": -1
-                }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+                    return {"data": result, "status": 1}
+        return {"data": [], "status": -1}
 
 
 @BLOG_ARTICLE_BP.route('/update_article', methods=['POST'])
@@ -232,12 +160,5 @@ def update_article():
             article = Article(BLOG_MYSQL_POOL)
             result = article.update_article(src_title, new_title,
                                             category_name, is_public, content, user_id)
-            return {
-                "data": [],
-                "status": result
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [], "status": result}
+        return {"data": [], "status": -1}

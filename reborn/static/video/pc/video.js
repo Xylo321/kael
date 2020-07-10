@@ -188,7 +188,7 @@ function responsive() {
     img_video_responsive()
 }
 
-/* 拉取文章列表 */
+/* 拉取视屏列表 */
 function pag_video(page, category_name) {
     var url = "/video/pag_video";
     var type = 'POST';
@@ -651,8 +651,8 @@ function get_video(video_title) {
                 var title = data.data[0].title;
                 var category_name = data.data[0].category_name;
                 var description = data.data[0].description;
-                var local_url = data.data[0].local_url;
-                var remote_url = data.data[0].remote_url;
+                var url = data.data[0].url;
+                var file_extension = data.data[0].file_extension;
 
                 var tmp = new Date(data.data[0].date * 1000);
                 var date = tmp.toLocaleString();
@@ -662,13 +662,7 @@ function get_video(video_title) {
                 $(".content > .base_infor > .pub_date").html(date);
                 $(".content > .description").html(description);
 
-                var view_url = '/video/view_video/';
-                if(local_url != null && local_url != "") view_url += local_url;
-                else if(remote_url != null && remote_url != "") view_url = remote_url;
-
-                var type = view_url.split(".");
-                type = type[type.length - 1];
-                play(type, view_url);
+                play(file_extension.toLowerCase(), url);
 
                 $(".content").show();
 
@@ -688,23 +682,25 @@ function get_video(video_title) {
 
 function play(type, url) {
     switch(type) {
+        case "avi":
+            alert("无法播放avi，我该怎么办？需要我去像当年的flv.js的作者去开发一个avi.js吗？");
+            break;
+        case 'mp4':
         case 'flv':
-        case "mp4":
             if (flvjs.isSupported()) {
                 var videoElement = document.getElementById('videoElement');
                 var flvPlayer = flvjs.createPlayer({
                     type: type,
-                    url: url
+                    url: url,
                 });
                 flvPlayer.attachMediaElement(videoElement);
                 flvPlayer.load();
+                flvPlayer.play();
             }
             break;
-        case "avi":
-            alert("无法播放avi，我该怎么办？需要我去像当年的flv.js的作者去开发一个avi.js吗？");
-            break;
         default:
-            break;
+            alert('不支持的类型');
+            break
     }
 }
 

@@ -12,7 +12,7 @@ def upload(upload_url, api_key, third_user_id, category_id, title, file_name, fi
         'title': title,
         'upload_file_name': (file_name, open(file_path, 'rb'), guess_type(file_name)[0] or "application/octet-stream")
     })
-    r = requests.post(upload_url, data=m, headers={'Content-Type': m.content_type})
+    r = requests.post(upload_url, data=m, headers={'Content-Type': m.content_type}, verify=False)
     r.raise_for_status()
     jd = r.json()
     if jd['status'] == 0:
@@ -23,14 +23,15 @@ def upload(upload_url, api_key, third_user_id, category_id, title, file_name, fi
         raise
 
 
-def download(download_url, api_key, third_user_id, category_id, title):
+def download(download_url, api_key, third_user_id, category_id, title, expire):
     form_data = {
         'api_key': api_key,
         'third_user_id': third_user_id,
         'category_id': category_id,
-        'title': title
+        'title': title,
+        'expire': expire
     }
-    r = requests.get(download_url, params=form_data)
+    r = requests.get(download_url, params=form_data, verify=False)
     r.raise_for_status()
     jd = r.json()
     if jd['status'] == 0:
@@ -71,7 +72,7 @@ def edit(edit_url, api_key,
             'new_file_extension': str(new_file_extension),
             'upload_file_name': (upload_file_name, open(upload_file_path, 'rb'), guess_type(upload_file_name)[0] or "application/octet-stream")
         })
-    r = requests.post(edit_url, data=m, headers={'Content-Type': m.content_type})
+    r = requests.post(edit_url, data=m, headers={'Content-Type': m.content_type}, verify=False)
     r.raise_for_status()
     jd = r.json()
     if jd['status'] == 0:
@@ -88,7 +89,7 @@ def download_many(download_many_url, api_key, tcts):
         'api_key': api_key,
         'data': tcts
     }
-    r = requests.get(download_many_url, data=json.dumps(form_data))
+    r = requests.get(download_many_url, data=json.dumps(form_data), verify=False)
     r.raise_for_status()
     jd = r.json()
     if jd['status'] == 0:
@@ -109,7 +110,7 @@ def delete(delete_url, api_key, third_user_id, category_id, title):
         'category_id': category_id,
         'title': title
     }
-    r = requests.post(delete_url, data=form_data)
+    r = requests.post(delete_url, data=form_data, verify=False)
     r.raise_for_status()
     jd = r.json()
     if jd['status'] == 0:

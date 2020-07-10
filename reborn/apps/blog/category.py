@@ -29,20 +29,8 @@ def get_categories():
             categories = category.get_categories(user_id)
 
             if categories is not None:
-                return {
-                    "data": categories,
-                    "status": 1
-                }
-            else:
-                return {
-                    "data": categories,
-                    "status": -1
-                }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+                return {"data": categories, "status": 1}
+        return {"data": [], "status": -1}
     elif request.method == 'GET':
         look = request.args.get("look")
         if look and look.strip() != "":
@@ -52,25 +40,8 @@ def get_categories():
                 category = Category(BLOG_MYSQL_POOL)
                 categories = category.get_categories(vi_user_id)
                 if categories is not None:
-                    return {
-                        "data": categories,
-                        "status": 1
-                    }
-                else:
-                    return {
-                        "data": categories,
-                        "status": -1
-                    }
-            else:
-                return {
-                    "data": [],
-                    "status": -1
-                }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+                    return {"data": categories, "status": 1}
+        return {"data": [], "status": -1}
 
 
 @BLOG_CATEGORY_BP.route('/rename_category', methods=['POST'])
@@ -90,15 +61,8 @@ def rename_category():
         if user_id != None:
             category = Category(BLOG_MYSQL_POOL)
             result = category.rename_category(old_name, new_name, user_id)
-            return {
-                "data": [],
-                "status": result
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [], "status": result}
+        return {"data": [], "status": -1}
 
 
 @BLOG_CATEGORY_BP.route('/del_category', methods=['POST'])
@@ -119,15 +83,8 @@ def del_category():
 
             result = category.del_category(name, user_id)
 
-            return {
-                "data": [],
-                "status": result
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [], "status": result}
+        return {"data": [], "status": -1}
 
 
 @BLOG_CATEGORY_BP.route('/add_category', methods=['POST'])
@@ -146,12 +103,5 @@ def add_category():
         if user_id != None:
             category = Category(BLOG_MYSQL_POOL)
             result = category.add_category(name, user_id)
-            return {
-                "data": [],
-                "status": result
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [], "status": result}
+        return {"data": [], "status": -1}

@@ -39,17 +39,9 @@ def login():
         user_id = user.login(request.form['name'], request.form['passwd'])
         if user_id != None:
             session[IS_LOGIN] = user_id
-            resp = make_response(json.dumps({
-                "data": [],
-                "status": 1
-            }))
+            return make_response(json.dumps({"data": [], "status": 1}))
 
-            return resp
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+        return {"data": [], "status": -1}
 
 
 @USER_BP.route('/check_name_email', methods=['POST'])
@@ -67,15 +59,8 @@ def check_name_email():
         user = User(ACCOUNT_MYSQL_POOL)
         result = user.existOr(name, email)
         if result == 1:
-            return {
-                "data": [],
-                "status": 1
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [], "status": 1}
+        return {"data": [],"status": -1}
 
 
 @USER_BP.route('/logout', methods=['GET'])
@@ -92,14 +77,8 @@ def logout():
         if user_id != None:
             session.pop(IS_LOGIN, None)
             if not session.get(IS_LOGIN):
-                return {
-                    "data": [],
-                    "status": 1
-                }
-        return {
-            "data": [],
-            "status": -1
-        }
+                return {"data": [], "status": 1}
+        return {"data": [], "status": -1}
 
 
 @USER_BP.route('/forget_password', methods=['POST', 'GET'])
@@ -127,25 +106,15 @@ def forget_password():
         check_code = request.form['check_code']
         new_passwd = request.form['new_passwd']
         if session.get(email) != check_code:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [], "status": -1}
         else:
             user = User(ACCOUNT_MYSQL_POOL)
             result = user.forget_password(name, email, new_passwd)
             if result == 1:
                 session.pop(email, None)
 
-                return {
-                    "data": [],
-                    "status": 1
-                }
-            else:
-                return {
-                    "data": [],
-                    "status": -1
-                }
+                return {"data": [],"status": 1}
+            return {"data": [], "status": -1}
 
 
 @USER_BP.route('/send_check_code', methods=['POST'])
@@ -168,15 +137,8 @@ def send_check_code():
         if result == 1:
             session[to] = str(rand_n)
 
-            return {
-                "data": [],
-                "status": 1
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [], "status": 1}
+        return {"data": [], "status": -1}
 
 
 @USER_BP.route('/register', methods=['GET', 'POST'])
@@ -202,22 +164,12 @@ def register():
         email = request.form['email']
         check_code = request.form['check_code']
         if session.get(email) != check_code:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [], "status": -1}
         else:
             user = User(ACCOUNT_MYSQL_POOL)
             result = user.register(name, passwd, email)
             if result == 1:
                 session.pop(email, None)
 
-                return {
-                    "data": [],
-                    "status": 1
-                }
-            else:
-                return {
-                    "data": [],
-                    "status": -1
-                }
+                return {"data": [], "status": 1}
+            return {"data": [], "status": -1}
