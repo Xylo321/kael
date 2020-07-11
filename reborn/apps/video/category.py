@@ -1,12 +1,14 @@
-import os
+import json
 
-from flask import request, session, Blueprint
+from flask import request, session, Blueprint, redirect, url_for
 
 from reborn.apps import ACCOUNT_MYSQL_POOL, VIDEO_MYSQL_POOL
 from reborn.db.account import User
-from reborn.db.video import Category, Video
+from reborn.db.video import Category
 from reborn.settings.apps.account import IS_LOGIN
-from reborn.settings.apps import CACHE_DIR
+from reborn.apps import MINGMQ_POOL_CATEGORY
+from reborn.settings.apps import MINGMQ_CONFIG
+from mingmq.message import FAIL
 
 VIDEO_CATEGORY_BP = Blueprint('video_category_bp', __name__)
 
@@ -30,22 +32,10 @@ def get_categories():
         if user_id != None:
             category = Category(VIDEO_MYSQL_POOL)
             categories = category.get_categories(user_id)
-
             if categories is not None:
-                return {
-                    "data": categories,
-                    "status": 1
-                }
-            else:
-                return {
-                    "data": categories,
-                    "status": -1
-                }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+                return {"data": categories, "status": 1}
+            return {"data": categories, "status": -1}
+        return redirect(url_for("user_bp.login"))
     elif request.method == 'GET':
         look = request.args.get("look")
         if look and look.strip() != "":
@@ -55,25 +45,9 @@ def get_categories():
                 category = Category(VIDEO_MYSQL_POOL)
                 categories = category.get_categories(vi_user_id)
                 if categories is not None:
-                    return {
-                        "data": categories,
-                        "status": 1
-                    }
-                else:
-                    return {
-                        "data": categories,
-                        "status": -1
-                    }
-            else:
-                return {
-                    "data": [],
-                    "status": -1
-                }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+                    return {"data": categories, "status": 1}
+                return {"data": categories, "status": -1}
+        return redirect(url_for("user_bp.login"))
 
 
 @VIDEO_CATEGORY_BP.route('/rename_category', methods=['POST'])
@@ -93,15 +67,8 @@ def rename_category():
         if user_id != None:
             category = Category(VIDEO_MYSQL_POOL)
             result = category.rename_category(old_name, new_name, user_id)
-            return {
-                "data": [],
-                "status": result
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [], "status": result}
+        return redirect(url_for("user_bp.login"))
 
 
 @VIDEO_CATEGORY_BP.route('/del_category', methods=['POST'])
@@ -119,27 +86,24 @@ def del_category():
         user_id = session.get(IS_LOGIN)
         if user_id != None:
             category = Category(VIDEO_MYSQL_POOL)
-            video = Video(VIDEO_MYSQL_POOL)
-            local_urls = video.get_videos(name, user_id)
-            for lu in local_urls:
-                try:
-                    filename = UPLOAD_FOLDER + os.path.sep + lu['local_url']
-                    os.remove(filename)
-                    print('删除文件成功：', filename)
-                except Exception as e:
-                    print(e)
-                    print('删除文件失败：', filename)
+            category_id = category.get_category_id(name, user_id)
+            if category_id is None:
+                return {"data": [], "status": -1}
+
+            message_data = json.dumps({
+                'user_id': user_id,
+                'category_id': category_id,
+                'db_name': 'video'
+            })
+            mq_res = MINGMQ_POOL_CATEGORY.opera("send_data_to_queue",
+                                                *(MINGMQ_CONFIG['delete_category']['queue_name'], message_data))
+            if mq_res and mq_res['status'] == FAIL:
+                print('推送删除栏目消息到消息队列失败', message_data)
+                return {"data": [], "status": -1}
 
             result = category.del_category(name, user_id)
-            return {
-                "data": [],
-                "status": result
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [],"status": result}
+        return redirect(url_for("user_bp.login"))
 
 
 @VIDEO_CATEGORY_BP.route('/add_category', methods=['POST'])
@@ -157,13 +121,5 @@ def add_category():
         user_id = session.get(IS_LOGIN)
         if user_id != None:
             category = Category(VIDEO_MYSQL_POOL)
-            result = category.add_category(name, user_id)
-            return {
-                "data": [],
-                "status": result
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [], "status": category.add_category(name, user_id)}
+        return redirect(url_for("user_bp.login"))

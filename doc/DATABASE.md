@@ -156,6 +156,7 @@ CREATE TABLE `video` (
   `category_id` int NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `title_user_id` (`title`,`user_id`) USING BTREE,
   FULLTEXT KEY `title_description` (`title`,`description`) /*!50100 WITH PARSER `ngram` */ 
 ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

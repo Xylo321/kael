@@ -23,25 +23,13 @@ class Category(MySQLBase):
             return 1
 
     def del_category(self, name, user_id):
-        conn = None
-        try:
-            conn = self.rdbms_pool.get_conn()
-            with conn.cursor() as cursor:
-                sql = "delete from video where user_id = %s and category_id in (select id from category where name = %s)"
-                args = (user_id, name)
-                cursor.execute(sql, args)
-
-                sql = "delete from category where name = %s and user_id = %s"
-                args = (name, user_id)
-                cursor.execute(sql, args)
-
-            conn.commit()
+        sql = "delete from category where name = %s and user_id = %s"
+        args = (name, user_id)
+        affect_rows = self.rdbms_pool.edit(sql,args)
+        if affect_rows != 0:
             return 1
-        except Exception as e:
-            if conn: conn.rollback()
-            return -1
-        finally:
-            if conn: self.rdbms_pool.back_conn(conn)
+        return 0
+
 
     def exist(self, name, user_id):
         sql = "select id from category where name = %s and user_id = %s"
@@ -76,6 +64,24 @@ class Category(MySQLBase):
 
 
 class Video(MySQLBase):
+    def pag_video2(self, page, category_id, user_id):
+        sql = 'select title from video where category_id = %s and user_id = %s limit %s, 100'
+        args = (category_id, user_id, (page - 1) * 100)
+        result = self.rdbms_pool.query(sql, args)
+        if result is not None:
+            return result
+        else:
+            return None
+
+    def get_total_pages(self, category_id: int, user_id: int) -> int:
+        sql: str = 'select count(id) as total_pages from video where category_id = %s and user_id = %s'
+        args: tuple = (category_id, user_id)
+        result: list = self.rdbms_pool.query(sql, args)
+        if result is not None:
+            return result[0]['total_pages']
+        else:
+            return None
+
     def delete_video(self, title, user_id):
         sql = "delete from video where title = %s and user_id = %s"
         args = (title, user_id)
@@ -94,14 +100,14 @@ class Video(MySQLBase):
         else:
             return -1
 
-    def add_video(self, title, category_name, local_url, description, user_id):
+    def add_video(self, title, category_name, file_extension, description, user_id):
         result = self.exist(title, user_id)
         if result == -1:
             category = Category(self.rdbms_pool)
             category_id = category.get_category_id(category_name, user_id)
             if category_id:
-                sql = "insert into video(title, category_id, local_url, user_id, date, description) value(%s, %s, %s, %s, %s, %s)"
-                args = (title, category_id, local_url, user_id, int(time.time()), description)
+                sql = "insert into video(title, category_id, file_extension, user_id, date, description) value(%s, %s, %s, %s, %s, %s)"
+                args = (title, category_id, file_extension, user_id, int(time.time()), description)
                 affect_rows = self.rdbms_pool.edit(sql, args)
                 if affect_rows == 0:
                     return -1
@@ -188,17 +194,29 @@ class Video(MySQLBase):
         else:
             return None
 
-    def update_video(self, user_id, src_title, new_title, category_name, description, local_url=None):
+    def get_category_id_file_extension_by_title(self, title, user_id):
+        sql = 'select category_id, file_extension from video where title = %s and user_id = %s'
+        args = (title, user_id)
+        result = self.rdbms_pool.query(sql, args)
+        if result is not None and len(result) != 0:
+            return result
+        return None
+
+    def get_category_id_by_title(self, title, user_id):
+        sql = 'select category_id, file_extension from video where title = %s and user_id = %s'
+        args = (title, user_id)
+        result = self.rdbms_pool.query(sql, args)
+        if result is not None and len(result) != 0:
+            return result[0]['category_id']
+        return None
+
+    def update_video(self, user_id, src_title, new_title, category_name, description, file_extension):
         category = Category(self.rdbms_pool)
         category_id = category.get_category_id(category_name, user_id)
         if category_id:
-            args = (new_title, category_id, int(time.time()), description, user_id, src_title)
+            args = (new_title, category_id, int(time.time()), description, file_extension, user_id, src_title)
             sql = ("update video set title = %s, category_id = %s, date = %s, description = %s"
-                   " where user_id = %s and title = %s")
-            if local_url != None:
-                args = (new_title, category_id, int(time.time()), local_url, description, user_id, src_title)
-                sql = ("update video set title = %s, category_id = %s, date = %s, local_url = %s, description = %s"
-                       " where user_id = %s and title = %s")
+                   ", file_extension=%s where user_id = %s and title = %s")
             result = self.rdbms_pool.edit(sql, args)
             if result != 0:
                 return 1

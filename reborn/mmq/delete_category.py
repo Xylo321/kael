@@ -1,5 +1,6 @@
 from reborn.settings.apps import MINGMQ_CONFIG
 from reborn.settings.apps.image import MYSQL_CONFIG as IMAGE_MYSQL_CONFIG
+from reborn.settings.apps.video import MYSQL_CONFIG as VIDEO_MYSQL_CONFIG
 from reborn.db.rdbms import MySQLPool
 from reborn.db.image import Photo
 from reborn.db.video import Video
@@ -25,11 +26,17 @@ def _init_mysql_pool() -> None:
                                   passwd=IMAGE_MYSQL_CONFIG['passwd'],
                                   db=IMAGE_MYSQL_CONFIG['db'],
                                   size=IMAGE_MYSQL_CONFIG['size'])
+    _VIDEO_MYSQL_POOL = MySQLPool(host=VIDEO_MYSQL_CONFIG['host'],
+                                  user=VIDEO_MYSQL_CONFIG['user'],
+                                  passwd=VIDEO_MYSQL_CONFIG['passwd'],
+                                  db=VIDEO_MYSQL_CONFIG['db'],
+                                  size=VIDEO_MYSQL_CONFIG['size'])
 
 
 def _release_mysql_pool() -> None:
     global _IMAGE_MYSQL_POOL, _VIDEO_MYSQL_POOL
     _IMAGE_MYSQL_POOL.release()
+    _VIDEO_MYSQL_POOL.release()
 
 
 def _init_mingmq_pool() -> None:
@@ -78,6 +85,28 @@ def _delete_file_by_category_id_db_name(category_id: int, user_id: int, db_name:
 
         elif db_name == 'video':
             video: Video = Video(_VIDEO_MYSQL_POOL)
+            total_pages: int = video.get_total_pages(category_id, user_id)
+            page = 1
+            while page <= total_pages:
+                photo_files = video.pag_video2(page, category_id, user_id)
+                _LOGGER.debug('分页从数据库中查找的文件为: %s', photo_files)
+                for video_file in photo_files:
+                    title = video_file['title']
+                    message_data = json.dumps({
+                        'user_id': user_id,
+                        'category_id': category_id,
+                        'title': title,
+                        'db_name': db_name
+                    })
+                    _LOGGER.debug('分发删除文件任务: %s', message_data)
+                    mq_res = _MINGMQ_POOL.opera('send_data_to_queue',
+                                                *(MINGMQ_CONFIG['delete_file_by_category']['queue_name'], message_data))
+                    if mq_res and mq_res['status'] != FAIL:
+                        _LOGGER.debug('成功')
+                    else:
+                        _LOGGER.error('失败: %s', message_data)
+                        b = False
+                page += 1
     except:
         _LOGGER.error(traceback.format_exc())
         b = False

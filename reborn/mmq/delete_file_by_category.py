@@ -12,6 +12,7 @@ from reborn.db.video import Video
 from reborn.settings.apps import MDFS_API_KEY, MDFS_DELETE_URL
 from reborn.settings.apps import MINGMQ_CONFIG
 from reborn.settings.apps.image import MYSQL_CONFIG as IMAGE_MYSQL_CONFIG
+from reborn.settings.apps.video import MYSQL_CONFIG as VIDEO_MYSQL_CONFIG
 from reborn.utils.mdfs import delete as mdfs_delete
 
 _IMAGE_MYSQL_POOL: MySQLPool = None
@@ -28,11 +29,17 @@ def _init_mysql_pool() -> None:
                                   passwd=IMAGE_MYSQL_CONFIG['passwd'],
                                   db=IMAGE_MYSQL_CONFIG['db'],
                                   size=IMAGE_MYSQL_CONFIG['size'])
+    _VIDEO_MYSQL_POOL = MySQLPool(host=VIDEO_MYSQL_CONFIG['host'],
+                                  user=VIDEO_MYSQL_CONFIG['user'],
+                                  passwd=VIDEO_MYSQL_CONFIG['passwd'],
+                                  db=VIDEO_MYSQL_CONFIG['db'],
+                                  size=VIDEO_MYSQL_CONFIG['size'])
 
 
 def _release_mysql_pool() -> None:
     global _IMAGE_MYSQL_POOL, _VIDEO_MYSQL_POOL
     _IMAGE_MYSQL_POOL.release()
+    _VIDEO_MYSQL_POOL.release()
 
 
 def _init_mingmq_pool() -> None:
