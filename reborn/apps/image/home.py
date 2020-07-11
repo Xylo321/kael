@@ -90,5 +90,4 @@ def home():
                         abort(403, '移动端网站正在建设中。')
                 else:
                     abort(404, 'User does not exist.')
-            else:
-                return redirect(url_for("user_bp.login"))
+            return redirect(url_for("user_bp.login"))

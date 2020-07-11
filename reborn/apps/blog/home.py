@@ -110,5 +110,4 @@ def home():
 
                 else:
                     abort(404, 'User does not exist.')
-            else:
-                return redirect(url_for("user_bp.login"))
+            return redirect(url_for("user_bp.login"))

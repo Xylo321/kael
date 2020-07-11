@@ -1,4 +1,4 @@
-from flask import request, session, Blueprint
+from flask import request, session, Blueprint, redirect, url_for
 
 from reborn.apps import ACCOUNT_MYSQL_POOL
 from reborn.apps import BLOG_MYSQL_POOL
@@ -26,7 +26,7 @@ def del_article():
             article = Article(BLOG_MYSQL_POOL)
             result = article.delete_article(title, user_id)
             return {"data": [], "status": result}
-        return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))
 
 
 @BLOG_ARTICLE_BP.route('/add_article', methods=['POST'])
@@ -49,7 +49,7 @@ def add_article():
             article = Article(BLOG_MYSQL_POOL)
             result = article.add_article(title, category_name, content, is_public, user_id)
             return {"data": [], "status": result}
-        return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))
 
 
 @BLOG_ARTICLE_BP.route('/pag_article', methods=['POST', 'GET'])
@@ -79,7 +79,7 @@ def pag_article():
             result = article.pag_article(page, category_name, user_id)
             if result is not None:
                 return {"data": result, "status": 1}
-        return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))
     elif request.method == "GET":
         look = request.args.get("look")
         if look and look.strip() != "":
@@ -93,7 +93,7 @@ def pag_article():
 
                 if result is not None:
                     return {"data": result, "status": 1}
-        return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))
 
 
 @BLOG_ARTICLE_BP.route('/get_article', methods=['POST', 'GET'])
@@ -120,7 +120,7 @@ def get_article():
             result = article.get_article(title, user_id)
             if result is not None:
                 return {"data": result, "status": 1}
-        return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))
     elif request.method == "GET":
         look = request.args.get("look")
         if look and look.strip() != "":
@@ -136,7 +136,7 @@ def get_article():
                     if result[0]['is_public'] != Article.SHOW and login_uid != vi_user_id:
                         result[0]['content'] = '# %s\r\n\r\n该文章作者没有公开！' % title
                     return {"data": result, "status": 1}
-        return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))
 
 
 @BLOG_ARTICLE_BP.route('/update_article', methods=['POST'])
@@ -161,4 +161,4 @@ def update_article():
             result = article.update_article(src_title, new_title,
                                             category_name, is_public, content, user_id)
             return {"data": [], "status": result}
-        return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))

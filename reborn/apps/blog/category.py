@@ -1,4 +1,4 @@
-from flask import request, session, Blueprint
+from flask import request, session, Blueprint, redirect, url_for
 
 from reborn.apps import ACCOUNT_MYSQL_POOL, BLOG_MYSQL_POOL
 from reborn.db.account import User
@@ -30,7 +30,7 @@ def get_categories():
 
             if categories is not None:
                 return {"data": categories, "status": 1}
-        return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))
     elif request.method == 'GET':
         look = request.args.get("look")
         if look and look.strip() != "":
@@ -41,7 +41,7 @@ def get_categories():
                 categories = category.get_categories(vi_user_id)
                 if categories is not None:
                     return {"data": categories, "status": 1}
-        return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))
 
 
 @BLOG_CATEGORY_BP.route('/rename_category', methods=['POST'])
@@ -62,7 +62,7 @@ def rename_category():
             category = Category(BLOG_MYSQL_POOL)
             result = category.rename_category(old_name, new_name, user_id)
             return {"data": [], "status": result}
-        return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))
 
 
 @BLOG_CATEGORY_BP.route('/del_category', methods=['POST'])
@@ -84,7 +84,7 @@ def del_category():
             result = category.del_category(name, user_id)
 
             return {"data": [], "status": result}
-        return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))
 
 
 @BLOG_CATEGORY_BP.route('/add_category', methods=['POST'])
@@ -104,4 +104,4 @@ def add_category():
             category = Category(BLOG_MYSQL_POOL)
             result = category.add_category(name, user_id)
             return {"data": [], "status": result}
-        return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))

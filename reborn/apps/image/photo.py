@@ -107,7 +107,7 @@ def get_photo():
                 if url is None: return {"data": [], "status": -1}
                 result = [{'title': title, 'date': date, 'category_name': category_name, 'url': url}]
                 return {"data": result, "status": 1}
-            return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))
     elif request.method == "GET":
         look = request.args.get("look")
         if look and look.strip() != "":
@@ -193,7 +193,7 @@ def pag_photo():
                             })
                             break
                 return {"data": response_data, "status": 1}
-        return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))
 
     elif request.method == "GET":
         look = request.args.get("look")
@@ -234,7 +234,7 @@ def pag_photo():
                                 })
                                 break
                     return {"data": response_data, "status": 1}
-        return {"data": [], "status": -1}
+        return redirect(url_for("user_bp.login"))
 
 
 @IMAGE_PHOTO_BP.route('/upload', methods=['POST'])
@@ -289,8 +289,7 @@ def upload():
             if 1 == photo.add_photo(title, category_name, file_extension, user_id):
                 return {"data": [], "status": 1}
             return {"data": [], "status": -1}
-        else:
-            return redirect(url_for("user_bp.login"))
+        return redirect(url_for("user_bp.login"))
 
 
 @IMAGE_PHOTO_BP.route('/update_photo', methods=['POST'])
@@ -383,5 +382,4 @@ def update_photo():
                     return {"data": [], "status": result}
                 else:
                     return {"data": [], "status": -1}
-        else:
-            return redirect(url_for("user_bp.login"))
+        return redirect(url_for("user_bp.login"))
