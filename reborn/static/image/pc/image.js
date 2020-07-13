@@ -489,8 +489,6 @@ function pag_photo(page, category_name) {
                 }
 
                 $(".photo_list").html(photo_list_html);
-
-                load_first_img();
             } else {
                 infor("拉取图片列表失败", function () {
                 });

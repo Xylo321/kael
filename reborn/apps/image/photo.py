@@ -124,11 +124,12 @@ def get_photo():
                     title = result[0]['title']
                     date = result[0]['date']
                     category_name = result[0]['category_name']
+                    expire = 9000
                     url = None
                     try:
-                        url = mdfs_download(MDFS_DOWNLOAD_URL, MDFS_API_KEY, third_user_id, category_id, title)
-                    except:
-                        pass
+                        url = mdfs_download(MDFS_DOWNLOAD_URL, MDFS_API_KEY, third_user_id, category_id, title, expire)
+                    except Exception as e:
+                        print(e)
                     if url is None:
                         return {"data": [], "status": -1}
                     result = [{'title': title, 'date': date, 'category_name': category_name, 'url': url}]

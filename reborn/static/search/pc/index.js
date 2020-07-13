@@ -393,12 +393,9 @@ function search_image(key_word, page, type) {
                 for(var i = 0; i < data.data.length; i++) {
                     var photo_id = data.data[i].id;
                     var photo_title = data.data[i].title;
-                    var category_name = data.data[i].category_name;
-                    var local_url = data.data[i].local_url;
+                    var url = data.data[i].url;
 
-                    if(local_url != null && local_url != "") {
-                        content_html += "<img class='my_img_img' src='" + local_url + "' photo_id='" + photo_id + "' title='" + photo_title + "' alt='抱歉图片可能自己飞了！'>";
-                    }
+                    content_html += "<img class='my_img_img' src='" + url + "' photo_id='" + photo_id + "' title='" + photo_title + "' alt='抱歉图片可能自己飞了！'>";
                 }
                 switch(type) {
                     case 1:

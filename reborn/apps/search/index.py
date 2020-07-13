@@ -6,7 +6,8 @@ from reborn.db.account import User
 from reborn.db.search import ArticleSearch, ImageSearch, VideoSearch
 from reborn.settings.apps.account import IS_LOGIN
 from reborn.utils.http import pc_or_mobile, PC, MOBILE
-from reborn.settings.apps import MDFS_API_KEY, MDFS_DOWNLOAD_URL
+from reborn.settings.apps import MDFS_API_KEY, MDFS_DOWNLOAD_URL, MDFS_DOWNLOAD_MANY_URL
+from reborn.utils.mdfs import download_many as mdfs_download_many
 
 SEARCH_INDEX_BP = Blueprint('search_index_bp', __name__)
 
@@ -20,25 +21,20 @@ def index():
             user = User(ACCOUNT_MYSQL_POOL)
             user_name = user.get_name(user_id)
             if user_name is not None:
-                context = {
-                    "user_name": user_name
-                }
+                context = {"user_name": user_name}
                 if pc_or_mobile(request.headers['User-Agent']) == PC:
                     return render_template("search/pc/index.html", **context)
-                else:
-                    return render_template("search/pc/index.html")
+                return render_template("search/pc/index.html")
             else:
                 print('user_id不为none，但是user_name为none', user_id, user_name)
                 session.pop(IS_LOGIN)
                 if pc_or_mobile(request.headers['User-Agent']) == PC:
                     return redirect(url_for('user_bp.login'))
-                else:
-                    abort(403, '移动端网站暂时不支持。')
+                abort(403, '移动端网站暂时不支持。')
         else:
             if pc_or_mobile(request.headers['User-Agent']) == PC:
                 return render_template("search/pc/index.html")
-            else:
-                abort(403, '移动端网站暂时不支持。')
+            abort(403, '移动端网站暂时不支持。')
 
 
 @SEARCH_INDEX_BP.route('/search_article', methods=['POST'])
@@ -64,15 +60,8 @@ def search_article():
         result = article_search.search(key_word, page, type)
 
         if result != None:
-            return {
-                "data": result,
-                "status": 1
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": result, "status": 1}
+        return {"data": [], "status": -1}
 
 
 @SEARCH_INDEX_BP.route('/search_article_total_page', methods=['POST'])
@@ -96,15 +85,8 @@ def search_article_total_page():
         total_page = article_search.search_total_pages(key_word, type)
 
         if total_page != None:
-            return {
-                "data": [{"total_page": total_page}],
-                "status": 1
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [{"total_page": total_page}], "status": 1}
+        return {"data": [], "status": -1}
 
 
 @SEARCH_INDEX_BP.route('/go_article_page', methods=['GET'])
@@ -127,10 +109,7 @@ def go_article_page():
                     return redirect(url_for('blog_home_bp.home',
                                             look=look, article_title=article_title
                                             ))
-                else:
-                    abort(500)
-        else:
-            abort(404)
+        abort(404)
 
 
 @SEARCH_INDEX_BP.route('/search_image', methods=['POST'])
@@ -156,15 +135,37 @@ def search_image():
         result = image_search.search(key_word, page, type)
 
         if result != None:
-            return {
-                "data": result,
-                "status": 1
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            req_data = []
+            for row in result:
+                user_id = row['user_id']
+                title = row['title']
+                category_id = row['category_id']
+                req_data.append({
+                    'third_user_id': user_id,
+                    'category_id': category_id,
+                    'title': title,
+                    'expire': 9000
+                })
+            res_data = mdfs_download_many(MDFS_DOWNLOAD_MANY_URL, MDFS_API_KEY, req_data)
+            if res_data is None:
+                return {"data": [], "status": -1}
+
+            response_data = []
+            for row in result:
+                for res_d in res_data:
+                    if row['title'] == res_d['title'] and str(row['category_id']) == str(res_d['category_id']) \
+                            and str(user_id) == str(res_d['third_user_id']):
+                        response_data.append({
+                            'category_name': row['category_name'],
+                            'url': res_d.get('url', None),
+                            'title': row['title'],
+                            'id': row['id'],
+                        })
+                        break
+
+            return {"data": response_data, "status": 1}
+            # return {'data': result, 'status': 1}
+        return {"data": [], "status": -1}
 
 
 @SEARCH_INDEX_BP.route('/search_image_total_page', methods=['POST'])
@@ -188,15 +189,8 @@ def search_image_total_page():
         total_page = image_search.search_total_pages(key_word, type)
 
         if total_page != None:
-            return {
-                "data": [{"total_page": total_page}],
-                "status": 1
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [{"total_page": total_page}], "status": 1}
+        return {"data": [], "status": -1}
 
 
 @SEARCH_INDEX_BP.route('/go_image_page', methods=['GET'])
@@ -219,10 +213,7 @@ def go_image_page():
                     return redirect(url_for('image_home_bp.home',
                                             look=look, photo_title=photo_title
                                             ))
-                else:
-                    abort(500)
-        else:
-            abort(404)
+        abort(404)
 
 
 @SEARCH_INDEX_BP.route('/search_video', methods=['POST'])
@@ -248,15 +239,8 @@ def search_video():
         result = video_search.search(key_word, page, type)
 
         if result != None:
-            return {
-                "data": result,
-                "status": 1
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": result, "status": 1}
+        return {"data": [], "status": -1}
 
 
 @SEARCH_INDEX_BP.route('/search_video_total_page', methods=['POST'])
@@ -280,15 +264,8 @@ def search_video_total_page():
         total_page = video_search.search_total_pages(key_word, type)
 
         if total_page != None:
-            return {
-                "data": [{"total_page": total_page}],
-                "status": 1
-            }
-        else:
-            return {
-                "data": [],
-                "status": -1
-            }
+            return {"data": [{"total_page": total_page}], "status": 1}
+        return {"data": [], "status": -1}
 
 
 @SEARCH_INDEX_BP.route('/go_video_page', methods=['GET'])
@@ -311,7 +288,4 @@ def go_video_page():
                     return redirect(url_for('video_home_bp.home',
                                             look=look, video_title=video_title
                                             ))
-                else:
-                    abort(500)
-        else:
-            abort(404)
+        abort(404)
