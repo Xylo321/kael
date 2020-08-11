@@ -21,8 +21,10 @@ function load_first_article() {
             $(".new_article").hide();
             $(".newArticle").show();
 
-            var article_title = $("td.title").attr("title");
-            get_article(article_title);
+            if ($("td.title").length > 0) {
+                var article_title = $("td.title")[0].innerText;
+                get_article(article_title);
+            }
 
             clearInterval(si);
         }
@@ -854,7 +856,7 @@ $(".article_list > .data").on('click', '.title > a', function() {
     if(!$(".edit_panel").is(":visible")) {
         $(".new_article").hide();
         $(".newArticle").show();
-        var article_title = $(this).parent().attr("title");
+        var article_title = $($(this).parent()).text();
         get_article(article_title);
     } else {
         infor("正在编辑中", function() {
