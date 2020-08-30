@@ -601,7 +601,7 @@ function refresh_categories(selector, selected) {
 /* 点击栏目名获取栏目列表 */
 $(".nav").on("click", "li > .cat", function () {
     var current_category = $(".current_category").attr("value");
-    if ($(this).html() == '思想') {
+    if ($(this).html() == '仲夏辰星') {
         document.getElementById('bm').pause();
         document.getElementById('idea').play();
     } else {
