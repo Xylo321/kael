@@ -82,14 +82,14 @@ a {
 
 .left > .author {
     font-family: sans-serif;
-    margin-top: 200px;
-    margin-left: 100px;
+    margin-top: 220px;
+    margin-left: 130px;
 }
 
 .left > .pub_date {
     font-family: sans-serif;
     margin-top: 50px;
-    margin-left: 100px;
+    margin-left: 120px;
 }
 
 /* 文章列表 */
