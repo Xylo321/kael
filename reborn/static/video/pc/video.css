@@ -82,14 +82,12 @@ a {
 
 .left > .author {
     font-family: sans-serif;
-    float: left;
     margin-top: 200px;
     margin-left: 100px;
 }
 
 .left > .pub_date {
     font-family: sans-serif;
-    float: left;
     margin-top: 50px;
     margin-left: 100px;
 }
