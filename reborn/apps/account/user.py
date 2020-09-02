@@ -38,6 +38,7 @@ def login():
         user = User(ACCOUNT_MYSQL_POOL)
         user_id = user.login(request.form['name'], request.form['passwd'])
         if user_id != None:
+            session.clear()
             session[IS_LOGIN] = user_id
             return make_response(json.dumps({"data": [], "status": 1}))
 
@@ -75,6 +76,7 @@ def logout():
     if request.method == 'GET':
         user_id = session.get(IS_LOGIN)
         if user_id != None:
+            session.clear()
             session.pop(IS_LOGIN, None)
             if not session.get(IS_LOGIN):
                 return {"data": [], "status": 1}
@@ -135,6 +137,7 @@ def send_check_code():
                                  MAIL_CONFIG['username'], to,
                                  MAIL_CONFIG['forget_password_msg'] % rand_n)
         if result == 1:
+            session.clear()
             session[to] = str(rand_n)
 
             return {"data": [], "status": 1}
@@ -169,6 +172,7 @@ def register():
             user = User(ACCOUNT_MYSQL_POOL)
             result = user.register(name, passwd, email)
             if result == 1:
+                session.clear()
                 session.pop(email, None)
 
                 return {"data": [], "status": 1}
