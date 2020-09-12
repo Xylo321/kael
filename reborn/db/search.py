@@ -101,7 +101,7 @@ class ImageSearch(MySQLBase):
                   "order by A.date desc limit %s, 6"
             args = ((page - 1) * 6,)
         else:
-            sql = "select A.id, A.title, A.local_url, A.remote_url, B.name as category_name from image.photo A " \
+            sql = "select A.id, A.title, A.category_id, A.user_id, B.name as category_name from image.photo A " \
                   "inner join image.category B on A.category_id = B.id inner join account.user C on A.user_id = C.id " \
                   "where (match(A.title) against(%s in natural language mode) or match(B.name) against(%s in natural language mode) or match(C.name) against(%s in natural language mode)) " \
                   "and A.user_id != 0 " \
@@ -159,86 +159,73 @@ class ImageSearch(MySQLBase):
 
 class VideoSearch(MySQLBase):
     def search(self, key_word, page, type):
-        sql = None
-        if type == ROBOT:
-            if len(key_word) == 0:
-                sql = "select A.id, A.title, A.local_url, A.remote_url, B.name as category_name from video.video A " \
-                      "inner join video.category B on A.category_id = B.id " \
-                      "where " \
-                      "A.user_id = 0 " \
-                      "order by A.date desc limit %s, 6"
-            else:
-                sql = "select A.id, A.title, A.local_url, A.remote_url, B.name as category_name from video.video A " \
-                      "inner join video.category B on A.category_id = B.id inner join account.user C on A.user_id = C.id " \
-                      "where (match(A.title, A.description) against(%s in natural language mode) or match(B.name) against(%s in natural language mode) or match(C.name) against(%s in natural language mode)) " \
-                      "and A.user_id = 0 " \
-                      "order by A.date desc limit %s, 6"
         if type == HUMAN:
-            if len(key_word) == 0:
-                sql = "select A.id, A.title, A.local_url, A.remote_url, B.name as category_name from video.video A " \
-                      "inner join video.category B on A.category_id = B.id " \
-                      "where " \
-                      "A.user_id != 0 " \
-                      "order by A.date desc limit %s, 6"
-            else:
-                sql = "select A.id, A.title, A.local_url, A.remote_url, B.name as category_name from video.video A " \
-                      "inner join video.category B on A.category_id = B.id inner join account.user C on A.user_id = C.id " \
-                      "where (match(A.title, A.description) against(%s in natural language mode) or match(B.name) against(%s in natural language mode) or match(C.name) against(%s in natural language mode)) " \
-                      "and A.user_id != 0 " \
-                      "order by A.date desc limit %s, 6"
+            return self._search_human(key_word, page)
+        elif type == ROBOT:
+            return self._search_robot(key_word, page)
 
-        if sql != None:
-            args = (key_word, key_word, key_word, (page - 1) * 6)
-            if len(key_word) == 0:
-                args = ((page - 1) * 6,)
+    def _search_robot(self, key_word, page):
+        return None
 
-            result = self.rdbms_pool.query(sql, args)
-            if result != None and len(result) != 0:
-                return result
-            else:
-                return None
+    def _search_human(self, key_word, page):
+        sql = None
+        if len(key_word) == 0:
+            sql = "select A.id, A.title, A.category_id, A.user_id, B.name as category_name from video.video A " \
+                  "inner join video.category B on A.category_id = B.id " \
+                  "where " \
+                  "A.user_id != 0 " \
+                  "order by A.date desc limit %s, 6"
         else:
-            raise Exception("type不合法的类型")
+            sql = "select A.id, A.title, A.category_id, A.user_id, B.name as category_name from video.video A " \
+                  "inner join video.category B on A.category_id = B.id inner join account.user C on A.user_id = C.id " \
+                  "where (match(A.title, A.description) against(%s in natural language mode) or match(B.name) against(%s in natural language mode) or match(C.name) against(%s in natural language mode)) " \
+                  "and A.user_id != 0 " \
+                  "order by A.date desc limit %s, 6"
+
+        args = (key_word, key_word, key_word, (page - 1) * 6)
+        if len(key_word) == 0:
+            args = ((page - 1) * 6,)
+
+        result = self.rdbms_pool.query(sql, args)
+        if result != None and len(result) != 0:
+            return result
+        else:
+            return None
 
     def search_total_pages(self, key_word, type):
-        sql = None
         if type == HUMAN:
-            if len(key_word) == 0:
-                sql = "select count(A.id) total_page from video.video A " \
-                      "inner join video.category B on A.category_id = B.id " \
-                      "where A.user_id != 0"
-            else:
-                sql = "select count(A.id) total_page from video.video A " \
-                      "inner join video.category B on A.category_id = B.id inner join account.user C on A.user_id = C.id " \
-                      "where (match(A.title, A.description) against(%s in natural language mode) " \
-                      "or match(B.name) against(%s in natural language mode) or match(C.name) against(%s in natural language mode)) " \
-                      "and A.user_id != 0"
-        if type == ROBOT:
-            if len(key_word) == 0:
-                sql = "select count(A.id) total_page from video.video A " \
-                      "inner join video.category B on A.category_id = B.id " \
-                      "where A.user_id = 0"
-            else:
-                sql = "select count(A.id) total_page from video.video A " \
-                      "inner join video.category B on A.category_id = B.id inner join account.user C on A.user_id = C.id " \
-                      "where (match(A.title, A.description) against(%s in natural language mode) " \
-                      "or match(B.name) against(%s in natural language mode) or match(C.name) against(%s in natural language mode)) " \
-                      "and A.user_id = 0"
-        if sql != None:
-            args = (key_word, key_word, key_word)
+            return self._search_human_total_pages(key_word)
+        elif type == ROBOT:
+            return self._search_robot_total_pages(key_word)
 
-            if len(key_word) == 0:
-                args = ()
+    def _search_robot_total_pages(self, key_word):
+        return None
 
-            result = self.rdbms_pool.query(sql, args)
-            if result != None and len(result) != 0:
-                total_page = result[0]['total_page']
-                # print(total_page, math.ceil(total_page / 10))
-                return math.ceil(total_page / 6)
-            else:
-                return None
+    def _search_human_total_pages(self, key_word):
+        sql = None
+        if len(key_word) == 0:
+            sql = "select count(A.id) total_page from video.video A " \
+                  "inner join video.category B on A.category_id = B.id " \
+                  "where A.user_id != 0"
         else:
-            raise Exception("type不合法的类型")
+            sql = "select count(A.id) total_page from video.video A " \
+                  "inner join video.category B on A.category_id = B.id inner join account.user C on A.user_id = C.id " \
+                  "where (match(A.title, A.description) against(%s in natural language mode) " \
+                  "or match(B.name) against(%s in natural language mode) or match(C.name) against(%s in natural language mode)) " \
+                  "and A.user_id != 0"
+
+        args = (key_word, key_word, key_word)
+
+        if len(key_word) == 0:
+            args = ()
+
+        result = self.rdbms_pool.query(sql, args)
+        if result != None and len(result) != 0:
+            total_page = result[0]['total_page']
+            # print(total_page, math.ceil(total_page / 10))
+            return math.ceil(total_page / 6)
+        else:
+            return None
 
     def get_video_uid(self, video_id):
         sql = "select user_id from video.video where id = %s"

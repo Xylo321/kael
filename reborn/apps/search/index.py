@@ -239,6 +239,13 @@ def search_video():
         result = video_search.search(key_word, page, type)
 
         if result != None:
+            """[{'category_id': 27,
+                  'category_name': 'UNIX',
+                  'id': 22,
+                  'title': '20_文件的查找',
+                  'user_id': 4},
+                ]
+            """
             return {"data": result, "status": 1}
         return {"data": [], "status": -1}
 
