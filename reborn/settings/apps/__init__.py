@@ -15,6 +15,7 @@ MDFS_DOWNLOAD_URL = 'https://serv_pro:15675/file/download'
 MDFS_EDIT_URL = 'https://serv_pro:15675/file/edit'
 MDFS_DOWNLOAD_MANY_URL = 'https://serv_pro:15675/file/download_many'
 MDFS_DELETE_URL = 'https://serv_pro:15675/file/delete'
+MDFS_GET_MANY_VIDEO_FIRST_PHOTO_URL = "https://serv_pro:15675/file/get_many_video_first_photo"
 
 CACHE_DIR = os.path.expanduser('~') + os.path.sep + "reborn" + os.path.sep + "cache"
 

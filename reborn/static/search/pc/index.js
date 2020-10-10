@@ -776,16 +776,14 @@ function search_video(key_word, page, type) {
                     var video_id = data.data[i].id;
                     var video_title = data.data[i].title;
                     var category_name = data.data[i].category_name;
-                    var local_url = data.data[i].local_url;
+                    var url = data.data[i].url;
+                    console.log(url)
 
-                    var png_url = '/video/view_video_1_img/';
-
-                    if(local_url != null && local_url != "") {
-                        view_png = png_url + local_url;
+                    if(url != null && url != "") {
                         content_html += '\
                         <div>\
                             <div class="my_video">\
-                                <img class="my_video_img" video_id="' + video_id + '" video_title="' + video_title + '" src="' + view_png + '"/>\
+                                <img class="my_video_img" video_id="' + video_id + '" video_title="' + video_title + '" src="' + url + '"/>\
                             </div>\
                             <div class="title">\
                                 <a class="my_video_img" video_id="' + video_id + '" video_title="' + video_title + '">' + video_title + '</a>\

@@ -103,6 +103,26 @@ def download_many(download_many_url, api_key, tcts):
         raise
 
 
+def get_many_video_first_photo(get_many_video_first_photo_url, api_key, tcts):
+    """XXX: tcts: [{third_user_id, category_id, title}]"""
+    form_data = {
+        'api_key': api_key,
+        'data': tcts
+    }
+    r = requests.get(get_many_video_first_photo_url, data=json.dumps(form_data), verify=False)
+    r.raise_for_status()
+    jd = r.json()
+    if jd['status'] == 0:
+        # print(None)
+        return None
+    elif jd['status'] == 1:
+        # 第一帧地址，也就是原来的数据中增加了一个url
+        # print(jd['data']) # [{'third_user_id': xxx, 'category_id': xxx, 'title': xxx, 'url': xxx}]
+        return jd['data']
+    else:
+        raise
+
+
 def delete(delete_url, api_key, third_user_id, category_id, title):
     form_data = {
         'api_key': api_key,

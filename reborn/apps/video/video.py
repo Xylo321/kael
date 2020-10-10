@@ -113,7 +113,8 @@ def get_video():
                     title = result[0]['title']
                     category_id = result[0]['category_id']
                     third_user_id = vi_user_id
-                    url = mdfs_download(MDFS_DOWNLOAD_URL, MDFS_API_KEY, third_user_id, category_id, title)
+                    expire = 9000
+                    url = mdfs_download(MDFS_DOWNLOAD_URL, MDFS_API_KEY, third_user_id, category_id, title, expire)
                     if url is None:
                         return {"data": [], "status": -1}
                     result[0]['url'] = url

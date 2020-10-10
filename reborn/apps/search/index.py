@@ -6,8 +6,9 @@ from reborn.db.account import User
 from reborn.db.search import ArticleSearch, ImageSearch, VideoSearch
 from reborn.settings.apps.account import IS_LOGIN
 from reborn.utils.http import pc_or_mobile, PC, MOBILE
-from reborn.settings.apps import MDFS_API_KEY, MDFS_DOWNLOAD_URL, MDFS_DOWNLOAD_MANY_URL
-from reborn.utils.mdfs import download_many as mdfs_download_many
+from reborn.settings.apps import MDFS_API_KEY, MDFS_DOWNLOAD_MANY_URL, MDFS_GET_MANY_VIDEO_FIRST_PHOTO_URL
+from reborn.utils.mdfs import (download_many as mdfs_download_many,
+    get_many_video_first_photo as mdfs_get_many_video_first_photo)
 
 SEARCH_INDEX_BP = Blueprint('search_index_bp', __name__)
 
@@ -246,7 +247,35 @@ def search_video():
                   'user_id': 4},
                 ]
             """
-            return {"data": result, "status": 1}
+            req_data = []
+            for row in result:
+                user_id = row['user_id']
+                title = row['title']
+                category_id = row['category_id']
+                req_data.append({
+                    'third_user_id': user_id,
+                    'category_id': category_id,
+                    'title': title,
+                    'expire': 9000
+                })
+            res_data = mdfs_get_many_video_first_photo(MDFS_GET_MANY_VIDEO_FIRST_PHOTO_URL, MDFS_API_KEY, req_data)
+            if res_data is None:
+                return {"data": [], "status": -1}
+
+            response_data = []
+            for row in result:
+                for res_d in res_data:
+                    if row['title'] == res_d['title'] and str(row['category_id']) == str(res_d['category_id']) \
+                            and str(user_id) == str(res_d['third_user_id']):
+                        response_data.append({
+                            'category_name': row['category_name'],
+                            'url': res_d.get('url', None),
+                            'title': row['title'],
+                            'id': row['id'],
+                        })
+                        break
+
+            return {"data": response_data, "status": 1}
         return {"data": [], "status": -1}
 
 
