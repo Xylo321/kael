@@ -2,10 +2,10 @@ from setuptools import find_packages, setup
 
 setup(
     name='reborn',
-    version='2.0.1',
+    version='2.0.2',
     url='',
     license='',
-    maintainer='zswj123',
+    maintainer='FDPG',
     maintainer_email='congshi.hello@gmail.com',
     description='',
     long_description='',
