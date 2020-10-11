@@ -1,5 +1,6 @@
-from gevent.pywsgi import WSGIServer
 from gevent import monkey
+monkey.patch_all()
+from gevent.pywsgi import WSGIServer
 
 import logging
 import traceback
@@ -142,7 +143,6 @@ APP.register_blueprint(VIDEO_VIDEO_BP, url_prefix="/video")
 
 def main():
     try:
-        monkey.patch_all()
 
         http_server = WSGIServer(('0.0.0.0', 8000), APP, keyfile=SSL_KEYFILE, certfile=SSL_CERTFILE)
         http_server.serve_forever()
