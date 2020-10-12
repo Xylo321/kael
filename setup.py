@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='reborn',
-    version='2.0.3',
+    version='2.0.4',
     url='',
     license='',
     maintainer='FDPG',
