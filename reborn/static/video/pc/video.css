@@ -212,7 +212,7 @@ h1 {
 }
 
 td[class=title] {
-    width: 170px;
+    width: 162px;
     /*超出内容用...表示*/
     text-overflow: ellipsis;
     white-space: nowrap;

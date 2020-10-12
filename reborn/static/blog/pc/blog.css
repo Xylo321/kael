@@ -114,7 +114,7 @@ a {
 }
 
 .title {
-    width: 233px;
+    width: 225px;
     /*超出内容用...表示*/
     text-overflow: ellipsis;
     white-space: nowrap;
