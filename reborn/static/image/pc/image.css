@@ -31,6 +31,13 @@ a:hover {
     width: 120px;
 }
 
+.cat {
+    display: block;
+    width: 64px;
+    text-overflow: ellipsis;
+    float: left;
+}
+
 .home {
     font-weight: bold;
 }

@@ -764,12 +764,6 @@ $(".nav").on('click', 'li > .add', function () {
             return;
         }
 
-        if (name.length > 4) {
-            infor("新栏目名长度最多为4", function () {
-            });
-            return;
-        }
-
         $.ajax({
             url: "/blog/add_category",
             type: 'POST',

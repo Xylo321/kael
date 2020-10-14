@@ -122,6 +122,13 @@ a {
     font-size: 14px;
 }
 
+.cat {
+    display: block;
+    width: 64px;
+    text-overflow: ellipsis;
+    float: left;
+}
+
 .date {
     text-align: right;
 }
