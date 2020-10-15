@@ -8,7 +8,6 @@ from reborn.db.account import User
 from reborn.db.video import Video, Category
 from reborn.settings.apps.account import IS_LOGIN
 from reborn.settings.apps import CACHE_DIR
-from reborn.utils.video import get_video_num_image
 from reborn.settings.apps import MDFS_DOWNLOAD_URL, MDFS_API_KEY, MDFS_UPLOAD_URL, MDFS_EDIT_URL, MDFS_DELETE_URL
 from reborn.utils.mdfs import download as mdfs_download, upload as mdfs_upload, edit as mdfs_edit, delete as mdfs_delete
 
