@@ -77,7 +77,7 @@ function responsive() {
     var width = $(window).width();
     var height = $(window).height();
 
-    if (width < 1080) {
+    if (width < 960) {
         $(".left").hide();
         $(".right").hide();
         $(".left_control").show();
@@ -98,7 +98,7 @@ function responsive() {
         $(".content").css({
             "width": width,
         });
-    } else if (width < 1440) {
+    } else if (width < 1366) {
         $(".right").hide();
         $(".left").show();
         $(".left_control").hide();
@@ -113,25 +113,7 @@ function responsive() {
         $(".right_control").css({
             "right": "0"
         });
-
-        if(height / width > 0.65 || height / width < 0.5) {
-            $(".left").hide();
-            $(".left_control").show();
-            $(".left_control").css({
-                "left": "0"
-            });
-
-            $('.center').css({
-                "width": width - 250,
-                "margin-left": "150px",
-                "margin-right": "150px",
-            });
-
-            $(".right_control").css({
-                "right": "0"
-            });
-        }
-    } else if(width < 1800){
+    } else if(width < 1616){
         $(".left").show();
         $(".right").show();
         $(".left_control").hide();
@@ -142,25 +124,6 @@ function responsive() {
             "margin-left": "250px",
             "margin-right": "250px"
         });
-
-        if(height / width > 0.65 || height / width < 0.5) {
-            $(".left").hide();
-            $(".right").hide();
-            $(".left_control").show();
-            $(".left_control").css({
-                "left": "0"
-            });
-
-            $('.center').css({
-                "width": width - 250,
-                "margin-left": "150px",
-                "margin-right": "150px",
-            });
-
-            $(".right_control").css({
-                "right": "0"
-            });
-        }
     } else {
         $(".left").hide();
         $(".right").hide();
@@ -168,9 +131,9 @@ function responsive() {
         $(".right_control").show();
 
         $('.center').css({
-            "width": width - 500,
-            "margin-left": 250,
-            "margin-right": 250
+            "width": width,
+            "margin-left": 0,
+            "margin-right": 0
         });
 
         $(".left_control").css({
