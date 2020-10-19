@@ -1,11 +1,11 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='reborn',
+    name='kael',
     version='2.0.5',
     url='',
     license='',
-    maintainer='FDPG',
+    maintainer='kael',
     maintainer_email='congshi.hello@gmail.com',
     description='',
     long_description='',
@@ -27,8 +27,8 @@ setup(
     ],
     entry_points = """
     [console_scripts]
-    reborn = reborn.apps:main
-    delete_category_consumer = reborn.mmq.delete_category:main
-    delete_file_by_category_consumer = reborn.mmq.delete_file_by_category:main
+    kael = kael.apps:main
+    delete_category_consumer = kael.mmq.delete_category:main
+    delete_file_by_category_consumer = kael.mmq.delete_file_by_category:main
     """
 )

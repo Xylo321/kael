@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>博文</title>
+
+    <link rel="shortcut icon" href={{ url_for("static", filename="favicon.ico") }}>
+    <link href={{url_for('static', filename="blog/pc/blog.css")}} rel="stylesheet"/>
+    <link href={{url_for("static", filename="common/common.css")}} rel="stylesheet"/>
+    <link href={{url_for('static', filename="common/monokai_sublime.min.css")}} rel="stylesheet">
+
+    <script src={{url_for('static', filename="common/jquery-3.4.1.min.js")}}></script>
+    <script src={{url_for('static', filename="common/marked.min.js")}}></script>
+    <script src={{url_for('static', filename="common/highlight.min.js")}}></script>
+</head>
+
+<body>
+{% if look %}
+    <hidden class="look" value="{{ look }}"></hidden>
+{% endif %}
+
+{% if article_title %}
+    <hidden class="article_title" value="{{ article_title }}"></hidden>
+{% endif %}
+
+<div class="left_control">
+    <
+</div>
+
+<div class="right_control">
+    >
+</div>
+
+<div class="left">
+    <ul>
+        {% if look %}
+            <li><a class="home" href={{ "/blog/home" + "?look=" + look }}><b>主页</b></a></li>
+        {% else %}
+            <li><a class="home" href="/blog/home"><b>主页</b></a></li>
+        {% endif %}
+    </ul>
+    <ul class="nav"></ul>
+
+    <div class="logo">博文</div>
+
+    <div class="author">
+        {% if user_name %}
+            {{ user_name }}
+        {% endif %}
+    </div>
+
+    <div class="pub_date">2019年12月2日</div>
+
+    <hidden class="current_category" value=""></hidden>
+    <hidden class="current_page" value="1"></hidden>
+
+    <div class="article_list">
+        <table class="data">
+            <caption>文章列表</caption>
+        </table>
+        <div class="pagnation">
+            <div class="pre">
+                <a id="pre_page">上一页</a>
+            </div>
+            <div class="nex">
+                <a id="nex_page">下一页</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="center">
+    <div class="content">
+        <div class="new_article">
+            <div class="edit_panel">
+                <div class="editor">
+                    <textarea placeholder="# 输入您的标题 (Markdown)"></textarea>
+                </div>
+
+                <div class="opera">
+                    <div class="opera_left">
+                        <input class="title" type="text" placeholder="文章标题"/>
+                        <select class="category_name"></select>
+                    </div>
+                    <div class="opera_right">
+                        <a class="debug">预览</a>
+                        <select name="is_public" class="is_public">
+                            <option value="0">公开</option>
+                            <option value="1">隐藏</option>
+                        </select>
+                        <a class="save">保存</a>
+                        <a class="close">关闭</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview_panel">
+                <div class="article_preview"></div>
+                <div class="opera">
+                    <a class="back">返回</a>
+                </div>
+            </div>
+        </div>
+
+       <div class="old_article">
+            <div class="edit_panel">
+                <div class="editor">
+                    <textarea></textarea>
+                </div>
+
+                <div class="opera">
+                    <div class="opera_left">
+                        <input class="title" type="text" placeholder="文章标题"/>
+                        <select class="category_name"></select>
+                    </div>
+                    <div class="opera_right">
+                        <a class="debug">预览</a>
+                        <select name="is_public" class="is_public">
+                            <option value="0">公开</option>
+                            <option value="1">隐藏</option>
+                        </select>
+                        <a class="save">更新</a>
+                        <a class="close">关闭</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview_panel">
+                <hidden class="backup" value=""></hidden>
+                <div class="article_preview"></div>
+                <div class="opera">
+                    <div class="edit">
+                        <a class="back">返回</a>
+                    </div>
+                    <div class="view">
+                        <div class="base">
+                            <span class="category_name" title="文章类别"></span>
+                            <span class="date" title="文章日期"></span>
+                            <hidden class="title" value=""></hidden>
+                            <hidden class="is_public" value=""></hidden>
+                        </div>
+                        <div class="other">
+                            {% if look %}
+                            {% else %}
+                                <a class="update">编辑</a>
+                                <a class="delete">删除</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="right">
+    <div class="my_word">
+        <!--真正的知识来源于卑微-->
+        <!--千呼万唤始出来丶犹抱琵琶半遮面-->
+<!--        我的深情不再留给往日的悲伤-->
+        <!--积土成山风雨兴焉积水成渊蛟龙生焉-->
+        陌生人对我说我要你快乐
+    </div>
+
+    <div class="log_out">
+        {% if back_home %}
+            <a class="back_home">回家</a>
+        {% else %}
+            {% if look %}
+                <a href="/account/login">登录</a>
+            {% else %}
+                <a class="exit">退出</a>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="newArticle">
+        {% if look %}
+        {% else %}
+        <a>新建</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="music">
+    <audio id="bm" controls="controls" hidden autoplay="autoplay" loop="loop">
+<!--        <source src={{url_for('static', filename="blog/群星 - 湖塔秀筑.mp3")}}/>-->
+    </audio>
+
+    <audio id="88">
+<!--        <source src={{url_for('static', filename="blog/许嵩,何曼婷 - 素颜.flac")}}/>-->
+    </audio>
+
+    <audio id="idea" controls="controls" hidden loop="loop">
+<!--        <source src={{url_for('static', filename="blog/赵季平 - 悬空寺-仪琳.flac")}}/>-->
+    </audio>
+</div>
+
+<script defer src={{url_for('static', filename="blog/pc/blog.js")}}></script>
+{% include "common/pc/dialog.html" %}
+</body>
+</html>
