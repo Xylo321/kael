@@ -726,7 +726,10 @@ $(".base_infor > .edit").click(function () {
 
 
 $(".notepad").click(function () {
-    location.href = '/blog/notepad?url=' + location.href;
+    var author = $(".author").html().trim();
+    var title = $(".content > .title").html().trim();
+    var href = location.href.split('?')[0] + '?look=' + author + '&video_title=' + title;
+    location.href = '/blog/notepad?url=' + btoa(unescape(encodeURIComponent(href)));
 });
 
 

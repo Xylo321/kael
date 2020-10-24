@@ -245,7 +245,7 @@ $("#pre_page").click(function () {
 
 /* 打开便利工具 */
 $(".notepad").click(function() {
-   window.open('/blog/notepad');
+    location.href = '/blog/notepad';
 });
 
 /* 新建文章 */
