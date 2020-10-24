@@ -41,7 +41,7 @@ def home():
                                 "look": look,
                                 "back_home": 1,
                                 "user_name": look,
-                                "article_title": article_title
+                                "article_title": article_title,
                             }
                             if PC == pc_or_mobile(request.headers['User-Agent']):
                                 return render_template("blog/pc/blog.html", **context)
@@ -54,7 +54,7 @@ def home():
                         context = {
                             "look": look,
                             "back_home": 1,
-                            "user_name": look
+                            "user_name": look,
                         }
 
                         if pc_or_mobile(request.headers['User-Agent']) == PC:

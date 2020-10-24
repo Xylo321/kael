@@ -884,7 +884,7 @@ function get_article(article_title) {
                 $(".center > .content > .old_article > .preview_panel > .opera > .view > .base > .date").html(new Date(date * 1000).toLocaleString());
                 $(".center > .content > .old_article > .preview_panel > .opera > .view > .base > .title").attr("value", title);
                 $(".center > .content > .old_article > .preview_panel > .opera > .view > .base > .is_public").attr("value", is_public);
-                img_iframe_responsive()
+                img_iframe_responsive();
             } else {
                 infor("获取文章详情失败", function() {
                 });
