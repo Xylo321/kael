@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>❤️</title>
+
+    <link rel="shortcut icon" href={{ url_for("static", filename="favicon.ico") }}>
+    <link href={{url_for("static", filename="blog/pc/notepad.css")}} rel="stylesheet"/>
+
+    <link href={{url_for("static", filename="common/common.css")}} rel="stylesheet"/>
+    <script src={{url_for('static', filename="common/jquery-3.4.1.min.js")}}></script>
+</head>
+
+<body>
+<div class="left">
+    {% if url %}
+        <input type="url" placeholder="请输入学习网址后按回车键即打开" value="{{ url }}">
+    {% else %}
+        <input type="url" placeholder="请输入学习网址后按回车键即打开" value="">
+    {% endif %}
+    <iframe src="http://www.baidu.com"></iframe>
+</div>
+
+<div class="right">
+    <iframe src="https://serv_pro:8000/blog/"></iframe>
+</div>
+<script defer src={{url_for('static', filename="blog/pc/notepad.js")}}></script>
+</body>
+</html>

@@ -16,7 +16,7 @@ sudo dpkg -i mysql-apt-config_0.8.14-1_all.deb
 sudo apt update
 sudo apt install mysql-server
 ```
-关于mysql.deb包的详细使用官方文档https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/。
+关于mysql.deb包的详细使用官方文档https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/
 
 设置远程连接（mysql8不需要修改配置文件）：
 ```

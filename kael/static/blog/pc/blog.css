@@ -300,3 +300,11 @@ code, span[class*="hljs"] {
 .article_preview > table {
     margin-left: 10px;
 }
+
+.newArticle {
+    float: left;
+}
+
+.notepad {
+    float: right;
+}

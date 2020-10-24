@@ -103,6 +103,7 @@ Session(APP)
 from kael.apps.blog.category import BLOG_CATEGORY_BP
 from kael.apps.blog.article import BLOG_ARTICLE_BP
 from kael.apps.blog.home import BLOG_HOME_BP
+from kael.apps.blog.notepad import BLOG_NOTEPAD_BP
 
 from kael.apps.account.user import USER_BP
 
@@ -128,6 +129,7 @@ APP.register_blueprint(USER_BP, url_prefix="/account")
 APP.register_blueprint(BLOG_CATEGORY_BP, url_prefix="/blog")
 APP.register_blueprint(BLOG_ARTICLE_BP, url_prefix="/blog")
 APP.register_blueprint(BLOG_HOME_BP, url_prefix="/blog")
+APP.register_blueprint(BLOG_NOTEPAD_BP, url_prefix='/blog')
 
 APP.register_blueprint(SEARCH_INDEX_BP, url_prefix="/search")
 APP.register_blueprint(SEARCH_INDEX_BP, url_prefix="/")

@@ -227,3 +227,16 @@ td[class=title] {
     text-overflow: ellipsis;
     float: left;
 }
+
+.newArticle {
+    float: left;
+}
+
+.notepad {
+    float: right;
+}
+
+.wyqp {
+    float: right;
+    margin-left: 5px;
+}

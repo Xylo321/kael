@@ -723,3 +723,95 @@ $(".base_infor > .edit").click(function () {
 
     });
 });
+
+
+$(".notepad").click(function () {
+    location.href = '/blog/notepad?url=' + location.href;
+});
+
+
+function for_wyqp(width) {
+    if (width < 960) {
+        $(".left").hide();
+        $(".right").hide();
+        $(".left_control").show();
+        $(".right_control").show();
+
+        $('.center').css({
+            "width": "100%",
+            "margin-left": "0",
+            "margin-right": "0",
+        });
+        $(".left_control").css({
+            "left": "0"
+        });
+        $(".right_control").css({
+            "right": "0"
+        });
+
+        $(".content").css({
+            "width": width,
+        });
+    } else if (width < 1366) {
+        $(".right").hide();
+        $(".left").show();
+        $(".left_control").hide();
+        $(".right_control").show();
+
+        $('.center').css({
+            "width": width - 250,
+            "margin-left": "250px",
+            "margin-right": "0",
+        });
+
+        $(".right_control").css({
+            "right": "0"
+        });
+    } else if(width < 1616){
+        $(".left").show();
+        $(".right").show();
+        $(".left_control").hide();
+        $(".right_control").hide();
+
+        $('.center').css({
+            "width": width - 500,
+            "margin-left": "250px",
+            "margin-right": "250px"
+        });
+    } else {
+        $(".left").hide();
+        $(".right").hide();
+        $(".left_control").show();
+        $(".right_control").show();
+
+        $('.center').css({
+            "width": width,
+            "margin-left": 0,
+            "margin-right": 0
+        });
+
+        $(".left_control").css({
+            "left": 0,
+        });
+        $(".right_control").css({
+            "right": 0,
+        });
+    }
+
+    $(".content").css({
+        "width": "100%"
+    })
+
+    img_video_responsive()
+}
+
+$(".wyqp").click(function () {
+    if ($(this).attr("value") == "no") {
+        $(this).attr("value", 'yes');
+        for_wyqp(959);
+    } else {
+        $(this).attr("value", 'no');
+        for_wyqp($(window).width());
+    }
+});
+

@@ -243,6 +243,11 @@ $("#pre_page").click(function () {
         pag_article(current_page - 1, current_category);
 });
 
+/* 打开便利工具 */
+$(".notepad").click(function() {
+   window.open('/blog/notepad');
+});
+
 /* 新建文章 */
 $(".newArticle").click(function () {
     if($(".nav > li > .cat").length == 0) {
