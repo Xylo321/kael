@@ -12,6 +12,10 @@
     width: 100%;
 }
 
+input {
+    color: green;
+}
+
 .right {
     position: fixed;
     width: 40%;
