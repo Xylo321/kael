@@ -11,7 +11,9 @@
           input {
               width: 100%;
               padding: 0;
-              box-sizing: content-box;
+              -webkit-box-sizing:border-box;
+              -moz-box-sizing: boder-box;
+              box-sizing: border-box;
           }
 
           #connect {
@@ -51,16 +53,5 @@
     <script src="static/js/xterm.min.js"></script>
     <script src="static/js/xterm-addon-fit.min.js"></script>
     <script src="static/js/main.js"></script>
-
-              <script>
-                  function res() {
-                      $("input").css({
-                          "width": $("button").width() - 8
-                      })
-                  }
-          $(window).resize(function () {
-                res();
-          });
-      </script>
   </body>
 </html>
