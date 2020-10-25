@@ -13,6 +13,7 @@
 
 <body>
 <div class="left">
+    <div class="title">黑板-温柔乡是英雄冢</div>
     {% if url %}
         <input type="url" placeholder="请输入学习网址后按回车键即打开" value="{{ url }}">
     {% else %}
@@ -22,7 +23,10 @@
 </div>
 
 <div class="right">
-    <iframe src="https://serv_pro:8000/blog/?edit=True"></iframe>
+    <div class="title">笔记本-喜欢独处，与人交往的秘诀是，沉默，聆听</div>
+    <iframe class="r_top" src="/blog/?edit=True"></iframe>
+    <div class="title">SSH终端-饮酒，听老师赏诗词，没有比这更愉快的</div>
+    <iframe class="r_bottom" src="https://serv_pro:4433/"></iframe>
 </div>
 <script defer src={{url_for('static', filename="blog/pc/notepad.js")}}></script>
 </body>

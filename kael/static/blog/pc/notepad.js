@@ -5,8 +5,18 @@ $(function () {
 
 function responsive() {
     $(".left > iframe").css({
-        "height": $(window).height() - $(".left > input").height()
+        "height": $(window).height() - $(".left > input").height() - $('.title').height(),
     });
+
+    $(".right > .r_top").css({
+        "height": $(window).height() / 2 - $(".title").height(),
+        "width": "100%"
+    });
+
+    $(".right > .r_bottom").css({
+        "height": $(window).height() / 2 - $(".title").height(),
+        "width": "100%"
+    })
 }
 
 $(window).resize(function () {

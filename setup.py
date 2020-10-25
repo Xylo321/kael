@@ -23,12 +23,15 @@ setup(
         "filetype",
         "pillow",
         "PyMySQL",
-        "gevent"
+        "gevent",
+        "tornado",
+        "paramiko"
     ],
     entry_points = """
     [console_scripts]
     kael = kael.apps:main
     delete_category_consumer = kael.mmq.delete_category:main
     delete_file_by_category_consumer = kael.mmq.delete_file_by_category:main
+    wssh = kael.webssh.main:main
     """
 )

@@ -53,7 +53,7 @@
 .left > .nav {
     list-style: none;
     float: left;
-    max-height: 55%;
+    /*max-height: 55%;*/
     overflow-y: auto;
     width: 100px;
 }

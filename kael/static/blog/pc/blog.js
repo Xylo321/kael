@@ -177,7 +177,10 @@ function responsive() {
         "width": "100%"
     })
 
-    img_iframe_responsive()
+    img_iframe_responsive();
+    $(".left > .nav").css({
+        "height": height - 260
+    });
 }
 
 /* 拉取文章列表 */
@@ -214,13 +217,16 @@ function pag_article(page, category_name) {
                 }
 
                 $(".article_list > .data").html(al_html);
+                responsive();
             } else {
                 infor("拉取文章失败", function () {
+                    responsive();
                 });
             }
         },
         error: function (err) {
             infor("网络错误", function () {
+                responsive();
             });
         },
         async: true
