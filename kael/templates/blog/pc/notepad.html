@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>❤️</title>
+    <title>工作台</title>
 
     <link rel="shortcut icon" href={{ url_for("static", filename="favicon.ico") }}>
     <link href={{url_for("static", filename="blog/pc/notepad.css")}} rel="stylesheet"/>
@@ -13,7 +13,7 @@
 
 <body>
 <div class="left">
-    <div class="title"></div>
+    <div class="title">💖</div>
     {% if url %}
         <input type="url" placeholder="请输入学习网址后按回车键即打开" value="{{ url }}">
     {% else %}
@@ -25,7 +25,7 @@
 <div class="right">
     <div class="title">笔记本</div>
     <iframe class="r_top" src="/blog/?edit=True"></iframe>
-    <div class="title">SSH</div>
+    <div class="title">终端</div>
     <iframe class="r_bottom" src="https://serv_pro:4433/"></iframe>
 </div>
 <script defer src={{url_for('static', filename="blog/pc/notepad.js")}}></script>

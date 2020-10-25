@@ -14,7 +14,7 @@ function responsive() {
     });
 
     $(".right > .r_bottom").css({
-        "height": $(window).height() / 2 - $(".title").height(),
+        "height": $(window).height() / 2 - $(".title").height() - 2,
         "width": "100%"
     })
 }
