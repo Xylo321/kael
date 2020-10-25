@@ -99,6 +99,7 @@ fieldset {
 .article > .human > fieldset > .content,
 .article > .robot > fieldset > .content {
     height: 210px;
+    overflow-y: auto;
 }
 
 .article > .human > fieldset > .content > div,
