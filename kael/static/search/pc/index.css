@@ -26,14 +26,18 @@ fieldset {
 }
 .nav > ul {
     list-style: none;
+    top: 25%;
+    transform: translateY(12.5%);
 }
 
 .nav > ul > li {
-    float: left;
+    display: inline;
 }
 
 .account {
     float: right;
+    top: 25%;
+    transform: translateY(12.5%);
 }
 
 .center {
@@ -117,6 +121,8 @@ fieldset {
     text-overflow: ellipsis;
     white-space: nowrap;
     float: left;
+    height: 19px;
+    left: 0px;
 }
 
 .article > .robot > fieldset > .content> div > a {
@@ -128,7 +134,8 @@ fieldset {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    float: left;
+    height: 19px;
+    left: 0px;
 }
 
 .article > .human > fieldset > .content > div > span,
@@ -136,9 +143,11 @@ fieldset {
     padding-top: 1px;
     padding-bottom: 1px;
     padding-right: 2px;
-    float: right;
     display: block;
     cursor: crosshair;
+    right: 2px;
+    text-align: right;
+    height: 19px;
 }
 
 .infor {
