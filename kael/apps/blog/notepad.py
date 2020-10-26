@@ -1,6 +1,6 @@
-import base64
 from flask import request, render_template, Blueprint, session, redirect, url_for
 from kael.settings.apps.account import IS_LOGIN
+from urllib.parse import unquote
 
 BLOG_NOTEPAD_BP = Blueprint('blog_notepad_bp', __name__)
 
@@ -19,7 +19,8 @@ def notepad():
 
         url = ''
         try:
-            url = base64.standard_b64decode(request.args.get('url').encode()).decode()
+            pre_url = request.args.get('url')
+            url = unquote(pre_url)
         except: pass
         context = {
             'url': url

@@ -729,7 +729,8 @@ $(".notepad").click(function () {
     var author = $(".author").html().trim();
     var title = $(".content > .title").html().trim();
     var href = location.href.split('?')[0] + '?look=' + author + '&video_title=' + title;
-    location.href = '/blog/notepad?url=' + btoa(unescape(encodeURIComponent(href)));
+    var urlencode_href = encodeURIComponent(href);
+    location.href = '/blog/notepad?url=' + urlencode_href;
 });
 
 
