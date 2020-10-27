@@ -1035,3 +1035,38 @@ $(".other > .update").click(function() {
 //             infor("该浏览器不支持全屏接口", function() {}, false);
 //     }
 // });
+
+
+$(".editor > textarea").bind("paste", function(e) {
+    var isChrome = false;
+    if (event.clipboardData || event.originalEvent) {
+        //某些chrome版本使用的是event.originalEvent
+        var clipboardData = (event.clipboardData || event.originalEvent.clipboardData);
+        if (clipboardData.items) {
+            // for chrome
+            var items = clipboardData.items,
+                len = items.length,
+                blob = null;
+            isChrome = true;
+            for (var i = 0; i < len; i++) {
+                console.log(items[i]);
+                if (items[i].type.indexOf("image") !== -1) {
+                    //getAsFile() 此方法只是living standard firefox ie11 并不支持
+                    blob = items[i].getAsFile();
+                }
+            }
+            if (blob !== null) {
+                var blobUrl = URL.createObjectURL(blob);
+                //blob对象显示
+                var reader = new FileReader();
+                //base64码显示
+                reader.onload = function (event) {
+                    // event.target.result 即为图片的Base64编码字符串
+                    var base64_str = event.target.result;
+                    $(".editor > textarea").val($(".editor > textarea").val() + "<img src='" + base64_str + "'>");
+                }
+                reader.readAsDataURL(blob);
+            }
+        }
+    }
+});
