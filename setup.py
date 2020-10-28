@@ -25,7 +25,8 @@ setup(
         "PyMySQL",
         "gevent",
         "tornado",
-        "paramiko"
+        "paramiko",
+        "colored"
     ],
     entry_points = """
     [console_scripts]
