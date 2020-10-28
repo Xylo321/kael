@@ -18,6 +18,7 @@ a:hover {
 .left {
     background-color: #FFCC99;
     position: fixed;
+    top: 0;
     left: 0;
     width: 200px;
     height: 100%;
@@ -25,10 +26,9 @@ a:hover {
 }
 
 .left > .nav {
-    overflow-x: hidden;
-    overflow-y: auto;
-    height: 300px;
-    width: 120px;
+    list-style: none;
+    /*max-height: 55%;*/
+    width: 100px;
 }
 
 .cat {
@@ -36,6 +36,8 @@ a:hover {
     width: 64px;
     text-overflow: ellipsis;
     float: left;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .home {

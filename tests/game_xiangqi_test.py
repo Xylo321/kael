@@ -1,6 +1,7 @@
 from unittest import TestCase
 from kael.game.xiangqi import XiangQi, QiZi, ZuoBiao
 
+
 class CheTest(TestCase):
     def test_qizi_not_in_qipan(self):
         xq = XiangQi()
