@@ -84,6 +84,7 @@ function upload_file(sender, src_title, message, position, conirm_callback, canc
     $("#upload_file > .layout > .upload_file_title").val(src_title);
     $("#upload_file > .layout > .upload_file_title").focus();
     $("#upload_file > .layout > .upload_file_title").attr("placeholder", message);
+    $("#upload_file > .layout > .upload_file_name").val('');
 
     $("#upload_file").show();
     switch(position) {
