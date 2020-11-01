@@ -136,9 +136,16 @@ a {
     height: 150px;
 }
 
-#upload_video > .layout > .confirm {
-    margin-left: 230px;
+#upload_video > .layout > .cancel {
+    margin-right: 5px;
+    float: right;
 }
+
+#upload_video > .layout > .confirm {
+    float: left;
+    margin-left: 5px;
+}
+
 
 #upload_progressbar {
     display: none;
