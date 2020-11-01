@@ -17,14 +17,7 @@ MDFS_DOWNLOAD_MANY_URL = 'https://serv_pro:15675/file/download_many'
 MDFS_DELETE_URL = 'https://serv_pro:15675/file/delete'
 MDFS_GET_MANY_VIDEO_FIRST_PHOTO_URL = "https://serv_pro:15675/file/get_many_video_first_photo"
 
-CACHE_DIR = os.path.expanduser('~') + os.path.sep + "kael" + os.path.sep + "cache"
-
-if 'Windows' in platform.platform():
-    pass
-elif 'macOS' in platform.platform():
-    CACHE_DIR = "/Volumes/GoodByeUbuntu" + os.path.sep + "kael" + os.path.sep + "cache"
-elif 'Linux' in platform.platform():
-    CACHE_DIR = '/mnt/hgfs' + os.path.sep + 'kael' + os.path.sep + "cache"
+CACHE_DIR = os.path.expanduser('~') + os.path.sep + "cache"
 
 if not os.path.exists(CACHE_DIR):
     os.makedirs(CACHE_DIR)

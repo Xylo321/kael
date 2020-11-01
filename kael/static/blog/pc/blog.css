@@ -134,6 +134,17 @@ a {
     float: left;
 }
 
+.nav > li {
+    float: left;
+    width: inherit;
+}
+
+.add {
+    display: block;
+    float: left;
+    text-overflow: ellipsis;
+}
+
 .date {
     text-align: right;
 }
@@ -291,10 +302,6 @@ h1 {
 .home > b {
     font-weight: bold;
     font-size: 17px;
-}
-
-code, span[class*="hljs"] {
-    font-family: "My Monaco";
 }
 
 .article_preview > table {

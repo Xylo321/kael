@@ -145,7 +145,6 @@ APP.register_blueprint(VIDEO_VIDEO_BP, url_prefix="/video")
 
 def main():
     try:
-
         http_server = WSGIServer(('0.0.0.0', 8000), APP, keyfile=SSL_KEYFILE, certfile=SSL_CERTFILE)
         http_server.serve_forever()
     except Exception as e:

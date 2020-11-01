@@ -27,6 +27,11 @@ $ mysql -u root -p123456;
 >>> flush privileges;
 ```
 
+```
+>>> update user set plugin = 'mysql_native_password' where user = 'root';
+```
+有时候会navicat能连，但是代码不能连。
+
 账号密码修改，不然有时候会报错ssh这种错误：
 ```
 $ mysql -u root -p123456;
