@@ -219,3 +219,14 @@ h1 {
     font-weight: bold;
     font-size: 17px;
 }
+
+.nav > li {
+    float: left;
+    width: inherit;
+}
+
+.add {
+    display: block;
+    float: left;
+    text-overflow: ellipsis;
+}

@@ -240,3 +240,14 @@ td[class=title] {
     float: right;
     margin-left: 5px;
 }
+
+.nav > li {
+    float: left;
+    width: inherit;
+}
+
+.add {
+    display: block;
+    float: left;
+    text-overflow: ellipsis;
+}
