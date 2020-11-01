@@ -31,7 +31,7 @@ MINGMQ_CONFIG = {
         'user_name': 'mingmq',
         'passwd': 'mm5201314',
         'pool_size': 10,
-        'queue_name': 'reborn_delete_category'
+        'queue_name': 'kael_delete_category'
     },
     'delete_file_by_category': {
         'host': 'serv_pro',
@@ -39,6 +39,6 @@ MINGMQ_CONFIG = {
         'user_name': 'mingmq',
         'passwd': 'mm5201314',
         'pool_size': 10,
-        'queue_name': 'reborn_delete_file_by_category'
+        'queue_name': 'kael_delete_file_by_category'
     }
 }

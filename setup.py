@@ -18,14 +18,10 @@ setup(
         "redis",
         "html2text",
         "cryptography",
-        "opencv-python",
-        "ffmpeg-python",
         "filetype",
         "pillow",
         "PyMySQL",
         "gevent",
-        "tornado",
-        "paramiko",
         "colored"
     ],
     entry_points = """
@@ -33,6 +29,5 @@ setup(
     kael = kael.apps:main
     delete_category_consumer = kael.mmq.delete_category:main
     delete_file_by_category_consumer = kael.mmq.delete_file_by_category:main
-    wssh = kael.webssh.main:main
     """
 )
