@@ -76,6 +76,8 @@ create fulltext index name on user(name) with parser ngram;
 
 #### BLOG数据库
 
+爬虫数据表是，category_s，blog_s直接复制这里的表结构。
+
 ```sql
 CREATE DATABASE `blog` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 CREATE TABLE `article` (
@@ -113,6 +115,7 @@ create fulltext index title_content on article(title, content) with parser ngram
 
 #### IMAGE数据库
 
+爬虫数据表是category_s和photo_s，直接复制表结构。
 ```sql
 CREATE DATABASE `image` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
@@ -142,6 +145,7 @@ create fulltext index name on category(name) with parser ngram;
 
 #### VIDEO数据库
 
+爬虫数据表是category_s和video_s，直接复制表结构。
 ```sql
 CREATE DATABASE `video`;
 
