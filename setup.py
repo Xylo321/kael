@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='kael',
-    version='2.0.5',
+    version='3.0.1',
     url='',
     license='',
     maintainer='kael',
