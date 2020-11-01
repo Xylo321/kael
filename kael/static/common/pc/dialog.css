@@ -46,7 +46,7 @@
 
 #shuru > .layout {
     background-color: #FFCC99;
-    width: 195px;
+    width: fit-content;
     height: fit-content;
     white-space: nowrap;
 }
