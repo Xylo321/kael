@@ -58,6 +58,7 @@ def search_article():
         page = int(request.form['page'])
         type = int(request.form['type'])
         article_search = ArticleSearch(SEARCH_MYSQL_POOL)
+        print(type)
         result = article_search.search(key_word, page, type)
 
         if result != None:

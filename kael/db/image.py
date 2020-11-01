@@ -6,6 +6,9 @@ from kael.db import MySQLBase
 class Category(MySQLBase):
     def get_categories(self, user_id):
         sql = "select name from category where user_id = %s"
+        if user_id == 0:
+            sql = "select name from category_s where user_id = %s"
+
         args = (user_id,)
         result = self.rdbms_pool.query(sql, args)
         if result is not None:
@@ -15,6 +18,9 @@ class Category(MySQLBase):
 
     def rename_category(self, old_name, new_name, user_id):
         sql = "update category set name = %s where name = %s and user_id = %s"
+        if user_id == 0:
+            sql = "update category_s set name = %s where name = %s and user_id = %s"
+
         args = (new_name, old_name, user_id)
         affect_rows = self.rdbms_pool.edit(sql, args)
         if affect_rows == 0:
@@ -28,6 +34,9 @@ class Category(MySQLBase):
             conn = self.rdbms_pool.get_conn()
             with conn.cursor() as cursor:
                 sql = "delete from category where name = %s and user_id = %s"
+                if user_id == 0:
+                    sql = "delete from category_s where name = %s and user_id = %s"
+
                 args = (name, user_id)
                 cursor.execute(sql, args)
 
@@ -41,6 +50,9 @@ class Category(MySQLBase):
 
     def exist(self, name, user_id):
         sql = "select id from category where name = %s and user_id = %s"
+        if user_id == 0:
+            sql = "select id from category_s where name = %s and user_id = %s"
+
         args = (name, user_id)
         result = self.rdbms_pool.query(sql, args)
         if result != None and len(result) != 0:
@@ -50,6 +62,9 @@ class Category(MySQLBase):
 
     def get_category_id_by_category_name_user_id(self, name, user_id):
         sql = 'select id from category where name = %s and user_id = %s'
+        if user_id == 0:
+            sql = 'select id from category_s where name = %s and user_id = %s'
+
         args = (name, user_id)
         result = self.rdbms_pool.query(sql, args)
         if result != None and len(result) != 0:
@@ -63,6 +78,9 @@ class Category(MySQLBase):
             return -1
         else:
             sql = "insert into category(name, user_id) value(%s, %s)"
+            if user_id == 0:
+                sql = "insert into category_s(name, user_id) value(%s, %s)"
+
             args = (name, user_id)
             affect_rows = self.rdbms_pool.edit(sql, args)
             if affect_rows == 0:
@@ -72,6 +90,9 @@ class Category(MySQLBase):
 
     def get_category_id(self, name, user_id):
         sql = "select id from category where name = %s and user_id = %s"
+        if user_id == 0:
+            sql = "select id from category_s where name = %s and user_id = %s"
+
         args = (name, user_id)
         result = self.rdbms_pool.query(sql, args)
         if result != None and len(result) != 0:
@@ -83,6 +104,9 @@ class Category(MySQLBase):
 class Photo(MySQLBase):
     def delete_photo(self, title, user_id):
         sql = "delete from photo where title = %s and user_id = %s"
+        if user_id == 0:
+            sql = "delete from photo_s where title = %s and user_id = %s"
+
         args = (title, user_id)
         affect_rows = self.rdbms_pool.edit(sql, args)
         if affect_rows == 0:
@@ -92,6 +116,9 @@ class Photo(MySQLBase):
 
     def exist(self, title, user_id):
         sql = "select id from photo where title = %s and user_id = %s"
+        if user_id == 0:
+            sql = "select id from photo_s where title = %s and user_id = %s"
+
         args = (title, user_id)
         result = self.rdbms_pool.query(sql, args)
         if result != None and len(result) != 0:
@@ -101,6 +128,9 @@ class Photo(MySQLBase):
 
     def get_photo_id(self, title, user_id):
         sql = "select id from photo where title = %s and user_id = %s"
+        if user_id == 0:
+            sql = "select id from photo_s where title = %s and user_id = %s"
+
         args = (title, user_id)
         result = self.rdbms_pool.query(sql, args)
         if result != None and len(result) != 0:
@@ -115,6 +145,9 @@ class Photo(MySQLBase):
             category_id = category.get_category_id(category_name, user_id)
             if category_id:
                 sql = "insert into photo(title, category_id, file_extension, user_id, date) value(%s, %s, %s, %s, %s)"
+                if user_id == 0:
+                    sql = "insert into photo_s(title, category_id, file_extension, user_id, date) value(%s, %s, %s, %s, %s)"
+
                 args = (title, category_id, file_extension, user_id, int(time.time()))
                 affect_rows = self.rdbms_pool.edit(sql, args)
                 if affect_rows == 0:
@@ -135,6 +168,11 @@ class Photo(MySQLBase):
                        "from photo A inner join category B on A.category_id = B.id "
                        "where A.user_id = %s and A.category_id = %s "
                        "order by date desc limit %s, 10")
+                if user_id == 0:
+                    sql = ("select A.title, A.date, B.name as category_name, B.id as category_id "
+                           "from photo_s A inner join category_s B on A.category_id = B.id "
+                           "where A.user_id = %s and A.category_id = %s "
+                           "order by date desc limit %s, 10")
 
                 args = (user_id, category_id, (page - 1) * 10)
                 result = self.rdbms_pool.query(sql, args)
@@ -149,7 +187,11 @@ class Photo(MySQLBase):
                    "from photo A inner join category B on A.category_id = B.id "
                    "where A.user_id = %s "
                    "order by date desc limit %s, 10")
-
+            if user_id == 0:
+                sql = ("select A.title, A.date, B.name as category_name, B.id as category_id "
+                       "from photo_s A inner join category_s B on A.category_id = B.id "
+                       "where A.user_id = %s "
+                       "order by date desc limit %s, 10")
             args = (user_id, (page - 1) * 10)
             result = self.rdbms_pool.query(sql, args)
             if result is not None:
@@ -159,6 +201,9 @@ class Photo(MySQLBase):
 
     def pag_photo2(self, page, category_id, user_id):
         sql = 'select title from photo where category_id = %s and user_id = %s limit %s, 100'
+        if user_id == 0:
+            sql = 'select title from photo_s where category_id = %s and user_id = %s limit %s, 100'
+
         args = (category_id, user_id, (page - 1) * 100)
         result = self.rdbms_pool.query(sql, args)
         if result is not None:
@@ -168,6 +213,9 @@ class Photo(MySQLBase):
 
     def get_total_pages(self, category_id: int, user_id: int) -> int:
         sql: str = 'select count(id) as total_pages from photo where category_id = %s and user_id = %s'
+        if user_id == 0:
+            sql: str = 'select count(id) as total_pages from photo_s where category_id = %s and user_id = %s'
+
         args: tuple = (category_id, user_id)
         result: list = self.rdbms_pool.query(sql, args)
         if result is not None:
@@ -180,6 +228,9 @@ class Photo(MySQLBase):
         category_id = category.get_category_id(category_name, user_id)
         if category_id:
             sql = "select local_url from photo where category_id = %s and user_id = %s"
+            if user_id == 0:
+                sql = "select local_url from photo_s where category_id = %s and user_id = %s"
+
             args = (category_id, user_id)
             result = self.rdbms_pool.query(sql, args)
             if result is not None:
@@ -192,6 +243,9 @@ class Photo(MySQLBase):
     def get_photo(self, title, user_id):
         sql = "select A.title, A.category_id, A.file_extension, A.date, B.name as category_name " + \
               "from photo A inner join category B on A.category_id = B.id where A.title = %s and A.user_id = %s"
+        if user_id == 0:
+            sql = "select A.title, A.category_id, A.file_extension, A.date, B.name as category_name " + \
+                  "from photo_s A inner join category_s B on A.category_id = B.id where A.title = %s and A.user_id = %s"
         args = (title, user_id)
         result = self.rdbms_pool.query(sql, args)
         if result is not None and len(result) != 0:
@@ -206,6 +260,9 @@ class Photo(MySQLBase):
             args = (new_title, category_id, int(time.time()), user_id, src_title)
             sql = ("update photo set title = %s, category_id = %s, date = %s"
                    " where user_id = %s and title = %s")
+            if user_id == 0:
+                sql = ("update photo_s set title = %s, category_id = %s, date = %s"
+                       " where user_id = %s and title = %s")
             result = self.rdbms_pool.edit(sql, args)
             if result != 0:
                 return 1

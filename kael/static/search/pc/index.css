@@ -136,6 +136,7 @@ fieldset {
     white-space: nowrap;
     height: 19px;
     left: 0px;
+    float: left;
 }
 
 .article > .human > fieldset > .content > div > span,
