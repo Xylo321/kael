@@ -69,13 +69,12 @@ fieldset {
 }
 
 .my > .send_search, .my > .change_search {
-    width: 100px;
+    width: fit-content;
     height: 40px;
     float: right;
     font-size: 30px;
-    box-sizing: content-box;
+    box-sizing: border-box;
     display: none;
-    border: none;
 }
 
 .class {
@@ -311,4 +310,32 @@ button {
 .video > .human > fieldset > .content > div > .title > a,
 .video > .robot > fieldset > .content > div > .title > a {
     font-size: 13.5px;
+}
+
+.K {
+    color: red;
+}
+
+.o1 {
+    color: #ae81ff;
+}
+
+.o2 {
+    color: green;
+}
+
+.g {
+    color: #e6db74;
+}
+
+.l {
+    color: black;
+}
+
+.e {
+    color: blue;
+}
+
+button > * {
+    cursor: pointer;
 }
