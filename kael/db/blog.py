@@ -80,7 +80,7 @@ class Category(MySQLBase):
     def get_category_id(self, name, user_id):
         sql = "select id from category where name = %s and user_id = %s"
         if user_id == 0:
-            ql = "select id from category_s where name = %s and user_id = %s"
+            sql = "select id from category_s where name = %s and user_id = %s"
         args = (name, user_id)
         result = self.rdbms_pool.query(sql, args)
         if result != None and len(result) != 0:
