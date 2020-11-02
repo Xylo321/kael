@@ -9,7 +9,7 @@ class ArticleSearch(MySQLBase):
         if type == HUMAN:
             return self._search_human(key_word, page)
         elif type == ROBOT:
-            return self._search_robot(key_word, ROBOT)
+            return self._search_robot(key_word, page)
 
     def _search_robot(self, key_word, page):
         if len(key_word) == 0:
@@ -107,8 +107,10 @@ class ArticleSearch(MySQLBase):
         elif type == ROBOT:
             return self._search_robot_total_pages(key_word)
 
-    def get_article_uid(self, article_id):
+    def get_article_uid(self, article_id, type):
         sql = "select user_id from blog.article where id = %s"
+        if type == ROBOT:
+            return ROBOT
         args = (article_id,)
         result = self.rdbms_pool.query(sql, args)
         if result != None and len(result) != 0:

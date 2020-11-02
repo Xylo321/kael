@@ -58,7 +58,6 @@ def search_article():
         page = int(request.form['page'])
         type = int(request.form['type'])
         article_search = ArticleSearch(SEARCH_MYSQL_POOL)
-        print(type)
         result = article_search.search(key_word, page, type)
 
         if result != None:
@@ -96,14 +95,15 @@ def go_article_page():
     """
     去文章页面
 
-    GET url请求参数 ?article_id=xxx&article_title=xxx
+    GET url请求参数 ?article_id=xxx&article_title=xxx&type=xxx
     """
     if request.method == 'GET':
         article_id = request.args.get('article_id')
         article_title = request.args.get('article_title')
+        type = int(request.args.get('type'))
         if article_id != None and article_title != None:
             article_search = ArticleSearch(SEARCH_MYSQL_POOL)
-            user_id = article_search.get_article_uid(article_id)
+            user_id = article_search.get_article_uid(article_id, type)
             if user_id != None:
                 user = User(ACCOUNT_MYSQL_POOL)
                 look = user.get_name(user_id)
