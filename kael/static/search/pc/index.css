@@ -339,3 +339,23 @@ button {
 button > * {
     cursor: pointer;
 }
+
+.my > .key_word::-webkit-input-placeholder {
+/* WebKit browsers */
+    color: cadetblue;
+}
+
+.my > .key_word:-moz-placeholder {
+/* Mozilla Firefox 4 to 18 */
+    color: cadetblue;
+}
+
+.my > .key_word::-moz-placeholder {
+/* Mozilla Firefox 19+ */
+    color: cadetblue;
+}
+
+.my > .key_word:-ms-input-placeholder {
+/* Internet Explorer 10+ */
+    color: cadetblue;
+}

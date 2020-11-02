@@ -890,3 +890,9 @@ function keydown_send_search(e) {
         SYX();
     }
 }
+
+$(".my > .key_word").click(function () {
+    if($(this).attr("readonly") == "readonly") {
+        location.href = "https://www.baidu.com"
+    }
+});
