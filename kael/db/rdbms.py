@@ -139,7 +139,7 @@ class MySQLPool:
         try:
             conn = self.get_conn()
             with conn.cursor() as cursor:
-                cursor._do_execute_many(sql, many_args)
+                cursor.executemany(sql, many_args)
             conn.commit()
             affect_rows = conn.affected_rows()
         except:

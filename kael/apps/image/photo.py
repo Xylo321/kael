@@ -194,6 +194,7 @@ def pag_photo():
                             })
                             break
                 return {"data": response_data, "status": 1}
+            return {"data": [], "status": 1}
         return redirect(url_for("user_bp.login"))
 
     elif request.method == "GET":
@@ -235,6 +236,7 @@ def pag_photo():
                                 })
                                 break
                     return {"data": response_data, "status": 1}
+                return {"data": [], "status": 1}
         return redirect(url_for("user_bp.login"))
 
 

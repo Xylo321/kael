@@ -150,6 +150,7 @@ def pag_video():
             result = video.pag_video(page, category_name, user_id)
             if result is not None:
                 return {"data": result, "status": 1}
+            return {"data": [], "status": 1}
         return redirect(url_for("user_bp.login"))
     elif request.method == "GET":
         look = request.args.get("look")
@@ -164,6 +165,7 @@ def pag_video():
 
                 if result is not None:
                     return {"data": result, "status": 1}
+                return {"data": [], "status": 1}
         return redirect(url_for("user_bp.login"))
 
 
