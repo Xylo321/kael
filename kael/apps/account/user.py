@@ -37,6 +37,9 @@ def login():
     elif request.method == 'POST':
         user = User(ACCOUNT_MYSQL_POOL)
         user_id = user.login(request.form['name'], request.form['passwd'])
+        if user_id == 0: # robot账号禁止登陆
+            return {"data": [], "status": -1}
+
         if user_id != None:
             session.clear()
             session[IS_LOGIN] = user_id
