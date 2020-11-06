@@ -2,6 +2,8 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
+    <!--解决https网站iframe中不能嵌入http网站的问题-->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>工作台</title>
 
     <link rel="shortcut icon" href={{ url_for("static", filename="favicon.ico") }}>
