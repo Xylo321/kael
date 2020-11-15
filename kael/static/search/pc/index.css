@@ -359,3 +359,17 @@ button > * {
 /* Internet Explorer 10+ */
     color: cadetblue;
 }
+
+.my > .send_search {
+    border-bottom-color: #ae81ff;
+    border-left-color: #e6db74;
+    border-top-color: #f92672;
+    border-right-color: #a6e22e;
+}
+
+.my > .change_search {
+    border-bottom-color: #FFCC99;
+    border-left-color: cadetblue;
+    border-top-color: blue;
+    border-right-color: yellow;
+}
