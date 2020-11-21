@@ -251,13 +251,13 @@ class VideoSearch(MySQLBase):
             sql = "select A.id, A.title, A.category_id, A.user_id, B.name as category_name from video.video_s A " \
                   "inner join video.category_s B on A.category_id = B.id " \
                   "where " \
-                  "A.user_id = 0 " \
+                  "A.user_id = 0 and A.downloaded = 1 " \
                   "order by A.date desc limit %s, 6"
         else:
             sql = "select A.id, A.title, A.category_id, A.user_id, B.name as category_name from video.video_s A " \
                   "inner join video.category_s B on A.category_id = B.id inner join account.user C on A.user_id = C.id " \
                   "where (match(A.title, A.description) against(%s in natural language mode) or match(B.name) against(%s in natural language mode) or match(C.name) against(%s in natural language mode)) " \
-                  "and A.user_id = 0 " \
+                  "and A.user_id = 0 and A.downloaded = 1 " \
                   "order by A.date desc limit %s, 6"
 
         args = (key_word, key_word, key_word, (page - 1) * 6)
@@ -306,13 +306,13 @@ class VideoSearch(MySQLBase):
         if len(key_word) == 0:
             sql = "select count(A.id) total_page from video.video_s A " \
                   "inner join video.category_s B on A.category_id = B.id " \
-                  "where A.user_id != 0"
+                  "where A.user_id = 0 and A.downloaded = 1"
         else:
             sql = "select count(A.id) total_page from video.video_s A " \
                   "inner join video.category_s B on A.category_id = B.id inner join account.user C on A.user_id = C.id " \
                   "where (match(A.title, A.description) against(%s in natural language mode) " \
                   "or match(B.name) against(%s in natural language mode) or match(C.name) against(%s in natural language mode)) " \
-                  "and A.user_id = 0"
+                  "and A.user_id = 0 and A.downloaded = 1"
 
         args = (key_word, key_word, key_word)
 
@@ -353,8 +353,10 @@ class VideoSearch(MySQLBase):
         else:
             return None
 
-    def get_video_uid(self, video_id):
+    def get_video_uid(self, video_id, type):
         sql = "select user_id from video.video where id = %s"
+        if type == ROBOT:
+            sql = "select user_id from video.video_s where id = %s"
         args = (video_id,)
         result = self.rdbms_pool.query(sql, args)
         if result != None and len(result) != 0:

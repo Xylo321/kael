@@ -741,7 +741,8 @@ $(".video > .robot > .opera > .pn > li > .video_page_go").click(function() {
 $(".human > fieldset > .content").on("click", ".my_video_img", function () {
     var video_id = $(this).attr("video_id");
     var video_title = $(this).attr("video_title");
-    var url = '/search/go_video_page?video_id=' + video_id + '&video_title=' +  video_title;
+    var type = $(this).attr("type");
+    var url = '/search/go_video_page?video_id=' + video_id + '&video_title=' +  video_title + '&type=' + type;
     window.open(url, "_blank");
 });
 
@@ -749,7 +750,8 @@ $(".human > fieldset > .content").on("click", ".my_video_img", function () {
 $(".robot > fieldset > .content").on("click", ".my_video_img", function () {
     var video_id = $(this).attr("video_id");
     var video_title = $(this).attr("video_title");
-    var url = '/search/go_video_page?video_id=' + video_id + '&video_title=' +  video_title;
+    var type = $(this).attr("type");
+    var url = '/search/go_video_page?video_id=' + video_id + '&video_title=' +  video_title + '&type=' + type;
     window.open(url, "_blank");
 });
 
@@ -780,10 +782,10 @@ function search_video(key_word, page, type) {
                         content_html += '\
                         <div>\
                             <div class="my_video">\
-                                <img class="my_video_img" video_id="' + video_id + '" video_title="' + video_title + '" src="' + url + '"/>\
+                                <img class="my_video_img" type="' + type + '" video_id="' + video_id + '" video_title="' + video_title + '" src="' + url + '"/>\
                             </div>\
                             <div class="title">\
-                                <a class="my_video_img" video_id="' + video_id + '" video_title="' + video_title + '">' + video_title + '</a>\
+                                <a class="my_video_img" type="' + type + '"video_id="' + video_id + '" video_title="' + video_title + '">' + video_title + '</a>\
                             </div>\
                         </div>\
                         ';

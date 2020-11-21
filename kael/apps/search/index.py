@@ -275,7 +275,6 @@ def search_video():
                             'id': row['id'],
                         })
                         break
-
             return {"data": response_data, "status": 1}
         return {"data": [], "status": -1}
 
@@ -310,14 +309,15 @@ def go_video_page():
     """
     去视频页面
 
-    GET url请求参数 ?video_id=xxx&video_title=xxx
+    GET url请求参数 ?video_id=xxx&video_title=xxx&type=xxx
     """
     if request.method == 'GET':
         video_id = request.args.get('video_id')
         video_title = request.args.get('video_title')
+        type = int(request.args.get('type'))
         if video_id != None and video_title != None:
             video_search = VideoSearch(SEARCH_MYSQL_POOL)
-            user_id = video_search.get_video_uid(video_id)
+            user_id = video_search.get_video_uid(video_id, type)
             if user_id != None:
                 user = User(ACCOUNT_MYSQL_POOL)
                 look = user.get_name(user_id)
