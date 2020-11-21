@@ -76,8 +76,7 @@ create fulltext index name on user(name) with parser ngram;
 
 #### BLOG数据库
 
-爬虫数据表是，category_s，blog_s直接复制这里的表结构。
-
+用户表
 ```sql
 CREATE DATABASE `blog` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 CREATE TABLE `article` (
@@ -113,9 +112,36 @@ create fulltext index title_content on article(title, content) with parser ngram
 
 需要注意的是，采用mysqlworkbech同步数据库之后创建的全文索引没有默认增加中文分词插件，需要删除后，使用命令行追加才能搜索到中文结果。
 
+爬虫表
+```
+CREATE TABLE `article_s` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `user_id` int NOT NULL,
+  `is_public` tinyint NOT NULL COMMENT '0显示，1隐藏',
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `date` int NOT NULL,
+  `category_id` int NOT NULL,
+  `url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `downloaded` smallint DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `title_user_id` (`title`,`user_id`) USING BTREE,
+  FULLTEXT KEY `title_content` (`title`,`content`) WITH PARSER `ngram` 
+) ENGINE=InnoDB AUTO_INCREMENT=6670 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `category_s` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `name_uid` (`name`,`user_id`) USING BTREE,
+  FULLTEXT KEY `name` (`name`) WITH PARSER `ngram`
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+```
+
 #### IMAGE数据库
 
-爬虫数据表是category_s和photo_s，直接复制表结构。
+用户表
 ```sql
 CREATE DATABASE `image` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
@@ -143,9 +169,42 @@ create fulltext index title on photo(title) with parser ngram;
 create fulltext index name on category(name) with parser ngram;
 ```
 
+爬虫表
+```
+CREATE TABLE `category_s` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `name_user_id` (`name`,`user_id`) USING BTREE,
+  FULLTEXT KEY `name` (`name`) WITH PARSER `ngram` 
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `photo_s` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `category_id` int NOT NULL,
+  `date` int NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `user_id` int NOT NULL,
+  `file_extension` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
+  `data_src_id` int DEFAULT '0',
+  `downloaded` int DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `title_user_id` (`title`,`user_id`) USING BTREE,
+  FULLTEXT KEY `title` (`title`) WITH PARSER `ngram` 
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `dat_src_s` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` text,
+  `web_site` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='数据源'
+```
+
 #### VIDEO数据库
 
-爬虫数据表是category_s和video_s，直接复制表结构。
+用户表
 ```sql
 CREATE DATABASE `video`;
 
@@ -171,6 +230,39 @@ CREATE TABLE `video` (
 
 create fulltext index title_description on video(title, description) with parser ngram;
 create fulltext index name on category(name) with parser ngram;
+```
+
+爬虫表
+```
+CREATE TABLE `category_s` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  FULLTEXT KEY `name` (`name`) WITH PARSER `ngram` 
+) ENGINE=InnoDB AUTO_INCREMENT=184 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `video_s` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `date` int NOT NULL,
+  `file_extension` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `user_id` int NOT NULL,
+  `category_id` int NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `data_src_id` int DEFAULT '0',
+  `downloaded` int DEFAULT '0' COMMENT '0 未下载，1 已下载',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `title_user_id` (`title`,`user_id`) USING BTREE,
+  FULLTEXT KEY `title_description` (`title`,`description`) WITH PARSER `ngram` 
+) ENGINE=InnoDB AUTO_INCREMENT=2269 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `data_src_s` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` text,
+  `web_site` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='数据源'
 ```
 
 ## 三、REDIS
