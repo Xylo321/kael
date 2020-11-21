@@ -201,13 +201,13 @@ class ImageSearch(MySQLBase):
         if len(key_word) == 0:
             sql = "select count(A.id) total_page from image.photo_s A " \
                   "inner join image.category_s B on A.category_id = B.id " \
-                  "where A.user_id = 0"
+                  "where A.user_id = 0 and A.downloaded = 1"
         else:
             sql = "select count(A.id) total_page from image.photo_s A " \
                   "inner join image.category_s B on A.category_id = B.id inner join account.user C on A.user_id = C.id " \
                   "where (match(A.title) against(%s in natural language mode) " \
                   "or match(B.name) against(%s in natural language mode) or match(C.name) against(%s in natural language mode)) " \
-                  "and A.user_id = 0"
+                  "and A.user_id = 0 and A.downloaded = 1"
 
         args = (key_word, key_word, key_word)
 
@@ -228,8 +228,11 @@ class ImageSearch(MySQLBase):
         elif type == ROBOT:
             return self._search_robot_total_pages(key_word)
 
-    def get_image_uid(self, photo_id):
+    def get_image_uid(self, photo_id, type):
         sql = "select user_id from image.photo where id = %s"
+        if type == ROBOT:
+            sql = "select user_id from image.photo_s where id = %s"
+
         args = (photo_id,)
         result = self.rdbms_pool.query(sql, args)
         if result != None and len(result) != 0:

@@ -359,7 +359,8 @@ $(".article > .robot > .opera > .pn > li > .article_page_go").click(function() {
 $(".human > fieldset > .content").on("click", ".my_img_img", function () {
     var photo_id = $(this).attr("photo_id");
     var photo_title = $(this).attr("title");
-    var url = '/search/go_image_page?photo_id=' + photo_id + '&photo_title=' +  photo_title;
+    var type = $(this).attr('type');
+    var url = '/search/go_image_page?photo_id=' + photo_id + '&photo_title=' +  photo_title + '&type=' + type;
     window.open(url, "_blank");
 });
 
@@ -367,7 +368,8 @@ $(".human > fieldset > .content").on("click", ".my_img_img", function () {
 $(".robot > fieldset > .content").on("click", ".my_img_img", function () {
     var photo_id = $(this).attr("photo_id");
     var photo_title = $(this).attr("title");
-    var url = '/search/go_image_page?photo_id=' + photo_id + '&photo_title=' +  photo_title;
+    var type = $(this).attr('type');
+    var url = '/search/go_image_page?photo_id=' + photo_id + '&photo_title=' +  photo_title + '&type=' + type;
     window.open(url, "_blank");
 });
 
@@ -392,7 +394,7 @@ function search_image(key_word, page, type) {
                     var photo_title = data.data[i].title;
                     var url = data.data[i].url;
 
-                    content_html += "<img class='my_img_img' src='" + url + "' photo_id='" + photo_id + "' title='" + photo_title + "' alt='抱歉图片可能自己飞了！'>";
+                    content_html += "<img class='my_img_img' type='" + type + "' src='" + url + "' photo_id='" + photo_id + "' title='" + photo_title + "' alt='抱歉图片可能自己飞了！'>";
                 }
                 switch(type) {
                     case 1:

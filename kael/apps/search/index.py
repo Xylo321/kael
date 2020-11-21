@@ -200,14 +200,15 @@ def go_image_page():
     """
     去文章页面
 
-    GET url请求参数 ?photo_id=xxx&photo_title=xxx
+    GET url请求参数 ?photo_id=xxx&photo_title=xxx&type=xx
     """
     if request.method == 'GET':
         photo_id = request.args.get('photo_id')
         photo_title = request.args.get('photo_title')
+        type = int(request.args.get('type'))
         if photo_id != None and photo_title != None:
             image_search = ImageSearch(SEARCH_MYSQL_POOL)
-            user_id = image_search.get_image_uid(photo_id)
+            user_id = image_search.get_image_uid(photo_id, type)
             if user_id != None:
                 user = User(ACCOUNT_MYSQL_POOL)
                 look = user.get_name(user_id)
