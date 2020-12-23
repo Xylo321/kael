@@ -133,14 +133,14 @@ class ImageSearch(MySQLBase):
             sql = "select A.id, A.title, A.category_id, A.user_id, B.name as category_name from image.photo_s A " \
                   "inner join image.category_s B on A.category_id = B.id " \
                   "where " \
-                  "A.user_id = 0 " \
+                  "A.user_id = 0  and A.downloaded = 1 " \
                   "order by A.date desc limit %s, 6"
             args = ((page - 1) * 6,)
         else:
             sql = "select A.id, A.title, A.category_id, A.user_id, B.name as category_name from image.photo_s A " \
                   "inner join image.category_s B on A.category_id = B.id inner join account.user C on A.user_id = C.id " \
                   "where (match(A.title) against(%s in natural language mode) or match(B.name) against(%s in natural language mode) or match(C.name) against(%s in natural language mode)) " \
-                  "and A.user_id = 0 " \
+                  "and A.user_id = 0 and A.downloaded = 1 " \
                   "order by A.date desc limit %s, 6"
             args = (key_word, key_word, key_word, (page - 1) * 6)
 

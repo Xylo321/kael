@@ -1,6 +1,7 @@
 import time
 
 from kael.db import MySQLBase
+from kael.settings.apps.search import ROBOT
 
 
 class Category(MySQLBase):
@@ -168,10 +169,10 @@ class Photo(MySQLBase):
                        "from photo A inner join category B on A.category_id = B.id "
                        "where A.user_id = %s and A.category_id = %s "
                        "order by date desc limit %s, 10")
-                if user_id == 0:
+                if user_id == ROBOT:
                     sql = ("select A.title, A.date, B.name as category_name, B.id as category_id "
                            "from photo_s A inner join category_s B on A.category_id = B.id "
-                           "where A.user_id = %s and A.category_id = %s "
+                           "where A.user_id = %s and A.category_id = %s and A.downloaded = 1 "
                            "order by date desc limit %s, 10")
 
                 args = (user_id, category_id, (page - 1) * 10)
@@ -187,10 +188,10 @@ class Photo(MySQLBase):
                    "from photo A inner join category B on A.category_id = B.id "
                    "where A.user_id = %s "
                    "order by date desc limit %s, 10")
-            if user_id == 0:
+            if user_id == ROBOT:
                 sql = ("select A.title, A.date, B.name as category_name, B.id as category_id "
                        "from photo_s A inner join category_s B on A.category_id = B.id "
-                       "where A.user_id = %s "
+                       "where A.user_id = %s and A.downloaded = 1 "
                        "order by date desc limit %s, 10")
             args = (user_id, (page - 1) * 10)
             result = self.rdbms_pool.query(sql, args)
@@ -201,7 +202,7 @@ class Photo(MySQLBase):
 
     def pag_photo2(self, page, category_id, user_id):
         sql = 'select title from photo where category_id = %s and user_id = %s limit %s, 100'
-        if user_id == 0:
+        if user_id == ROBOT:
             sql = 'select title from photo_s where category_id = %s and user_id = %s limit %s, 100'
 
         args = (category_id, user_id, (page - 1) * 100)
@@ -213,8 +214,8 @@ class Photo(MySQLBase):
 
     def get_total_pages(self, category_id: int, user_id: int) -> int:
         sql: str = 'select count(id) as total_pages from photo where category_id = %s and user_id = %s'
-        if user_id == 0:
-            sql: str = 'select count(id) as total_pages from photo_s where category_id = %s and user_id = %s'
+        if user_id == ROBOT:
+            sql: str = 'select count(id) as total_pages from photo_s where category_id = %s and user_id = %s and downloaded = 1'
 
         args: tuple = (category_id, user_id)
         result: list = self.rdbms_pool.query(sql, args)
@@ -228,8 +229,8 @@ class Photo(MySQLBase):
         category_id = category.get_category_id(category_name, user_id)
         if category_id:
             sql = "select local_url from photo where category_id = %s and user_id = %s"
-            if user_id == 0:
-                sql = "select local_url from photo_s where category_id = %s and user_id = %s"
+            if user_id == ROBOT:
+                sql = "select local_url from photo_s where category_id = %s and user_id = %s and downloaded = 1"
 
             args = (category_id, user_id)
             result = self.rdbms_pool.query(sql, args)

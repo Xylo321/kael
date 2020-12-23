@@ -230,7 +230,7 @@ def pag_photo():
                                     and str(vi_user_id) == str(res_d['third_user_id']):
                                 response_data.append({
                                     'category_name': row['category_name'],
-                                    'url': res_d['url'],
+                                    'url': res_d.get('url', None),
                                     'title': row['title'],
                                     'date': row['date']
                                 })

@@ -48,7 +48,7 @@ function SYX() {
     $(".my > .change_search").show();
     $(".my > .key_word").attr("readonly", true);
     $(".my > .key_word").css({
-        "background-color": "#cccccc"
+        "background-color": "springgreen"
     });
 }
 
