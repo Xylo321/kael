@@ -760,7 +760,7 @@ function get_photo(title) {
             if (data.status == 1) {
                 for (var i = 0; i < 1; i++) {
                     var title = data.data[i].title;
-                    var category_name = data.data[i].name;
+                    var category_name = data.data[i].category_name;
                     var url = data.data[i].url;
 
                     var tmp = new Date(data.data[i].date * 1000);
