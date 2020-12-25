@@ -34,7 +34,11 @@ PC端：
 
 用于为自己播放想要的视频。
 
-广告业务:
+## 广告
+
+用于网站窗口超过1430之后就显示广告，不让网站的丑陋显示出来。
+
+PC断:
 ![](http://serv_pro:3000/kael/kael/raw/master/kael/static/pc_ad.png)
 
 ## Future
