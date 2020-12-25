@@ -34,7 +34,9 @@ PC端：
 
 用于为自己播放想要的视频。
 
+广告业务:
+![](http://serv_pro:3000/kael/kael/raw/master/kael/static/pc_ad.png)
+
 ## Future
 
-1. 一个属于这个网站的浏览器；
-2. 一个属于这个网站的社交软件；
+* [ ] 求职网站
