@@ -66,7 +66,7 @@ function img_video_responsive() {
         "width": $(".center").width() * 0.99
     })
 
-    $("video").css({
+    $("#videoElement").css({
         "width": $(".center").width(),
         "height": $(".center").width() * 0.7
     })

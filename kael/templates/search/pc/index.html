@@ -28,7 +28,13 @@
         <ul>
             <li><a target="_blank" href="/blog/">博文</a>，</li>
             <li><a target="_blank" href="/image/">图片</a>，</li>
-            <li><a target="_blank" href="/video/">视频</a></li>
+            <li><a target="_blank" href="/video/">视频</a>，</li>
+            <li>
+                <a class="play_or_pause" href="#">➠</a>
+                <audio id="远征MUSIC" controls="controls" hidden loop="loop">
+                    <source src={{url_for('static', filename="search/Bandari - Expedicion.mp3")}}/>
+                </audio>
+            </li>
         </ul>
     </div>
 
@@ -174,9 +180,5 @@
 
 <script src={{url_for('static', filename="search/pc/index.js")}}></script>
 {% include "common/pc/dialog.html" %}
-
-<!--<audio id="idea" controls="controls" hidden loop="loop" autoplay="autoplay">-->
-<!--    <source src={{url_for('static', filename="search/Various Artists - DOTA™2 Reborn.mp3")}}/>-->
-<!--</audio>-->
 </body>
 </html>

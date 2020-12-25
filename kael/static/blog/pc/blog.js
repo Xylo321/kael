@@ -78,13 +78,13 @@ $(".right_control").click(function () {
 });
 
 function img_iframe_responsive() {
-    $("img, pre, video").css({
+    $("img, pre, .article_preview > video").css({
         "width": $(".center").width() - 20,
         'margin-left': '10px',
         'margin-right': '10px',
     })
 
-    $("iframe, video").css({
+    $(".article_preview > iframe, .article_preview > video").css({
         "width": $(".center").width(),
         "height": $(".center").width() * 0.7
     })

@@ -897,3 +897,15 @@ $(".my > .key_word").click(function () {
         location.href = "https://www.baidu.com"
     }
 });
+
+$(".play_or_pause").click(function () {
+    var au = document.getElementById("远征MUSIC");
+
+    if($(this).text() == "➠") {
+        au.play();
+        $(this).text("◦")
+    } else if($(this).text() == "◦") {
+        au.pause();
+        $(this).text("➠");
+    }
+});

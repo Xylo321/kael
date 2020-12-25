@@ -36,7 +36,20 @@ $(window).resize(function() {
     if($("#upload_video").is(":visible")) {
         $("#upload_video").hide();
     }
+
+    show_hide_ad();
 });
+
+$(function () { show_hide_ad(); });
+function show_hide_ad() {
+    var width = $(window).width();
+    var height = $(window).height();
+    if (width > 1430) {
+        show_ad();
+    } else {
+        hide_ad();
+    }
+}
 
 /* 输入对话框 */
 function shuru(sender, message, position, conirm_callback, cancel_callback) {
@@ -77,6 +90,42 @@ function shuru(sender, message, position, conirm_callback, cancel_callback) {
         $("#shuru > .layout > .confirm").unbind();
         $(this).unbind();
     });
+}
+
+/* ad */
+function hide_ad() {
+    hide_ad_tip();
+
+    var v = document.getElementById("ad_video");
+    v.pause();
+
+    if ($("#ad").is(":visible")) {
+        $("#ad").hide();
+    }
+}
+
+function show_ad() {
+    show_ad_tip();
+    setTimeout(function () {
+        hide_ad_tip();
+    }, 2000);
+    var v = document.getElementById("ad_video");
+    var ads = ["/static/search/宇宙有多大.mp4", "/static/search/某民族的最后一个人.mp4"];
+    var random_num = Math.floor(Math.random() * 2);
+    $(".ad_temp").attr("value", ads[random_num]);
+    $("#ad_video").attr("src", ads[random_num]);
+    v.play();
+    $("#ad").show();
+}
+
+function hide_ad_tip() {
+    if($(".ad_tip").is(":visible")) {
+        $(".ad_tip").hide();
+    }
+}
+
+function show_ad_tip() {
+    $(".ad_tip").show();
 }
 
 /* 上传文件对话框 */

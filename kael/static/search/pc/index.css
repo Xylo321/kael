@@ -373,3 +373,8 @@ button > * {
     border-top-color: blue;
     border-right-color: yellow;
 }
+
+
+.play_or_pause {
+    line-height: inherit;
+}
