@@ -38,9 +38,10 @@ PC端：
 
 用于网站窗口超过1430之后就显示广告，不让网站的丑陋显示出来。
 
-PC断:
+PC端:
 ![](http://serv_pro:3000/kael/kael/raw/master/kael/static/pc_ad.png)
 
 ## Future
 
-* [ ] 求职网站
+* [ ] 搜索结果点击跳转遇到`&`会出现问题
+* [ ] 求职APP
