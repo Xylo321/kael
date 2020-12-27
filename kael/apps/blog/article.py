@@ -5,6 +5,7 @@ from kael.apps import BLOG_MYSQL_POOL
 from kael.db.account import User
 from kael.db.blog import Article
 from kael.settings.apps.account import IS_LOGIN
+from kael.security.xss import replace_unsafe_chars
 
 BLOG_ARTICLE_BP = Blueprint('blog_article_bp', __name__)
 
@@ -42,6 +43,7 @@ def add_article():
         title = request.form['title']
         category_name = request.form['category_name']
         content = request.form['content']
+        content = replace_unsafe_chars(content)
         is_public = request.form['is_public']
 
         user_id = session.get(IS_LOGIN)
@@ -156,6 +158,7 @@ def update_article():
         category_name = request.form['category_name']
         is_public = request.form['is_public']
         content = request.form['content']
+        content = replace_unsafe_chars(content)
 
         user_id = session.get(IS_LOGIN)
         if user_id != None:
