@@ -652,7 +652,7 @@ function play(type, url) {
                 });
                 flvPlayer.attachMediaElement(videoElement);
                 flvPlayer.load();
-                flvPlayer.play();
+                // flvPlayer.play();
             }
             break;
         default:

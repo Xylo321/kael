@@ -11,14 +11,6 @@
 </head>
 
 <body>
-<div class="logo">
-    <img class="love" src={{ url_for("static", filename="favicon.ico") }}/>
-</div>
-
-<div class="xian">
-    <img class="libai" src={{ url_for("static", filename="search/李白.png") }}/>
-</div>
-
 <div class="pub_date">
     2019年12月16日
 </div>
@@ -49,13 +41,8 @@
 
 <div class="center">
     <div class="my">
-        <input type="text" class="key_word" placeholder="外面危险哦" name="key_word" autocomplete="on" onkeydown="keydown_send_search(event)"/>
-        <button class="send_search">
-            <k class="K">K</k><k class="o1">o</k><k class="o2">o</k><k class="g">g</k><k class="l">l</k><k class="e">e</k>
-        </button>
-        <button class="change_search">
-            <k class="K" title="">K</k><k class="o1">o</k><k class="o2">o</k><k class="g">g</k><k class="l">l</k><k class="e">e</k>
-        </button>
+        <input type="text" class="key_word" placeholder="" name="key_word" autocomplete="on" onkeydown="keydown_send_search(event)"/>
+        <button class="send_search">搜索</button>
     </div>
 
     <div class="article">

@@ -64,17 +64,15 @@ fieldset {
     font-size: 30px;
     box-sizing: border-box;
     text-align: left;
-    width: 840px;
-    border: solid #cccccc 1px;
+    width: 860px;
+    border: solid #FFCC99 1px;
 }
 
-.my > .send_search, .my > .change_search {
-    width: fit-content;
-    height: 40px;
+.my > .send_search{
+    height: 39px;
     float: right;
     font-size: 30px;
-    box-sizing: border-box;
-    display: none;
+    width: 80px;
 }
 
 .class {
@@ -171,21 +169,6 @@ a:hover {
 
 input {
     outline: none;
-}
-
-.logo {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    cursor: crosshair;
-}
-
-.xian {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    cursor: crosshair;
-    filter: alpha(opacity=40);
 }
 
 legend {
@@ -312,30 +295,6 @@ button {
     font-size: 13.5px;
 }
 
-.K {
-    color: red;
-}
-
-.o1 {
-    color: #ae81ff;
-}
-
-.o2 {
-    color: green;
-}
-
-.g {
-    color: #e6db74;
-}
-
-.l {
-    color: black;
-}
-
-.e {
-    color: blue;
-}
-
 button > * {
     cursor: pointer;
 }
@@ -358,23 +317,4 @@ button > * {
 .my > .key_word:-ms-input-placeholder {
 /* Internet Explorer 10+ */
     color: cadetblue;
-}
-
-.my > .send_search {
-    border-bottom-color: #ae81ff;
-    border-left-color: #e6db74;
-    border-top-color: #f92672;
-    border-right-color: #a6e22e;
-}
-
-.my > .change_search {
-    border-bottom-color: #FFCC99;
-    border-left-color: cadetblue;
-    border-top-color: blue;
-    border-right-color: yellow;
-}
-
-
-.play_or_pause {
-    line-height: inherit;
 }

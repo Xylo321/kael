@@ -43,29 +43,11 @@ function SYX() {
     get_video_total_page(key_word, 1);
     // 获取机器视频搜索总页数
     get_video_total_page(key_word, 0);
-
-    $(".send_search").hide();
-    $(".my > .change_search").show();
-    $(".my > .key_word").attr("readonly", true);
-    $(".my > .key_word").css({
-        "background-color": "springgreen"
-    });
 }
 
 /* 点击搜索 */
 $(".send_search").click(function() {
     SYX();
-});
-
-/* 点击换词 */
-$(".my > .change_search").click(function() {
-    $(".my > .key_word").attr("readonly", false);
-    $(".my > .key_word").focus();
-    $(".my > .key_word").css({
-        "background-color": "white"
-    });
-    $(".my > .send_search").show();
-    $(this).hide();
 });
 
 /* 解决窗口变小时导航换行的问题 */
@@ -877,12 +859,6 @@ function get_video_total_page(key_word, type) {
 $(function() {
     responsive();
 
-    $(".my > .change_search").show();
-    $(".my > .key_word").attr("readonly", true);
-    $(".my > .key_word").css({
-        "background-color": "#cccccc"
-    });
-
     SYX();
 });
 
@@ -891,12 +867,6 @@ function keydown_send_search(e) {
         SYX();
     }
 }
-
-$(".my > .key_word").click(function () {
-    if($(this).attr("readonly") == "readonly") {
-        location.href = "https://www.baidu.com"
-    }
-});
 
 $(".play_or_pause").click(function () {
     var au = document.getElementById("远征MUSIC");
