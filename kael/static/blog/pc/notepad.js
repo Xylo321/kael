@@ -1,5 +1,9 @@
 $(function () {
-    $('.left > iframe').attr('src', $(".left > input").val());
+    var kanban_url = $(".left > input").val();
+    $(".kanban_url").attr("value", kanban_url);
+    $('.kanban_iframe').attr('src', kanban_url);
+    $('.kanban_iframe').show();
+
     responsive();
 });
 
@@ -25,6 +29,44 @@ $(window).resize(function () {
 
 $(".left > input").bind('keypress', function (e) {
     if (e.keyCode == '13') {
-        $('.left > iframe').attr('src', $(this).val());
+        if($('.kanban_iframe').is(":visible")) {
+            $('.kanban_iframe').attr('src', $(this).val());
+        }
+        if($('.liulanqi_iframe').is(':visible')) {
+            $('.liulanqi_iframe').attr('src', $(this).val());
+        }
     }
+});
+
+$(".kanban_bt").click(function () {
+    if($(".liulanqi_iframe").is(":visible")) {
+        var liulanqi_url = $(".left > input").val();
+        $(".liulanqi_url").attr("value", liulanqi_url);
+        $(".left > input").val($(".kanban_url").attr("value"));
+    }
+    $(".liulanqi_iframe").hide();
+    $(".kanban_iframe").show();
+    $(this).css({
+        "color": "yellow"
+    });
+    $(".liulanqi_bt").css({
+        "color": "white"
+    });
+});
+
+$(".liulanqi_bt").click(function () {
+    if($(".kanban_iframe").is(":visible")) {
+        var kanban_url = $(".left > input").val();
+        $(".kanban_url").attr("value", kanban_url);
+        $(".left > input").val($(".liulanqi_url").attr("value"));
+    }
+    $(".kanban_iframe").hide();
+    $(".liulanqi_iframe").show();
+
+    $(this).css({
+        "color": "yellow"
+    });
+    $(".kanban_bt").css({
+        "color": "white"
+    });
 });

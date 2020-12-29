@@ -15,13 +15,17 @@
 
 <body>
 <div class="left">
-    <div class="title">💖</div>
+    <div class="title">💖
+        <a class="kanban_bt">看板</a>
+        <a class="liulanqi_bt">浏览器</a>
+    </div>
     {% if url %}
         <input type="url" placeholder="请输入学习网址后按回车键即打开" value="{{ url }}">
     {% else %}
         <input type="url" placeholder="请输入学习网址后按回车键即打开" value="">
     {% endif %}
-    <iframe src=""></iframe>
+    <iframe class="kanban_iframe" src=""></iframe>
+    <iframe class="liulanqi_iframe" src=""></iframe>
 </div>
 
 <div class="right">
@@ -30,6 +34,10 @@
     <div class="title">终端</div>
     <iframe class="r_bottom" src="https://wssh:4433"></iframe>
 </div>
+
+<hidden class="kanban_url" value=""></hidden>
+<hidden class="liulanqi_url" value=""></hidden>
+
 <script defer src={{url_for('static', filename="blog/pc/notepad.js")}}></script>
 </body>
 </html>
