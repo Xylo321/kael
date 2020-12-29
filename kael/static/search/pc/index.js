@@ -870,11 +870,11 @@ function keydown_send_search(e) {
 
 $(".play_or_pause").click(function () {
     var au = document.getElementById("远征MUSIC");
-
+    var si = null;
     if($(this).text() == "➠") {
         au.play();
-        $(this).text("◦")
-    } else if($(this).text() == "◦") {
+        $(this).text("❡");
+    } else {
         au.pause();
         $(this).text("➠");
     }

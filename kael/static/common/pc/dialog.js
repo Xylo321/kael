@@ -44,7 +44,7 @@ $(function () { show_hide_ad(); });
 function show_hide_ad() {
     var width = $(window).width();
     var height = $(window).height();
-    if (width > 1430) {
+    if (width > 1440) {
         show_ad();
     } else {
         hide_ad();
@@ -111,8 +111,11 @@ function show_ad() {
     }, 2000);
     var v = document.getElementById("ad_video");
     // "/static/search/某民族的最后一个人.mp4"
+    // var ads = ["/static/search/宇宙有多大.mp4", "/static/search/某民族的最后一个人.mp4"];
+    // var random_num = Math.floor(Math.random() * 2);
     var ads = ["/static/search/宇宙有多大.mp4"];
     var random_num = Math.floor(Math.random() * 1);
+
     $(".ad_temp").attr("value", ads[random_num]);
     $("#ad_video").attr("src", ads[random_num]);
     v.play();
