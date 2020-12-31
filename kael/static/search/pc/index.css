@@ -227,12 +227,12 @@ button {
     transition: transform linear 0.2s;
 }
 
-.image > .human > fieldset > .content > img:hover,
-.image > .robot > fieldset > .content> img:hover {
-    transform: scale(2);
-    /*border: solid 0.2px purple;*/
-    padding: 0;
-}
+/*.image > .human > fieldset > .content > img:hover,*/
+/*.image > .robot > fieldset > .content> img:hover {*/
+/*    transform: scale(2);*/
+/*    !*border: solid 0.2px purple;*!*/
+/*    padding: 0;*/
+/*}*/
 
 /* 视频 */
 .video {
@@ -277,12 +277,12 @@ button {
     transition: transform linear 0.2s;
 }
 
-.video > .human > fieldset > .content > div > .my_video > img:hover,
-.video > .robot > fieldset > .content> div > .my_video img:hover {
-    transform: scale(2);
-    /*border: solid 0.2px purple;*/
-    padding: 0;
-}
+/*.video > .human > fieldset > .content > div > .my_video > img:hover,*/
+/*.video > .robot > fieldset > .content> div > .my_video img:hover {*/
+/*    transform: scale(2);*/
+/*    !*border: solid 0.2px purple;*!*/
+/*    padding: 0;*/
+/*}*/
 
 .video > .human > fieldset > .content > div > .title,
 .video > .robot > fieldset > .content > div > .title {

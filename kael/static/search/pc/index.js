@@ -760,7 +760,6 @@ function search_video(key_word, page, type) {
                     var video_title = data.data[i].title;
                     var category_name = data.data[i].category_name;
                     var url = data.data[i].url;
-                    console.log(url)
 
                     if(url != null && url != "") {
                         content_html += '\
