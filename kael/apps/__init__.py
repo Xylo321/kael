@@ -92,6 +92,8 @@ APP.config.from_mapping(
     SESSION_TYPE="redis",
     SESSION_REDIS=REDIS_CLI,
     SESSION_KEY_PREFIX="SESSION:",
+    SESSION_USE_SIGNER=True,
+    SESSION_COOKIE_NAME='KAEL',
     # session超时时间
     PERMANENT_SESSION_LIFETIME=timedelta(seconds=SESSION_EXPIRE),
     # MAX_CONTENT_LENGTH=16 * 1024 * 1024
