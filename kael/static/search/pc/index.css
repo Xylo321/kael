@@ -324,3 +324,7 @@ button > * {
 /* Internet Explorer 10+ */
     color: cadetblue;
 }
+
+.footer {
+    height: 100px;
+}

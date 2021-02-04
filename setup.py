@@ -22,7 +22,9 @@ setup(
         "pillow",
         "PyMySQL",
         "gevent",
-        "colored"
+        "colored",
+        "requests",
+        "requests_toolbelt"
     ],
     entry_points = """
     [console_scripts]

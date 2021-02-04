@@ -181,5 +181,5 @@ def main():
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.ERROR)
-    APP.run(host='0.0.0.0', port=8000, debug=True, ssl_context=(SSL_CERTFILE, SSL_KEYFILE))
-    # main()
+    # APP.run(host='0.0.0.0', port=8000, debug=True, ssl_context=(SSL_CERTFILE, SSL_KEYFILE))
+    main()

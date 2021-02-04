@@ -26,7 +26,7 @@ ln -s /usr/local/python3.8.0/bin/pyvenv-3.8 /usr/bin/
 ```
 
 如果重新编译，可以执行make clean。
-
+ 
 一些库很难安装的解决方法：
 1. mac下的opencv-python库只能通过mac版本的whl文件来安装，其它都是无法安装的
 
