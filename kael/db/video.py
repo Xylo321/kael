@@ -7,7 +7,7 @@ class Category(MySQLBase):
     def get_categories(self, user_id):
         sql = "select name from category where user_id = %s"
         if user_id == 0:
-            sql = "select name from category_s where user_id = %s and (select count(*) from video_s where downloaded = 1 and video_s.category_id = category_s.id) > 0"
+            sql = "select name from category_s where user_id = %s and id in (select category_id from video_s where downloaded = 1)"
         args = (user_id,)
         result = self.rdbms_pool.query(sql, args)
         if result is not None:
