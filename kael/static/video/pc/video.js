@@ -175,7 +175,7 @@ function pag_video(page, category_name) {
             if (data.status == 1) {
                 $(".current_page").attr("value", page);
 
-                var al_html = "<caption>文章列表</caption>";
+                var al_html = "<caption>视频列表</caption>";
                 for (var i = 0; i < data.data.length; i++) {
                     var tmp = new Date(data.data[i].date * 1000);
                     var date = tmp.toLocaleDateString();

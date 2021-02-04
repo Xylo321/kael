@@ -147,7 +147,7 @@ APP.register_blueprint(VIDEO_VIDEO_BP, url_prefix="/video")
 
 def main():
     try:
-        http_server = WSGIServer(('0.0.0.0', 8000), APP, keyfile=SSL_KEYFILE, certfile=SSL_CERTFILE)
+        http_server = WSGIServer(('0.0.0.0', 443), APP, keyfile=SSL_KEYFILE, certfile=SSL_CERTFILE)
         http_server.serve_forever()
     except Exception as e:
         logging.error(e)
@@ -181,5 +181,5 @@ def main():
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.ERROR)
-    # APP.run(host='0.0.0.0', port=8000, debug=True, ssl_context=(SSL_CERTFILE, SSL_KEYFILE))
-    main()
+    APP.run(host='0.0.0.0', port=443, debug=True, ssl_context=(SSL_CERTFILE, SSL_KEYFILE))
+    # main()

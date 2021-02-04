@@ -7,7 +7,7 @@ class Category(MySQLBase):
     def get_categories(self, user_id):
         sql = "select name from category where user_id = %s"
         if user_id == 0:
-            sql = "select name from category_s where user_id = %s"
+            sql = "select name from category_s where user_id = %s and (select count(*) from video_s where downloaded = 1 and video_s.category_id = category_s.id) > 0"
         args = (user_id,)
         result = self.rdbms_pool.query(sql, args)
         if result is not None:
@@ -184,7 +184,7 @@ class Video(MySQLBase):
                 if user_id == 0:
                     sql = ("select A.title, A.date "
                            "from video_s A inner join category_s B on A.category_id = B.id "
-                           "where A.user_id = %s and A.category_id = %s "
+                           "where A.user_id = %s and A.category_id = %s and A.downloaded = 1 "
                            "order by date desc limit %s, 10")
 
                 args = (user_id, category_id, (page - 1) * 10)
@@ -203,7 +203,7 @@ class Video(MySQLBase):
             if user_id == 0:
                 sql = ("select A.title, A.date "
                        "from video_s A inner join category_s B on A.category_id = B.id "
-                       "where A.user_id = %s "
+                       "where A.user_id = %s and A.downloaded = 1 "
                        "order by date desc limit %s, 10")
             args = (user_id, (page - 1) * 10)
             result = self.rdbms_pool.query(sql, args)
