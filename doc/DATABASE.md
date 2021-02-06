@@ -35,7 +35,7 @@ $ mysql -u root -p123456;
 账号密码修改，不然有时候会报错ssh这种错误：
 ```
 $ mysql -u root -p123456;
->>> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+>>> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mm5201314';
 >>> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'mm5201314';
 >>> flush privileges;
 ```

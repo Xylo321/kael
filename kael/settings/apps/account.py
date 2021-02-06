@@ -2,7 +2,7 @@
 SECRET_KEY = 'mm5201314'
 
 MYSQL_CONFIG = {
-    "host": 'kfxce.com',
+    "host": 'master',
     "user": "root",
     "passwd": "mm5201314",
     "db": "account",
@@ -20,7 +20,7 @@ MAIL_CONFIG = {
 }
 
 REDIS_CONFIG = {
-    "host": 'kfxce.com',
+    "host": 'master',
     "port": 6379,
     "db": 0,
     "passwd": 'mm5201314'

@@ -2,7 +2,7 @@ HUMAN = 1
 ROBOT = 0
 
 MYSQL_CONFIG = {
-    "host": 'kfxce.com',
+    "host": 'master',
     "user": "root",
     "passwd": "mm5201314",
     "db": "",
