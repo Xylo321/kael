@@ -1,7 +1,7 @@
 """
 网站防火墙
 """
-from flask import request, abort, session
+from flask import request, abort, session, render_template
 
 from kael.utils.http import pc_or_mobile, MOBILE
 
@@ -13,11 +13,14 @@ def check_request_headers():
     if not request.headers.has_key('User-Agent'):
         abort(403, '错误的请求头。')
 
-    if request.headers.has_key("User-Agent"):
-        ua = request.headers['User-Agent']
-        if pc_or_mobile(ua) == MOBILE:
-            abort(403, '移动端网站正在建设中。')
-
+    ua = request.headers['User-Agent']
+    if pc_or_mobile(ua) == MOBILE:
+        # abort(403, '移动端网站正在建设中。')
+        if request.path.endswith('download.js') or \
+                request.path.endswith('download.css') or \
+                request.path.endswith('jquery-3.4.1.min.js'):
+            return
+        return render_template("common/mobile/download.html")
 
 def let_browser_cache_fonts(response):
     """让浏览器缓存字体

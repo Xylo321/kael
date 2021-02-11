@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <title>移动端APP端下载</title>
+    <meta charset="utf-8"/>
+
+    <link href={{url_for("static", filename="common/mobile/download.css")}} rel="stylesheet"/>
+    <link rel="shortcut icon" href={{ url_for("static", filename="favicon.ico") }}/>
+    <script src={{url_for("static", filename="common/jquery-3.4.1.min.js")}}></script>
+</head>
+
+<body>
+<div>
+    移动端APP下载地址：
+    <ul>
+    <li><a href="#">IOS</a></li>
+    <li><a href="#">Android</a></li>
+</ul>
+</div>
+
+<script src={{url_for("static", filename="common/mobile/download.js")}}></script>
+</body>
+</html>
