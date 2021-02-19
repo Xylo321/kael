@@ -132,6 +132,16 @@ function show_ad() {
         if (!(w_width == v_width && w_height == v_height)) {
             _pink();
         }
+    } else if($(".photo").length != 0) {
+        var w_width = $(window).width();
+        var w_height = $(window).height();
+        var v_width = $(".photo").width();
+        var v_height = $(".photo").height();
+
+        // 如果主视频宽度高度和窗口一样大，证明用户点击了全屏
+        if (!(w_width == v_width && w_height == v_height)) {
+            _pink();
+        }
     } else {
         _pink();
     }
