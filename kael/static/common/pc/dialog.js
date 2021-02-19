@@ -101,10 +101,21 @@ function hide_ad() {
 
     if ($("#ad").is(":visible")) {
         $("#ad").hide();
+        $("#videoElement").show();
     }
 }
 
 function show_ad() {
+    var w_width = $(window).width();
+    var w_height = $(window).height();
+    var v_width = $("#videoElement").width();
+    var v_height = $("#videoElement").height();
+
+    if (w_width == v_width && w_height == v_height) {
+        $("#videoElement").hide();
+    }
+    var app_v = document.getElementById('videoElement');
+    app_v.pause();
     show_ad_tip();
     setTimeout(function () {
         hide_ad_tip();
