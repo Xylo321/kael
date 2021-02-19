@@ -106,28 +106,35 @@ function hide_ad() {
 }
 
 function show_ad() {
-    var w_width = $(window).width();
-    var w_height = $(window).height();
-    var v_width = $("#videoElement").width();
-    var v_height = $("#videoElement").height();
+    function _pink() {
+        show_ad_tip();
+        setTimeout(function () {
+            var app_v = document.getElementById('videoElement');
+            app_v.pause();
+            hide_ad_tip();
+        }, 2000);
+        var v = document.getElementById("ad_video");
+        var ads = ["/static/search/因为是你所以我才喜欢.mp4"];
+        var random_num = Math.floor(Math.random() * 1);
 
-    if (w_width == v_width && w_height == v_height) {
-        $("#videoElement").hide();
+        $(".ad_temp").attr("value", ads[random_num]);
+        $("#ad_video").attr("src", ads[random_num]);
+        v.play();
+        $("#ad").show();
     }
-    var app_v = document.getElementById('videoElement');
-    app_v.pause();
-    show_ad_tip();
-    setTimeout(function () {
-        hide_ad_tip();
-    }, 2000);
-    var v = document.getElementById("ad_video");
-    var ads = ["/static/search/因为是你所以我才喜欢.mp4"];
-    var random_num = Math.floor(Math.random() * 1);
+    if ($("#videoElement").length != 0) {
+        var w_width = $(window).width();
+        var w_height = $(window).height();
+        var v_width = $("#videoElement").width();
+        var v_height = $("#videoElement").height();
 
-    $(".ad_temp").attr("value", ads[random_num]);
-    $("#ad_video").attr("src", ads[random_num]);
-    v.play();
-    $("#ad").show();
+        // 如果主视频宽度高度和窗口一样大，证明用户点击了全屏
+        if (!(w_width == v_width && w_height == v_height)) {
+            _pink();
+        }
+    } else {
+        _pink();
+    }
 }
 
 function hide_ad_tip() {
