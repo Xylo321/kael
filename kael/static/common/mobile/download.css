@@ -1,9 +1,16 @@
 * {
     background-color: black;
+    font-size: 64px;
 }
 
 div {
+    position: absolute;
     color: green;
+    left: 50%;
+    top: 50%;
+    width: 50%;
+    height: 50%;
+    transform: translate(-50%, -50%);
 }
 
 ul {

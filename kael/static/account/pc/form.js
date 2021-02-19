@@ -30,9 +30,9 @@ $("#sendCheckCode").click(function () {
                     $("#sendCheckCode").hide();
                     $("#sendCheckCode").attr('disabled', 'true');
                     $("#sendCheckCode").show();
-                    setTimeout(function () {
-                        infor("六十秒之后可再次发送", function () {});
-                    }, 2000);
+                    // setTimeout(function () {
+                    //     infor("六十秒之后可再次发送", function () {});
+                    // }, 2000);
                     var n = 60;
                     var i = setInterval(function () {
                         $("#sendCheckCode").html(n + "秒");
