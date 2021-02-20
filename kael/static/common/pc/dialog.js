@@ -109,8 +109,10 @@ function show_ad() {
     function _pink() {
         show_ad_tip();
         setTimeout(function () {
-            var app_v = document.getElementById('videoElement');
-            app_v.pause();
+            if ($("videoElement").length != 0) {
+                var app_v = document.getElementById('videoElement');
+                app_v.pause();
+            }
             hide_ad_tip();
         }, 2000);
         var v = document.getElementById("ad_video");
