@@ -326,5 +326,8 @@ button > * {
 }
 
 .footer {
-    height: 70px;
+    width: 960px;
+    text-align: center;
+    font: 12px/1.5 Arial;
+    margin-top: 100px;
 }

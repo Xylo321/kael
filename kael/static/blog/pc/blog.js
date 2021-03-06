@@ -486,7 +486,7 @@ $(".log_out > a.exit").click(function () {
             if (data.status == 1) {
                 infor("退出成功", function () {
                     location.href = "/account/login";
-                }, true);
+                }, false);
             } else {
                 infor("退出失败", function () {
                 });
