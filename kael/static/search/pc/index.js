@@ -97,6 +97,40 @@ function go_article_page(href) {
     window.open(href);
 }
 
+/* 获取文章简介 */
+$("div").on("mouseenter", ".article_res", function(e) {
+    e.stopPropagation(); // 解决事件多次触发问题，事件冒泡DOM树
+    var article_id = $(this).attr("article_id");
+    var type = $(this).attr("type");
+    get_article_des(this, article_id, type);
+});
+
+/* 获取文章简介 */
+function get_article_des(selector, article_id, type) {
+    $.ajax({
+        url: "/search/get_article_des",
+        data: {
+            "article_id": article_id,
+            "type": type
+        },
+        type: 'POST',
+        cache: false,
+        dataType: "json",
+        success: function(data) {
+            if (data.status == 1) {
+                // 渲染dom
+                var content = data.data;
+                $(selector).attr('title', content)
+            }
+        },
+        error: function (err) {
+            infor("网络错误", function() {
+            });
+        },
+        async: true
+    });
+}
+
 /* 搜索文章 */
 function search_article(key_word, page, type) {
     $.ajax({
@@ -118,9 +152,9 @@ function search_article(key_word, page, type) {
                     var article_title = data.data[i].title;
                     var article_title_param = encodeURIComponent(data.data[i].title).valueOf();
                     var category_name = data.data[i].category_name;
-                    var content = data.data[i].content.replace(/[<>&"']/g, "");
+                    // var content = data.data[i].content.replace(/[<>&"']/g, "");
                     var href = '/search/go_article_page?article_id=' + article_id + '&article_title=' + article_title_param + '&type=' + type;
-                    content_html += "<div><a target=_blank href=" + href + " title='" + content + "'>" + article_title + "</a>" +
+                    content_html += "<div><a class='article_res' target=_blank href=" + href + " title='' article_id='" + article_id +"' type='" + type +"'>" + article_title + "</a>" +
                         "<span>" + category_name + "</span></div>";
                 }
                 switch(type) {

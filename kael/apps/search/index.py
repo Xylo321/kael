@@ -64,6 +64,28 @@ def search_article():
             return {"data": result, "status": 1}
         return {"data": [], "status": -1}
 
+@SEARCH_INDEX_BP.route('/get_article_des', methods=['POST'])
+def get_article_des():
+    """
+    获取文章简介
+
+    POST 请求form表单 {"article_id", xxx, "type": xxx}
+        返回json 成功 {
+                        "data": xxx,
+                        "status": 1
+                    }
+                失败: {"data": '', "status": -1}
+    """
+    if request.method == 'POST':
+        article_id = request.form['article_id']
+
+        type = int(request.form['type'])
+        article_search = ArticleSearch(SEARCH_MYSQL_POOL)
+        result = article_search.get_article_des(article_id, type)
+
+        if result != None:
+            return {"data": result, "status": 1}
+        return {"data": '', "status": -1}
 
 @SEARCH_INDEX_BP.route('/search_article_total_page', methods=['POST'])
 def search_article_total_page():

@@ -14,14 +14,14 @@ class ArticleSearch(MySQLBase):
     def _search_robot(self, key_word, page):
         if len(key_word) == 0:
             sql = (
-                "select A.id, A.title, left(A.content, 100) content, A.date, B.name as category_name, A.url from blog.article_s A "
+                "select A.id, A.title, A.date, B.name as category_name, A.url from blog.article_s A "
                 "inner join blog.category_s B on A.category_id = B.id "
                 "where "
                 "A.user_id = 0 "
                 "order by A.date desc limit %s, 10")
         else:
             sql = (
-                "select A.id, A.title, left(A.content, 100) content, A.date, B.name as category_name, A.url from blog.article_s A "
+                "select A.id, A.title, A.date, B.name as category_name, A.url from blog.article_s A "
                 "inner join blog.category_s B on A.category_id = B.id inner join account.user C on A.user_id = C.id "
                 "where (match(A.content, A.title) against(%s in natural language mode) or match(B.name) against(%s in natural language mode) or match(C.name) against(%s in natural language mode)) "
                 "and A.user_id = 0 "
@@ -39,14 +39,14 @@ class ArticleSearch(MySQLBase):
     def _search_human(self, key_word, page):
         if len(key_word) == 0:
             sql = (
-                "select A.id, A.title, left(A.content, 100) content, A.date, B.name as category_name, A.url from blog.article A "
+                "select A.id, A.title, A.date, B.name as category_name, A.url from blog.article A "
                 "inner join blog.category B on A.category_id = B.id "
                 "where "
                 "A.user_id != 0 "
                 "order by A.date desc limit %s, 10")
         else:
             sql = (
-                "select A.id, A.title, left(A.content, 100) content, A.date, B.name as category_name, A.url from blog.article A "
+                "select A.id, A.title, A.date, B.name as category_name, A.url from blog.article A "
                 "inner join blog.category B on A.category_id = B.id inner join account.user C on A.user_id = C.id "
                 "where (match(A.content, A.title) against(%s in natural language mode) or match(B.name) against(%s in natural language mode) or match(C.name) against(%s in natural language mode)) "
                 "and A.user_id != 0 "
@@ -118,6 +118,16 @@ class ArticleSearch(MySQLBase):
         else:
             return None
 
+    def get_article_des(self, article_id, type):
+        sql = "select left(content, 100) content from blog.article where id = %s"
+        if type == ROBOT:
+            sql = "select left(content, 100) content from blog.article_s where id = %s"
+        args = (article_id,)
+        result = self.rdbms_pool.query(sql, args)
+        if result != None and len(result) != 0:
+            return result[0]['content']
+        else:
+            return None
 
 class ImageSearch(MySQLBase):
     def search(self, key_word, page, type):
