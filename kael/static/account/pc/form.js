@@ -78,9 +78,10 @@ $('#login_button').click(function () {
         dataType: "json",
         success: function (data) {
             if (data.status == 1) {
-                infor("登陆成功", function () {
-                    location.href = '/search/index';
-                });
+                // infor("登陆成功", function () {
+                //     location.href = '/search/index';
+                // });
+                location.href = '/search/index';
             } else {
                 infor("账号密码错误", function () {
                 });
